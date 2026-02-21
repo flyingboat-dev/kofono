@@ -1,0 +1,13 @@
+.turbo/
+.idea/
+.vscode/
+coverage/
+dist/
+node_modules/
+tmp/
+packages/*/.idea
+packages/*/.vscode
+packages/*/dist
+packages/*/coverage
+packages/*/tmp
+packages/*/node_modules

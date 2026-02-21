@@ -1,0 +1,53 @@
+import { AbstractValidator } from "../AbstractValidator";
+import { ValidatorErrors } from "../errors";
+import type { SchemaPropertyBaseValidator } from "../schema";
+import type {
+    ValidationContext,
+    ValidationType,
+    Validator,
+    ValidatorResponse,
+} from "../types";
+
+export interface SchemaAlphaNumValidator {
+    alphaNum: AlphaNumValidatorOpts;
+}
+
+export type AlphaNumValidatorOpts = SchemaPropertyBaseValidator & {
+    spaces?: boolean;
+};
+
+export const alphaNumValidatorFactory = {
+    alphaNum: (
+        selector: string,
+        type: ValidationType,
+        opts: AlphaNumValidatorOpts,
+    ) => new AlphaNumValidator(selector, type, opts),
+};
+
+export class AlphaNumValidator extends AbstractValidator implements Validator {
+    private readonly allowSpaces: boolean;
+
+    constructor(
+        attachTo: string,
+        type: ValidationType,
+        opts: AlphaNumValidatorOpts,
+    ) {
+        super(attachTo, type, opts);
+        this.allowSpaces = opts.spaces || false;
+    }
+
+    validate(ctx: ValidationContext): ValidatorResponse {
+        if (typeof ctx.value !== "string") {
+            return this.error(ValidatorErrors.AlphaNum.InvalidType);
+        }
+
+        const pattern = this.allowSpaces
+            ? /^[A-Za-z0-9\s]+$/
+            : /^[A-Za-z0-9]+$/;
+
+        if (pattern.test(ctx.value)) {
+            return this.success();
+        }
+        return this.error(ValidatorErrors.AlphaNum.InvalidChar);
+    }
+}

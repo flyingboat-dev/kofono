@@ -1,0 +1,8 @@
+packages:
+    - internal/*
+    - packages/*
+    - doc
+onlyBuiltDependencies:
+    - '@tailwindcss/oxide'
+overrides:
+    "glob": "^13.0.0"

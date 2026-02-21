@@ -1,0 +1,32 @@
+@layer base {
+    [data-theme="dark"] {
+        --color-default: #ddd;
+        --color-default-background: #242424;
+        --color-default-foreground: #f9f9f9;
+
+        --color-primary: #4848e8;
+        --color-primary-foreground: #f9f9f9;
+        --color-primary-light: #a1a1ff;
+        --color-primary-darker: #6464ff;
+
+        --color-input-border: #333;
+        --color-input-background: #222;
+        --color-input-foreground: #ccc;
+        --color-input-text: #fff;
+        --color-input-placeholder: #555;
+        --color-checkbox: #fff;
+
+        --color-focus: var(--color-primary);
+
+        --color-error: #bb5555;
+        --color-error-light: #ff7c7c;
+
+        --color-muted: #aaa;
+        --color-muted-light: #eeeeee;
+
+        --color-grid-prop-object-border: #000;
+        --color-grid-prop-object-background: #111;
+        --color-grid-prop-background: #000;
+        --color-grid-prop-focus-background: #26263b;
+    }
+}

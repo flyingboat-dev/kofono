@@ -1,0 +1,110 @@
+import { describe, expect, it, test } from "vitest";
+import { DataSelector, DataSelectorNotFoundError } from "./DataSelector";
+
+const data = {
+    a: "foo",
+    b: false,
+    c: {
+        c1: "bar",
+        c2: 42,
+        c3: {
+            c31: "baz",
+        },
+    },
+    d: ["foo", "bar", "baz"],
+    e: [
+        {
+            e1: "foo",
+        },
+        {
+            e2: "bar",
+        },
+        {
+            e3: "baz",
+        },
+    ],
+    f: null,
+    g: {
+        g1: undefined,
+    },
+    h: [undefined],
+};
+
+const dataTests: Array<Array<any>> = [
+    ["a", data.a],
+    ["b", data.b],
+    ["c", data.c],
+    ["c.c1", data.c.c1],
+    ["c.c2", data.c.c2],
+    ["c.c3", data.c.c3],
+    ["c.c3.c31", data.c.c3.c31],
+    ["d", data.d],
+    ["d.0", data.d[0]],
+    ["d.1", data.d[1]],
+    ["d.2", data.d[2]],
+    ["e", data.e],
+    ["e.0", data.e[0]],
+    ["e.0.e1", data.e[0].e1],
+    ["e.1", data.e[1]],
+    ["e.1.e2", data.e[1].e2],
+    ["e.2", data.e[2]],
+    ["e.2.e3", data.e[2].e3],
+    ["f", data.f],
+    ["g", data.g],
+    ["g.g1", data.g.g1],
+    ["h", data.h],
+    ["h.0", data.h[0]],
+];
+
+test("selector get data", () => {
+    const selector = new DataSelector();
+    for (const [s, expected] of dataTests) {
+        expect(selector.get(s, data)).toEqual(expected);
+    }
+});
+
+test("selector get data from invalid path", () => {
+    const selector = new DataSelector();
+    expect(() => {
+        selector.get("unknown.path", data);
+    }).toThrow(DataSelectorNotFoundError);
+});
+
+describe("DataSelector Prototype Pollution", () => {
+    it("should prevent prototype pollution via _set", () => {
+        const selector = new DataSelector();
+        const target: any = {};
+
+        // Before pollution: an empty object does not have the 'polluted' property
+        const check: any = {};
+        expect(check.polluted).toBeUndefined();
+
+        // Triggering prototype pollution
+        // This will effectively do: target['__proto__']['polluted'] = 'yes'
+        selector.set("__proto__.polluted", "yes", target);
+
+        // After pollution: 'polluted' property exists on ALL objects
+        // because it was added to Object.prototype
+        expect(({} as any).polluted).toBeUndefined();
+
+        // Clean up to avoid affecting other tests
+        delete (Object.prototype as any).polluted;
+    });
+
+    it("should prevent prototype pollution via constructor.prototype", () => {
+        const selector = new DataSelector();
+        const target: any = {};
+
+        const check: any = {};
+        expect(check.pollutedByConstructor).toBeUndefined();
+
+        // Another variant of prototype pollution
+        selector.set(
+            "constructor.prototype.pollutedByConstructor",
+            "yes",
+            target,
+        );
+
+        expect(({} as any).pollutedByConstructor).toBeUndefined();
+    });
+});

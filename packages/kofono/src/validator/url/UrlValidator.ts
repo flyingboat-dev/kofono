@@ -1,0 +1,82 @@
+import { AbstractValidator } from "../AbstractValidator";
+import { ValidatorErrors } from "../errors";
+import type { SchemaPropertyBaseValidator } from "../schema";
+import type {
+    ValidationContext,
+    ValidationType,
+    Validator,
+    ValidatorResponse,
+} from "../types";
+
+export interface SchemaUrlValidator {
+    url: SchemaPropertyBaseValidator & {
+        protocols?: string[];
+        hostnames?: string[];
+    };
+}
+
+export type UrlValidatorOpts = SchemaUrlValidator["url"];
+
+export const urlValidatorFactory = {
+    url: (selector: string, type: ValidationType, opts: UrlValidatorOpts) =>
+        new UrlValidator(selector, type, opts),
+};
+
+/**
+ * URL validator.
+ * Validates if a string is a valid URL.
+ * It checks for a properly formatted URL with protocol (http, https, ftp, etc.).
+ * Optionally, it can check if the URL's protocol is in a list of allowed protocols.
+ * Optionally, it can check if the URL's hostname is in a list of allowed hostnames.
+ */
+export class UrlValidator extends AbstractValidator implements Validator {
+    private readonly protocols?: string[];
+    private readonly hostnames?: string[];
+
+    constructor(
+        attachTo: string,
+        type: ValidationType,
+        opts: UrlValidatorOpts,
+    ) {
+        super(attachTo, type, opts);
+        this.protocols = opts.protocols;
+        this.hostnames = opts.hostnames;
+    }
+
+    validate(ctx: ValidationContext): ValidatorResponse {
+        if (typeof ctx.value !== "string") {
+            return this.error(ValidatorErrors.Url.InvalidType);
+        }
+
+        try {
+            // Use URL constructor to validate the URL
+            const url = new URL(ctx.value);
+
+            // If protocols are specified, check if the URL's protocol is in the list
+            if (this.protocols && this.protocols.length > 0) {
+                // Extract protocol (remove trailing colon)
+                const protocol = url.protocol.replace(/:$/, "");
+                if (!this.protocols.includes(protocol)) {
+                    return this.error(ValidatorErrors.Url.ProtocolUnallowed, {
+                        protocols: this.protocols,
+                    });
+                }
+            }
+
+            // If hostnames are specified, check if the URL's hostname is in the list
+            if (this.hostnames && this.hostnames.length > 0) {
+                if (!this.hostnames.includes(url.hostname)) {
+                    return this.error(ValidatorErrors.Url.HostnameUnallowed, {
+                        hostnames: this.hostnames,
+                    });
+                }
+            }
+
+            return this.success();
+        } catch (e) {
+            return this.error(ValidatorErrors.Url.InvalidFormat, {
+                error: e instanceof Error ? e.message : "Unknown error",
+            });
+        }
+    }
+}

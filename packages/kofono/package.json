@@ -1,0 +1,43 @@
+{
+    "name": "@flyingboat/kofono",
+    "version": "0.7.0",
+    "description": "Kofono Form Engine Library",
+    "keywords": ["form", "json", "schema", "validation", "typescript"],
+    "author": "Francois Lajoie",
+    "license": "Proprietary",
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts",
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/flyingboat-dev/kofono.git",
+        "directory": "packages/kofono"
+    },
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "build:watch": "tsc -p tsconfig.json -w",
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+        "coverage": "vitest run --coverage",
+        "lint": "pnpm dlx @biomejs/biome check",
+        "lint:fix": "pnpm lint --write",
+        "format": "pnpm dlx @biomejs/biome format",
+        "test": "vitest",
+        "test:ui": "vitest --ui"
+    },
+    "dependencies": {
+        "date-fns": "4.1.0",
+        "yaml": "2.8.2"
+    },
+    "devDependencies": {
+        "@types/node": "^25.0.3",
+        "@vitest/coverage-v8": "^4.0.16",
+        "@vitest/ui": "4.0.16",
+        "tslib": "^2.8.1",
+        "typescript": "^5.9.3",
+        "vitest": "^4.0.16"
+    },
+    "engines": {
+        "node": ">=20",
+        "pnpm": ">=10.0.0"
+    }
+}

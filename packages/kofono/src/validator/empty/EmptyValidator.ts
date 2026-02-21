@@ -1,0 +1,36 @@
+import { isEmptyString } from "../../common/helpers";
+import { AbstractValidator } from "../AbstractValidator";
+import { ValidatorErrors } from "../errors";
+import type { SchemaPropertyBaseValidator } from "../schema";
+import type {
+    ValidationContext,
+    ValidationType,
+    Validator,
+    ValidatorResponse,
+} from "../types";
+
+export interface SchemaEmptyValidator {
+    empty: EmptyValidatorOpts;
+}
+
+export type EmptyValidatorOpts = SchemaPropertyBaseValidator;
+
+export const emptyValidatorFactory = {
+    empty: (selector: string, type: ValidationType, opts: EmptyValidatorOpts) =>
+        new EmptyValidator(selector, type, opts),
+};
+
+export class EmptyValidator extends AbstractValidator implements Validator {
+    validate(ctx: ValidationContext): ValidatorResponse {
+        if (!ctx.value) {
+            return this.success();
+        } else if (typeof ctx.value !== "string") {
+            ctx.value = String(ctx.value);
+        }
+
+        if (isEmptyString(ctx.value)) {
+            return this.success();
+        }
+        return this.error(ValidatorErrors.Empty.IsNotEmpty);
+    }
+}

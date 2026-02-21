@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@import "./themes/default.css";
+@import "./themes/dark.css";
+@import "./themes/orange.css";
+
+/* explicit classes (generally used at runtime) */
+@source inline("{sm:,md:,lg:,xl:,}grid-cols-{{1..12}}");
+@source inline("{sm:,md:,lg:,xl:,}col-span-{{1..12}}");
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));

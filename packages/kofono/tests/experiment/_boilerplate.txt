@@ -1,0 +1,10 @@
+import { expect, test } from "vitest";
+import { K } from "../../src";
+
+test("test [something]", async () => {
+    const form = await K.form({
+        $id: "myform"
+    });
+
+    expect(form.id).toBe("myform");
+});

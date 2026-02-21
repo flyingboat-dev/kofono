@@ -1,0 +1,54 @@
+@theme {
+    /* FONTS */
+    --font-body: "system-ui", "Avenir", "Helvetica", "Arial", "sans-serif";
+    --font-display: "system-ui", "Avenir", "Helvetica", "Arial", "sans-serif";
+
+    /* COLORS */
+    --color-default: #111;
+    --color-default-background: #ffffff;
+    --color-default-foreground: #f9f9f9;
+
+    --color-primary: #aab9ff;
+    --color-primary-foreground: #404661;
+    --color-primary-light: #e6e9ff;
+    --color-primary-darker: #a1b9ff;
+
+    --color-input-border: #c1c1c1;
+    --color-input-background: #ffffff;
+    --color-input-foreground: #212121;
+    --color-input-text: #212121;
+    --color-input-placeholder: #757575;
+
+    --color-checkbox: #404661;
+
+    --color-focus: #aab9ff;
+
+    --color-error: #cc5555;
+    --color-error-light: #ffeeee;
+
+    --color-muted: #757575;
+    --color-muted-light: #eeeeee;
+
+    /* TEXT */
+    --text-base: 1rem;
+
+    /* BORDERS */
+    --border-width: 1px;
+    --border-color: var(--color-input-border);
+
+    /*--radius-md: 3rem;*/
+
+    /* GRID */
+    --color-grid-prop-object-background: #fff;
+    --color-grid-prop-object-border: transparent;
+
+    --color-grid-prop-background: transparent;
+    --color-grid-prop-focus-background: #dce3fa;
+    --color-grid-prop-border: transparent; /*var(--color-input-border);*/
+
+    --grid-gap: 1rem;
+
+    /* SPINNER */
+    --color-spinner: var(--color-default);
+    --color-spinner-border: var(--color-primary-foreground);
+}

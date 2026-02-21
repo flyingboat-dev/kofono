@@ -13,25 +13,25 @@
         "@flyingboat/kofono-solid-ui": "workspace:*",
         "@flyingboat/solid-editor": "workspace:*",
         "@fontsource/lato": "5.2.7",
-        "@fontsource/roboto": "5.2.7",
+        "@fontsource/roboto": "5.2.9",
         "@fontsource/roboto-mono": "5.2.8",
-        "@tailwindcss/postcss": "^4.1.18",
-        "@tailwindcss/vite": "^4.1.18",
-        "@tanstack/solid-query": "^5.90.15",
+        "@tailwindcss/postcss": "^4.2.0",
+        "@tailwindcss/vite": "^4.2.0",
+        "@tanstack/solid-query": "^5.90.23",
         "@solidjs/router": "^0.15.4",
         "@solidjs/meta": "^0.29.4",
         "clsx": "2.1.1",
-        "solid-icons": "^1.1.0",
-        "solid-js": "^1.9.10",
-        "tailwindcss": "^4.1.18"
+        "solid-icons": "^1.2.0",
+        "solid-js": "^1.9.11",
+        "tailwindcss": "^4.2.0"
     },
     "devDependencies": {
-        "daisyui": "^5.5.14",
+        "daisyui": "^5.5.19",
         "postcss": "^8.5.6",
-        "tailwind-merge": "^3.4.0",
+        "tailwind-merge": "^3.5.0",
         "tailwindcss-animate": "^1.0.7",
         "typescript": "^5.9.3",
-        "vite": "7.3.0",
+        "vite": "7.3.1",
         "vite-plugin-solid": "2.11.10"
     }
 }

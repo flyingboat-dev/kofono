@@ -93,14 +93,14 @@ function Content() {
 
             <CodeBlock
                 height={"380px"}
-                value={`const form = S.form({
+                value={`const form = K.form({
     $id: "my-form",
-    name: S.string()
+    name: K.string()
         .validations(v => v.required()),
-    quantity: S.number()
+    quantity: K.number()
         .default(7)
         .validations(v => v.min(5).max(20)),
-    consent: S.boolean()
+    consent: K.boolean()
         .default(false)
         .validations(v => v.value(true)),
 }`}
@@ -108,16 +108,16 @@ function Content() {
 
             {/*<div class="p-8 bg-gray-100 rounded-xl shadow-xl">*/}
             {/*    <FormSchemaProvider*/}
-            {/*        schema={S.schema({*/}
-            {/*            firstName: S.string().component({*/}
+            {/*        schema={K.schema({*/}
+            {/*            firstName: K.string().component({*/}
             {/*                title: "Firstname",*/}
             {/*                grid: 6,*/}
             {/*            }),*/}
-            {/*            lastName: S.string().component({*/}
+            {/*            lastName: K.string().component({*/}
             {/*                title: "LastName",*/}
             {/*                grid: 6,*/}
             {/*            }),*/}
-            {/*            subscribe: S.listString()*/}
+            {/*            subscribe: K.listString()*/}
             {/*                .enum([*/}
             {/*                    {*/}
             {/*                        label: "Newsletter",*/}

@@ -7,7 +7,7 @@ export function Layout(props: { children: JSX.Element }) {
     // const navigate = useNavigate();
 
     return (
-        <div class="m-auto max-w-screen-3xl">
+        <div class="m-auto max-w-screen-2xl">
             <Header />
             <div class="drawer drawer-open">
                 <input
@@ -40,6 +40,7 @@ export function Layout(props: { children: JSX.Element }) {
                                 for="my-drawer-4"
                                 class="btn btn-ghost btn-circle drawer-button is-drawer-open:rotate-y-180">
                                 <svg
+                                    aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
                                     stroke-linejoin="round"

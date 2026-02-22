@@ -54,9 +54,9 @@ const schema: Schema = {
                             <CodeBlock
                                 value={`import { S } from "@flyingboat/kofono";
 
-const schema = S.schema({
+const schema = K.schema({
     $id: "my-form",
-    propA: S.string(),
+    propA: K.string(),
 }`}
                             />
                         ),

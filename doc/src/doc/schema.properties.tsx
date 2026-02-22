@@ -24,9 +24,9 @@ const exampleObjectJson: string = `const schema = {
     }
 }`;
 
-const exampleObjectBuilder: string = `const schema = S.schema({
-    propA: S.object({
-        subProp: S.string()
+const exampleObjectBuilder: string = `const schema = K.schema({
+    propA: K.object({
+        subProp: K.string()
     })
 }`;
 
@@ -212,13 +212,13 @@ function RouteComponent() {
                         content: (
                             <CodeBlock
                                 height={"220px"}
-                                value={`const schema = S.schema({
-    address: S.object({
-        street: S.string(),
-        city: S.string(),
-        location: S.object({ 
-            lat: S.number(), 
-            lng: S.number() 
+                                value={`const schema = K.schema({
+    address: K.object({
+        street: K.string(),
+        city: K.string(),
+        location: K.object({ 
+            lat: K.number(), 
+            lng: K.number() 
         }),
     }),
 });`}
@@ -270,11 +270,11 @@ function RouteComponent() {
                         content: (
                             <CodeBlock
                                 height={"140px"}
-                                value={`const schema = S.schema({
-    s: S.listString(),
-    n: S.listNumber(),
-    b: S.listBoolean(),
-    m: S.listMixed(),
+                                value={`const schema = K.schema({
+    s: K.listString(),
+    n: K.listNumber(),
+    b: K.listBoolean(),
+    m: K.listMixed(),
 });`}
                             />
                         ),
@@ -331,11 +331,11 @@ function RouteComponent() {
                             content: (
                                 <CodeBlock
                                     height={"180px"}
-                                    value={`const schema = S.schema({
-    persons: S.array(
-        S.object({
-            name: S.string(),
-            age: S.number(),
+                                    value={`const schema = K.schema({
+    persons: K.array(
+        K.object({
+            name: K.string(),
+            age: K.number(),
         }),
     ),
 });`}
@@ -382,8 +382,8 @@ function RouteComponent() {
                         content: (
                             <CodeBlock
                                 height={"80px"}
-                                value={`const schema = S.schema({
-    intro: S.null(),
+                                value={`const schema = K.schema({
+    intro: K.null(),
 });`}
                             />
                         ),

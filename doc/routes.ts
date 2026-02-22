@@ -3,7 +3,7 @@ import {
     route,
     type VirtualRouteNode,
 } from "@tanstack/virtual-file-routes";
-import type { Leaf, TableOfContents, TableOfContentsItem } from "@/types";
+import type { TableOfContents, TableOfContentsItem } from "@/types";
 
 export const routes = rootRoute("__root.tsx", [
     // index("index.tsx"),
@@ -24,7 +24,10 @@ export const routes = rootRoute("__root.tsx", [
     // tocToRoute(tableOfContents);
 })();
 
-function tocToRoute(tableOfContents: TableOfContents): VirtualRouteNode[] {
+export function tocToRoute(
+    tableOfContents: TableOfContents,
+): VirtualRouteNode[] {
+    tableOfContents;
     // const routes: VirtualRouteNode[] = [];
     // const items = tableOfContentToRoute(tableOfContents);
     // for (const item of items) {
@@ -35,7 +38,7 @@ function tocToRoute(tableOfContents: TableOfContents): VirtualRouteNode[] {
     return [];
 }
 
-function tableOfContentToRoute(tableOfContents: TableOfContents): Leaf[] {
+export function tableOfContentToRoute(tableOfContents: TableOfContents): any[] {
     return tableOfContents.flatMap((item: TableOfContentsItem) => {
         if ("children" in item) {
             return tableOfContentToRoute(item.children);

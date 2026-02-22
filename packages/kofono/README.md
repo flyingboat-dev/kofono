@@ -10,8 +10,6 @@ conditional logic.
 It can be run in any JavaScript environment, including Node.js and browsers, and
 is designed to work seamlessly with modern frameworks like React, Vue, SolidJS and more.
 
-### Basic Form Creation
-
 ```typescript
 import { K } from "@flyingboat/kofono";
 

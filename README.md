@@ -2,7 +2,7 @@
   <img alt="kofonologo" src="./media/kofonoform.png" width="">
 </p>
 
-#### Kofono is a UI agnostic schema-based form engine that allows you to build complex forms logic with minimal effort and with a plethora of built-in features.
+#### Kofono is a headless schema-based form engine that allows you to build complex forms logic with minimal effort and with a plethora of built-in features.
 
 ## Why
 

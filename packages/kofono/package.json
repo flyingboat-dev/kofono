@@ -1,6 +1,6 @@
 {
     "name": "@flyingboat/kofono",
-    "version": "0.7.0-canary.20260222.1",
+    "version": "0.7.0-canary.20260222.2",
     "description": "Kofono Form Engine Library",
     "keywords": ["form", "json", "schema", "validation", "typescript"],
     "author": "Francois Lajoie",
@@ -13,6 +13,7 @@
         "url": "git+ssh://git@github.com/flyingboat-dev/kofono.git",
         "directory": "packages/kofono"
     },
+    "files": ["dist", "README.md", "LICENSE.md"],
     "scripts": {
         "build": "tsc -p tsconfig.json",
         "build:watch": "tsc -p tsconfig.json -w",

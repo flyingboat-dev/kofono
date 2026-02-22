@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@flyingboat/kofono.svg)](https://www.npmjs.com/package/@flyingboat/kofono)
 [![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](LICENSE)
 
-A powerful headless form engine library framework-agnostic. Form provides
+A powerful headless form engine library. Kofono provides
 a robust system for building, validating, and managing complex forms with
 conditional logic.
 

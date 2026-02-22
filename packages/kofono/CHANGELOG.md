@@ -3,6 +3,7 @@
 - rework form session to use state meta
 - add plugins to state meta
 - add events FormLoadState
+- add Form::isQualified()
 
 # 0.6.0 - 2026-01-03
 

@@ -10,7 +10,7 @@ import type {
     ValidationContext,
     ValidationType,
     Validator,
-    ValidatorResponse
+    ValidatorResponse,
 } from "../types";
 import { type ValidValidatorOpts, ValidValidatorSchemaToken } from "./types";
 

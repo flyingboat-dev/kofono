@@ -2,7 +2,7 @@ import { ValidatorErrors } from "../errors";
 import type {
     ValidationContext,
     ValidationType,
-    ValidatorResponse
+    ValidatorResponse,
 } from "../types";
 import {
     type NotValidValidatorOpts,

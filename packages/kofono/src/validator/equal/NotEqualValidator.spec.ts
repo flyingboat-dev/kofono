@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 import { SchemaBuilder } from "../../builder/SchemaBuilder";
 import type { Form } from "../../form/Form";
 import { ValidatorErrors } from "../errors";
-import { type ValidationContext } from "../types";
+import type { ValidationContext } from "../types";
 import { NotEqualValidator } from "./NotEqualValidator";
 import type { NotEqualValidatorOpts } from "./types";
 

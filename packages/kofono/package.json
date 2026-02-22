@@ -1,8 +1,14 @@
 {
     "name": "@flyingboat/kofono",
-    "version": "0.7.0",
+    "version": "0.7.0-canary.20260221.1",
     "description": "Kofono Form Engine Library",
-    "keywords": ["form", "json", "schema", "validation", "typescript"],
+    "keywords": [
+        "form",
+        "json",
+        "schema",
+        "validation",
+        "typescript"
+    ],
     "author": "Francois Lajoie",
     "license": "Proprietary",
     "main": "dist/src/index.js",
@@ -10,7 +16,7 @@
     "type": "module",
     "repository": {
         "type": "git",
-        "url": "https://github.com/flyingboat-dev/kofono.git",
+        "url": "git+ssh://git@github.com/flyingboat-dev/kofono.git",
         "directory": "packages/kofono"
     },
     "scripts": {
@@ -22,7 +28,8 @@
         "lint:fix": "pnpm lint --write",
         "format": "pnpm dlx @biomejs/biome format",
         "test": "vitest",
-        "test:ui": "vitest --ui"
+        "test:ui": "vitest --ui",
+        "prepublish": "pnpm lint:fix && pnpm build"
     },
     "dependencies": {
         "date-fns": "4.1.0",

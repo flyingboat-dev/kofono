@@ -225,6 +225,10 @@ export class Form {
         return this.#state.qualifications[selector];
     }
 
+    public isQualified(selector: string): boolean {
+        return this.$q(selector)[0] ?? false;
+    }
+
     // Get a selector data value
     public $d<T>(selector: string): T {
         return this.#formDataSelector.get<T>(selector);

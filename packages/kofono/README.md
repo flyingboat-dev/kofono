@@ -1,7 +1,7 @@
 # Kofono
 
-[![npm version](https://img.shields.io/npm/v/@flyingboat/form.svg)](https://www.npmjs.com/package/@flyingboat/form)
-[![License](https://img.shields.io/badge/license-Proprietary-blue.svg)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@flyingboat/kofono.svg)](https://www.npmjs.com/package/@flyingboat/kofono)
+[![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](LICENSE)
 
 A powerful headless form engine library framework-agnostic. Form provides
 a robust system for building, validating, and managing complex forms with

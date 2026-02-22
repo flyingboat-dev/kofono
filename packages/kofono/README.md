@@ -1,45 +1,20 @@
-# Form
+# Kofono
 
 [![npm version](https://img.shields.io/npm/v/@flyingboat/form.svg)](https://www.npmjs.com/package/@flyingboat/form)
 [![License](https://img.shields.io/badge/license-Proprietary-blue.svg)](LICENSE)
 
-A powerful and flexible form engine library framework-agnostic. Form provides
+A powerful headless form engine library framework-agnostic. Form provides
 a robust system for building, validating, and managing complex forms with
 conditional logic.
 
 It can be run in any JavaScript environment, including Node.js and browsers, and
-is designed to work seamlessly with modern frameworks like React, Vue, and
-SolidJS.
-
-## Features
-
-- **Schema-based Form Definition**: Define forms using JSON schema or fluent API
-- **Powerful Validation**: Built-in validators with custom error messages
-- **Conditional Logic**: Show/hide fields based on other field values or
-  validity
-- **Nested Objects**: Support for complex nested form structures
-- **Form State Management**: Track form validity, progression, and statistics
-- **TypeScript Support**: Full type safety for your form definitions
-- **Extensible**: Plugin system for custom functionality
-
-## Installation
-
-```bash
-# Using npm
-npm install @flyingboat/form
-
-# Using pnpm
-pnpm add @flyingboat/form
-```
-
-## Quick Start
+is designed to work seamlessly with modern frameworks like React, Vue, SolidJS and more.
 
 ### Basic Form Creation
 
 ```typescript
 import { K } from "@flyingboat/kofono";
 
-// Define a form schema
 const form = await K.form({
     name: K.string().$v((x) => x.notEmpty()),
     age: K.number().$v((x) =>
@@ -51,22 +26,19 @@ const form = await K.form({
         city: K.string().$v((x) => x.notEmpty()),
         zipCode: K.string().$v((x) => x.notEmpty()),
     }),
+    sameAsAddress: K.boolean().default(false),
+    billingAddress: K.object({
+        street: K.string().$v((x) => x.notEmpty()),
+        city: K.string().$v((x) => x.notEmpty()),
+        zipCode: K.string().$v((x) => x.notEmpty()),
+    }).$q((q) => q.condition("{data:sameAsAddress}", "==", false)),
 });
 
-// Check if a field is valid
-form.prop("name").isValid(); // false
+expect(form.isQualified("billingAddress")).toBeTruthy();
 
-// Update a field value
-await form.update("name", "John Doe");
-form.prop("name").isValid(); // true
+await form.update("sameAsAddress", true);
 
-// Get form data
-const formData = form.data();
-console.log(formData.name); // "John Doe"
-
-// Check form progression
-console.log(form.state.stats.progression); // Percentage of form completion
-console.log(form.state.pass) // [false, "FORM_NOT_VALID"]
+expect(form.isQualified("billingAddress")).toBeFalsy();
 ```
 
 ### Working with Validation

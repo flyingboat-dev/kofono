@@ -6,10 +6,8 @@ import type { SchemaDatetimeValidator } from "./datetime/DatetimeValidator";
 import type { SchemaEmailValidator } from "./email/EmailValidator";
 import type { SchemaEmptyValidator } from "./empty/EmptyValidator";
 import type { SchemaNotEmptyValidator } from "./empty/NotEmptyValidator";
-import type {
-    SchemaEqualValidator,
-    SchemaNotEqualValidator,
-} from "./equal/types";
+import type { SchemaEqualValidator } from "./equal/EqualValidator";
+import type { SchemaNotEqualValidator } from "./equal/NotEqualValidator";
 import type { SchemaIfValidator } from "./if/IfValidator";
 import type { SchemaMaxValidator } from "./max/MaxValidator";
 import type { SchemaMinValidator } from "./min/MinValidator";
@@ -17,10 +15,8 @@ import type { SchemaPasswordValidator } from "./password/PasswordValidator";
 import type { SchemaRegexpValidator } from "./regexp/RegexpValidator";
 import type { SchemaRequiredValidator } from "./required/RequiredValidator";
 import type { SchemaUrlValidator } from "./url/UrlValidator";
-import type {
-    SchemaIsNotValidValidator,
-    SchemaIsValidValidator,
-} from "./valid/types";
+import type { SchemaIsNotValidValidator } from "./valid/NotValidValidator";
+import type { SchemaIsValidValidator } from "./valid/ValidValidator";
 
 export type SchemaPropertyBaseValidator = {
     error?: string;
@@ -54,28 +50,23 @@ export type SchemaPropertyValidator =
     | SchemaRequiredValidator
     | SchemaUrlValidator;
 
-// export { SchemaAlphaValidator };
-// export { SchemaAlphaNumValidator };
-// export { SchemaBetweenValidator };
-// export { SchemaEmailValidator };
-// export { SchemaEqualValidator };
-// export { SchemaIsValidValidator };
-// export { SchemaIsNotValidValidator };
-// export { SchemaNotEmptyValidator };
-// export { SchemaNotEqualValidator };
-// export { SchemaMaxValidator };
-// export { SchemaMinValidator };
-// export { SchemaPasswordValidator };
-// export { SchemaRegexpValidator };
-// export { SchemaDatetimeValidator };
-// export { SchemaUrlValidator };
-// export { SchemaValueValidator };
-// export interface SchemaFnValidator {
-//     fn: string | { expression: string };
-// }
-
-// export type SchemaPropertyValidatorDefinition = {
-//     v: SchemaPropertyValidators;
-//     condition?: string;
-//     errorMessage?: string;
-// };
+export { AlphaValidatorOpts, alpha } from "./alpha/AlphaValidator";
+export { AlphaNumValidatorOpts, alphaNum } from "./alphaNum/AlphaNumValidator";
+export { BetweenValidatorOpts, between } from "./between/BetweenValidator";
+export {
+    ConditionValidatorOpts,
+    condition,
+} from "./condition/ConditionValidator";
+export { DatetimeValidatorOpts, datetime } from "./datetime/DatetimeValidator";
+export { EmailValidatorOpts, email } from "./email/EmailValidator";
+export { NotEmptyValidatorOpts, notEmpty } from "./empty/NotEmptyValidator";
+export { EqualValidatorOpts, equal } from "./equal/EqualValidator";
+export { NotEqualValidatorOpts, notEqual } from "./equal/NotEqualValidator";
+export { IfValidatorOpts, when } from "./if/IfValidator";
+export { MaxValidatorOpts, max } from "./max/MaxValidator";
+export { MinValidatorOpts, min } from "./min/MinValidator";
+export { PasswordValidatorOpts, password } from "./password/PasswordValidator";
+export { RegexValidatorOpts, regexp } from "./regexp/RegexpValidator";
+export { UrlValidatorOpts, url } from "./url/UrlValidator";
+export { NotValidValidatorOpts, notValid } from "./valid/NotValidValidator";
+export { ValidValidatorOpts, valid } from "./valid/ValidValidator";

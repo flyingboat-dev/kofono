@@ -21,7 +21,6 @@ export { DataSelector } from "./selector/DataSelector";
 export { GenericDataQuerier } from "./selector/GenericDataQuerier";
 export { ReadOnlyDataSelector } from "./selector/ReadOnlyDataSelector";
 export * from "./validator/errors";
-export * from "./validator/options";
 export * from "./validator/schema";
 export * from "./validator/types";
 export { ValidatorsFactory } from "./validator/ValidatorsFactory";

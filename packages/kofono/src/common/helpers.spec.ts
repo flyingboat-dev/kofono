@@ -1,5 +1,10 @@
 import { describe, expect, it, test } from "vitest";
-import { isEmptyString, isObjectLiteral, objectHasKey } from "./helpers";
+import {
+    isEmptyString,
+    isObjectLiteral,
+    objectHasKey,
+    optional,
+} from "./helpers";
 
 describe("objectHasKey()", () => {
     const scenarios: [boolean, any, string][] = [
@@ -73,5 +78,87 @@ test("isEmpty() should return true for empty string", () => {
 
     for (const test of tests) {
         expect(isEmptyString(test.value)).toBe(test.expected);
+    }
+});
+
+test("optional()", () => {
+    const tests: {
+        key: string;
+        value: any;
+        expected: Record<string, any>;
+    }[] = [
+        {
+            key: "test",
+            value: undefined,
+            expected: {},
+        },
+        {
+            key: "test",
+            value: null,
+            expected: {
+                test: null,
+            },
+        },
+        {
+            key: "test",
+            value: 123,
+            expected: {
+                test: 123,
+            },
+        },
+        {
+            key: "test",
+            value: "abc",
+            expected: {
+                test: "abc",
+            },
+        },
+        {
+            key: "test",
+            value: [],
+            expected: {
+                test: [],
+            },
+        },
+        {
+            key: "test",
+            value: {},
+            expected: {
+                test: {},
+            },
+        },
+        {
+            key: "test",
+            value: true,
+            expected: {
+                test: true,
+            },
+        },
+        {
+            key: "test",
+            value: false,
+            expected: {
+                test: false,
+            },
+        },
+        {
+            key: "test",
+            value: 0,
+            expected: {
+                test: 0,
+            },
+        },
+        {
+            key: "test",
+            value: NaN,
+            expected: {
+                test: NaN,
+            },
+        },
+    ];
+
+    for (const { key, value, expected } of tests) {
+        const result = optional(key, value);
+        expect(result).toEqual(expected);
     }
 });

@@ -97,7 +97,7 @@ describe("Builder FormConfig", () => {
             validatorsFactory: customValidatorsFactory,
             pluginsFactory: new PluginsFactory(),
             properties: {},
-            passHandler: (form) => {
+            passHandler: form => {
                 passHandler = true;
                 return defaultPassHandler(form);
             },

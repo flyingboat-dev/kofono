@@ -7,8 +7,8 @@ describe("isNotValidValidator", () => {
 
     beforeAll(async () => {
         form = await K.form({
-            propA: K.string().$v((v) => v.notEmpty()),
-            propB: K.string().$q((v) => v.notValid("propA")),
+            propA: K.string().$v(v => v.notEmpty()),
+            propB: K.string().$q(v => v.notValid("propA")),
         });
     });
 

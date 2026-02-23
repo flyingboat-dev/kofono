@@ -10,13 +10,13 @@ import { Form } from "./Form";
 import { FormStatus, type State } from "./types";
 
 const schema: Schema = K.schema({
-    propA: K.number().validations((v) => v.notEmpty()),
+    propA: K.number().$v(v => v.notEmpty()),
     propB: K.string()
-        .qualifications((q) => q.valid("propA"))
-        .validations((v) => v.notEmpty())
+        .$q(q => q.valid("propA"))
+        .$v(v => v.notEmpty())
         .default("bob"),
-    propC: K.number().qualifications((q) => q.valid(["propA", "propB"])),
-    propD: K.string().validations((v) => v.notEmpty()),
+    propC: K.number().$q(q => q.valid(["propA", "propB"])),
+    propD: K.string().$v(v => v.notEmpty()),
     propE: K.object({
         propE1: K.string(),
     }),
@@ -153,7 +153,7 @@ describe("Form add and delete property", () => {
 
     it("should add prop and trigger event", async () => {
         let selector = "";
-        form.events.on(Events.PropertyAdded, (ctx) => {
+        form.events.on(Events.PropertyAdded, ctx => {
             selector = ctx.selector;
         });
 
@@ -168,7 +168,7 @@ describe("Form add and delete property", () => {
 
     it("should delete prop and trigger event", async () => {
         let selector = "";
-        form.events.on(Events.PropertyDeleted, (ctx) => {
+        form.events.on(Events.PropertyDeleted, ctx => {
             selector = ctx.selector;
         });
 
@@ -193,10 +193,10 @@ describe("Form test loadState event", () => {
 
     it("should add prop and trigger event", async () => {
         let state: Partial<State> = {};
-        form.events.on(Events.FormLoadState, (ctx) => {
+        form.events.on(Events.FormLoadState, ctx => {
             state = ctx.state;
         });
-        expect(state).toEqual(undefined);
+        expect(state).toEqual({});
 
         // expect(form.hasProp("propC")).toBeFalsy();
         // expect(selector).toEqual("");

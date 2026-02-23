@@ -3,15 +3,6 @@ import { Token } from "../../schema/Tokens";
 import type { SchemaPropertiesDeclarations } from "../types";
 import { PropertyDeclaration } from "./PropertyDeclaration";
 
-export function optional(key: string, value: any): any {
-    if (value === undefined) {
-        return {};
-    }
-    return {
-        [key]: value,
-    };
-}
-
 export function separate$keysFromProps(
     props: SchemaPropertiesDeclarations,
 ): [

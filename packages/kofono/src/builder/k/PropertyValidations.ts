@@ -1,3 +1,4 @@
+import { optional } from "../../common/helpers";
 import type {
     Condition,
     ExpressionField,
@@ -6,14 +7,17 @@ import type {
 } from "../../validator/_condition/types";
 import type { AlphaValidatorOpts } from "../../validator/alpha/AlphaValidator";
 import type { AlphaNumValidatorOpts } from "../../validator/alphaNum/AlphaNumValidator";
-import type { EqualValidatorOpts } from "../../validator/equal/types";
+
 import type { IfValidatorOpts } from "../../validator/if/IfValidator";
 import type { PasswordValidatorOpts } from "../../validator/password/PasswordValidator";
 import type { FlagCombinations } from "../../validator/regexp/RegexpValidator";
-import type { SchemaPropertyValidator } from "../../validator/schema";
+import type {
+    EqualValidatorOpts,
+    SchemaPropertyValidator,
+} from "../../validator/schema";
 import type { UrlValidatorOpts } from "../../validator/url/UrlValidator";
-import { optional } from "./helpers";
 
+// @deprecated
 export class PropertyValidations {
     #def: SchemaPropertyValidator[] = [];
 

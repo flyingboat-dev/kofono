@@ -9,9 +9,9 @@ import type { Form } from "./Form";
 const schema = K.schema({
     propA: K.array(
         K.object({
-            A: K.string().$v((v) => v.notEmpty()),
+            A: K.string().$v(v => v.notEmpty()),
             B: K.number().default(23),
-            C: K.boolean().$q((q) => q.valid(".A")),
+            C: K.boolean().$q(q => q.valid(".A")),
         }),
     ),
 });
@@ -298,7 +298,7 @@ describe("FormArray propertyAdded/PropertyRemoved  event", () => {
         });
         let arraySelector: string = "";
         let qtyAdded: number = 0;
-        form.events.on(Events.ArrayPropertyExpanded, (ctx) => {
+        form.events.on(Events.ArrayPropertyExpanded, ctx => {
             arraySelector = ctx.selector;
             qtyAdded = ctx.qty;
         });
@@ -315,7 +315,7 @@ describe("FormArray propertyAdded/PropertyRemoved  event", () => {
         });
         let arraySelector: string = "";
         let index: number = 0;
-        form.events.on(Events.ArrayPropertySliced, (ctx) => {
+        form.events.on(Events.ArrayPropertySliced, ctx => {
             arraySelector = ctx.selector;
             index = ctx.index;
         });

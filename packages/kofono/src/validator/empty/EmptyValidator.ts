@@ -1,4 +1,4 @@
-import { isEmptyString } from "../../common/helpers";
+import { isEmptyString, optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import type { SchemaPropertyBaseValidator } from "../schema";
@@ -19,6 +19,14 @@ export const emptyValidatorFactory = {
     empty: (selector: string, type: ValidationType, opts: EmptyValidatorOpts) =>
         new EmptyValidator(selector, type, opts),
 };
+
+export function empty(expect?: string): SchemaEmptyValidator {
+    return {
+        empty: {
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class EmptyValidator extends AbstractValidator implements Validator {
     validate(ctx: ValidationContext): ValidatorResponse {

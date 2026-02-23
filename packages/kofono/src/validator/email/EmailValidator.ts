@@ -1,3 +1,4 @@
+import { optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import type { SchemaPropertyBaseValidator } from "../schema";
@@ -18,6 +19,14 @@ export const emailValidatorFactory = {
     email: (selector: string, type: ValidationType, opts: EmailValidatorOpts) =>
         new EmailValidator(selector, type, opts),
 };
+
+export function email(expect?: string) {
+    return {
+        email: {
+            ...optional("error", expect),
+        },
+    };
+}
 
 /**
  * Email validator.

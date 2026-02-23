@@ -29,6 +29,14 @@ export const ifValidatorFactory = {
         new IfValidator(selector, type, opts),
 };
 
+export function when(opts: IfValidatorOpts): SchemaIfValidator {
+    return {
+        if: {
+            ...opts,
+        },
+    };
+}
+
 export class IfValidator extends AbstractValidator implements Validator {
     private readonly placeholders: PlaceholderList;
     private readonly condition: Condition;

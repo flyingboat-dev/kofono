@@ -1,4 +1,4 @@
-import { objectHasKey } from "../../common/helpers";
+import { objectHasKey, optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import { OptionsError } from "../OptionsError";
@@ -25,6 +25,15 @@ export const minValidatorFactory = {
         return new MinValidator(selector, type, opts);
     },
 };
+
+export function min(min: number, expect?: string): SchemaMinValidator {
+    return {
+        min: {
+            value: min,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class MinValidator extends AbstractValidator implements Validator {
     private readonly min: number;

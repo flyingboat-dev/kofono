@@ -266,6 +266,7 @@ export function evaluateCondition(
                 }
                 return false;
             default:
+                // biome-ignore lint/suspicious/noConsole: alert the user that the operator is unknown
                 console.warn(`Unknown operator: ${operator}`);
                 return false;
         }

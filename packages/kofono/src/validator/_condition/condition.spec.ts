@@ -117,10 +117,10 @@ describe("testing var and def type", () => {
                     role: "admin",
                 },
             },
-            something: K.string().qualifications((q) =>
+            something: K.string().$q(q =>
                 q.condition("{var:user.role}", "==", "admin"),
             ),
-            somethingElse: K.string().qualifications((q) =>
+            somethingElse: K.string().$q(q =>
                 q.condition("{var:user.role}", "==", "user"),
             ),
         });
@@ -136,9 +136,7 @@ describe("testing var and def type", () => {
                         name: "bob",
                     },
                 })
-                .qualifications((q) =>
-                    q.condition("{def:test.name}", "==", "bob"),
-                ),
+                .$q(q => q.condition("{def:test.name}", "==", "bob")),
         });
 
         expect(form.state.qualifications["something"][0]).toBeTruthy();
@@ -149,10 +147,10 @@ describe("evaluateFieldValue()", () => {
     it("should handle modifiers", async () => {
         const form = await K.form({
             name: K.string().default("BOB"),
-            something: K.string().qualifications((q) =>
+            something: K.string().$q(q =>
                 q.condition("{data:name|toLowerCase}", "==", "bob"),
             ),
-            somethingElse: K.string().qualifications((q) =>
+            somethingElse: K.string().$q(q =>
                 q.condition("{data:name}", "==", "bob"),
             ),
         });
@@ -174,15 +172,13 @@ describe("evaluateCondition()", () => {
             tags: K.listString().default(["tagA", "tagB", "tagC"]),
             acceptTerms: K.boolean()
                 .default(false)
-                .validations((v) => v.required()),
+                .$v(v => v.required()),
             subscribeNewsletter: K.boolean()
                 .default(false)
-                .qualifications((q) =>
-                    q.condition("{data:acceptTerms}", "==", true),
-                ),
+                .$q(q => q.condition("{data:acceptTerms}", "==", true)),
             subscribeToMonthlyNewsletter: K.boolean()
                 .default(false)
-                .qualifications((q) =>
+                .$q(q =>
                     q.conditions([
                         ["{data:acceptTerms}", "==", true],
                         "and",
@@ -339,7 +335,7 @@ describe("evaluateCondition()", () => {
             condition: ["{data:acceptTerms}", "==", true],
             selector: "name",
 
-            before: async (f) => {
+            before: async f => {
                 // console.log(f.state.qualifications, "a2s");
                 await f.update("acceptTerms", true);
                 // console.log(f.state.qualifications.subscribeNewsletter, "a2s2");

@@ -224,7 +224,7 @@ export class FormEvents {
                 delete this.selectorsDependencies[sel];
             } else if (deps.includes(selector)) {
                 this.selectorsDependencies[sel] = deps.filter(
-                    (d) => d !== selector,
+                    d => d !== selector,
                 );
             }
         }

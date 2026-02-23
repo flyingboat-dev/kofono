@@ -58,7 +58,7 @@ describe("alphaValidator", () => {
         },
     ];
 
-    tests.forEach((test) => {
+    tests.forEach(test => {
         it(test.name, () => {
             ctx.value = test.value;
             const alpha: AlphaValidatorOpts = test.alpha;

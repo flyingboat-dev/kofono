@@ -11,7 +11,7 @@ describe("FormEvents schema events with custom events", () => {
     let f: Form;
     beforeAll(async () => {
         f = await K.form({
-            propA: K.string().$v((v) => v.notEmpty()),
+            propA: K.string().$v(v => v.notEmpty()),
         });
         f.events.onSelectorValidation(
             "propA",
@@ -48,11 +48,11 @@ describe("FormEvents GlobalEvents", () => {
         it("testing FormLoading event", async () => {
             await K.form(
                 {
-                    propA: K.string().$v((x) => x.notEmpty()),
-                    propB: K.string().$v((x) => x.notEmpty()),
+                    propA: K.string().$v(x => x.notEmpty()),
+                    propB: K.string().$v(x => x.notEmpty()),
                 },
                 {
-                    init: (f) => {
+                    init: f => {
                         f.events.on(Events.FormLoading, () => {
                             i++;
                         });

@@ -1,22 +1,43 @@
+import { optional } from "../../common/helpers";
 import { ValidatorErrors } from "../errors";
+import type { SchemaPropertyBaseValidator } from "../schema";
 import type {
     ValidationContext,
     ValidationType,
     ValidatorResponse,
 } from "../types";
-import {
-    type NotValidValidatorOpts,
-    NotValidValidatorSchemaToken,
-} from "./types";
 import { ValidValidator } from "./ValidValidator";
 
+export type NotValidValidatorOpts =
+    | string
+    | string[]
+    | (SchemaPropertyBaseValidator & {
+          selectors: string | string[];
+      });
+
+export interface SchemaIsNotValidValidator {
+    notValid: NotValidValidatorOpts;
+}
+
 export const notValidValidatorFactory = {
-    [NotValidValidatorSchemaToken]: (
+    notValid: (
         selector: string,
         type: ValidationType,
         opts: NotValidValidatorOpts,
     ) => new NotValidValidator(selector, type, opts),
 };
+
+export function notValid(
+    selectors: string | string[],
+    expect?: string,
+): SchemaIsNotValidValidator {
+    return {
+        notValid: {
+            selectors,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class NotValidValidator extends ValidValidator {
     validate(ctx: ValidationContext): ValidatorResponse {

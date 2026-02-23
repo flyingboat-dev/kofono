@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { Form } from "../form/Form";
 import { PropertyType, PropertyType as T } from "../property/types";
+import { notEmpty } from "../validator/empty/NotEmptyValidator";
+import { min } from "../validator/min/MinValidator";
 import { K } from "./K";
 
 describe("S builder", () => {
@@ -20,8 +22,8 @@ describe("S builder", () => {
 
     it("should create object schema", () => {
         const schema = K.object({
-            propA: K.string().validations((v) => v.notEmpty()),
-            propB: K.boolean().validations((v) => v.equal(true)),
+            propA: K.string().$v(v => v.notEmpty()),
+            propB: K.boolean().$v(v => v.equal(true)),
             propC: K.number().enum([
                 {
                     value: 1,
@@ -31,12 +33,8 @@ describe("S builder", () => {
                 },
             ]),
             propD: K.array(K.string()),
-            propE: K.listBoolean().qualifications((q) =>
-                q.valid("propA").valid("propB"),
-            ),
-            propF: K.listNumber().validations((v) =>
-                v.regexp("[0-9]{1,10}", "g"),
-            ),
+            propE: K.listBoolean().$q(q => q.valid("propA").valid("propB")),
+            propF: K.listNumber().$v(v => v.regexp("[0-9]{1,10}", "g")),
             propG: K.listString().component({
                 type: "custom",
                 component: "CustomComponent",
@@ -47,7 +45,7 @@ describe("S builder", () => {
                 type: PropertyType.Boolean,
                 hello: "world",
             }),
-        }).qualifications((q) => q.valid("propI"));
+        }).$q(q => q.valid("propI"));
 
         expect(schema.def).toEqual({
             type: PropertyType.Object,
@@ -140,7 +138,7 @@ describe("S builder", () => {
 
     describe("when using expect", () => {
         it("should attach an error message to the latest validation", () => {
-            const schema = K.string().validations((v) =>
+            const schema = K.string().$v(v =>
                 v
                     .equal("test")
                     .expect("custom_error")
@@ -178,8 +176,8 @@ describe("S builder", () => {
                 $plugins: [],
                 $translations: {},
                 $test: "test", // should be ignored, see SchemaPropertiesDeclarations
-                propA: K.string().validations((v) => v.notEmpty()),
-                propB: K.string().validations((v) => v.notEmpty()),
+                propA: K.string().$v(v => v.notEmpty()),
+                propB: K.string().$v(v => v.notEmpty()),
             });
 
             expect(schema).toEqual({
@@ -207,7 +205,7 @@ describe("S builder", () => {
     describe("test form() builder", () => {
         it("should get an valid instance of form", async () => {
             const form = await K.form({
-                propA: K.string().validations((v) => v.notEmpty()),
+                propA: K.string().$v(v => v.notEmpty()),
             });
             expect(form).toBeInstanceOf(Form);
             expect(form.state.data).toEqual({
@@ -218,7 +216,7 @@ describe("S builder", () => {
         it("should have the correct id", async () => {
             const form = await K.form({
                 $id: "test",
-                propA: K.string().validations((v) => v.notEmpty()),
+                propA: K.string().$v(v => v.notEmpty()),
             });
             expect(form.id).toBe("test");
         });
@@ -245,6 +243,13 @@ describe("S builder", () => {
                     },
                 },
             });
+        });
+    });
+
+    describe("test validations shortcut with type declaration", () => {
+        it("should create a string property with validations", () => {
+            const prop = K.string([notEmpty(), min(5)]);
+            console.log(prop.def);
         });
     });
 });

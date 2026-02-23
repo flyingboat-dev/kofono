@@ -1,3 +1,4 @@
+import { optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import type { SchemaPropertyBaseValidator } from "../schema";
@@ -24,6 +25,20 @@ export const betweenValidatorFactory = {
         opts: BetweenValidatorOpts,
     ) => new BetweenValidator(selector, type, opts),
 };
+
+export function between(
+    min: number,
+    max: number,
+    expect?: string,
+): SchemaBetweenValidator {
+    return {
+        between: {
+            min,
+            max,
+            ...optional("error", expect),
+        },
+    };
+}
 
 // BetweenValidator is a validator that checks if a value is between two numbers
 // Support value of type string, number and array

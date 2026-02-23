@@ -1,3 +1,4 @@
+import { optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import type { SchemaPropertyBaseValidator } from "../schema";
@@ -29,6 +30,16 @@ export const passwordValidatorFactory = {
         opts: PasswordValidatorOpts,
     ) => new PasswordValidator(selector, type, opts),
 };
+
+export function password(
+    opts: PasswordValidatorOpts,
+    expect?: string,
+): SchemaPasswordValidator {
+    return {
+        password: opts,
+        ...optional("error", expect),
+    };
+}
 
 export class PasswordValidator extends AbstractValidator implements Validator {
     constructor(

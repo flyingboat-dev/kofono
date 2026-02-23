@@ -1,4 +1,4 @@
-import { objectHasKey } from "../../common/helpers";
+import { objectHasKey, optional } from "../../common/helpers";
 import {
     getParentSelector,
     resolvePartialSelectors,
@@ -6,21 +6,38 @@ import {
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import { OptionsError } from "../OptionsError";
+import type { SchemaPropertyBaseValidator } from "../schema";
 import type {
     ValidationContext,
     ValidationType,
     Validator,
     ValidatorResponse,
 } from "../types";
-import { type ValidValidatorOpts, ValidValidatorSchemaToken } from "./types";
+
+export type ValidValidatorOpts =
+    | string
+    | string[]
+    | (SchemaPropertyBaseValidator & {
+          selectors: string | string[];
+      });
+
+export interface SchemaIsValidValidator {
+    valid: ValidValidatorOpts;
+}
 
 export const validValidatorFactory = {
-    [ValidValidatorSchemaToken]: (
-        selector: string,
-        type: ValidationType,
-        opts: ValidValidatorOpts,
-    ) => new ValidValidator(selector, type, opts),
+    valid: (selector: string, type: ValidationType, opts: ValidValidatorOpts) =>
+        new ValidValidator(selector, type, opts),
 };
+
+export function valid(selectors: string | string[], expect?: string) {
+    return {
+        valid: {
+            selectors,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class ValidValidator extends AbstractValidator implements Validator {
     protected readonly selectors: string[] = [];

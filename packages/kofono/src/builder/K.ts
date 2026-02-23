@@ -1,4 +1,6 @@
 /** biome-ignore-all lint/complexity/noStaticOnlyClass: i like it that way */
+
+import { optional } from "../common/helpers";
 import { defaultConfig } from "../form/defaults";
 import type { Form } from "../form/Form";
 import type { FormConfig } from "../form/types";
@@ -9,9 +11,9 @@ import type {
     SchemaProperty,
 } from "../schema/Schema";
 import { Token } from "../schema/Tokens";
+import type { SchemaPropertyValidator } from "../validator/schema";
 import { buildSchema } from "./helpers";
 import {
-    optional,
     schemaToPropertiesDeclarations,
     separate$keysFromProps,
 } from "./k/helpers";
@@ -74,10 +76,11 @@ export class K {
         return new PropertyDeclaration(def);
     }
 
-    public static string(): PropertyDeclaration<string> {
-        return new PropertyDeclaration({
-            type: PropertyType.String,
-        });
+    public static string(
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration<string> {
+        // todo: modify the others methods with this
+        return K.propWithValidations(PropertyType.String, validators);
     }
 
     public static number(): PropertyDeclaration<number> {
@@ -129,5 +132,19 @@ export class K {
         return new PropertyDeclaration({
             type: PropertyType.Null,
         });
+    }
+
+    private static propWithValidations<T>(
+        type: PropertyType,
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration<T> {
+        const prop = new PropertyDeclaration({ type } as SchemaProperty);
+        if (!Array.isArray(validators)) {
+            validators = [validators];
+        }
+        if (validators.length > 0) {
+            prop.set("$v", validators);
+        }
+        return prop;
     }
 }

@@ -3,6 +3,7 @@ import type {
     SchemaProperty,
     SchemaPropertyEnum,
 } from "../../schema/Schema";
+import type { SchemaPropertyValidator } from "../../validator/schema";
 import { PropertyValidations } from "./PropertyValidations";
 
 export class PropertyDeclaration<T = any> {
@@ -13,13 +14,8 @@ export class PropertyDeclaration<T = any> {
         return this;
     }
 
+    // old chained way of adding validations
     public $v(
-        fn: (v: PropertyValidations) => PropertyValidations,
-    ): PropertyDeclaration {
-        return this.validations(fn);
-    }
-
-    public validations(
         fn: (v: PropertyValidations) => PropertyValidations,
     ): PropertyDeclaration {
         if (!this.def.$v) {
@@ -29,19 +25,38 @@ export class PropertyDeclaration<T = any> {
         return this;
     }
 
-    public $q(
-        fn: (q: PropertyValidations) => PropertyValidations,
+    public validations(
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
     ): PropertyDeclaration {
-        return this.qualifications(fn);
+        if (!Array.isArray(validators)) {
+            validators = [validators];
+        }
+
+        this.def.$v = Array.isArray(this.def.$v)
+            ? [...this.def.$v, ...validators]
+            : validators;
+
+        return this;
     }
 
-    public qualifications(
+    // old chained way of adding qualifications
+    public $q(
         fn: (q: PropertyValidations) => PropertyValidations,
     ): PropertyDeclaration {
         if (!this.def.$q) {
             this.def.$q = [];
         }
         this.def.$q = [...this.def.$q, ...fn(new PropertyValidations()).def];
+        return this;
+    }
+
+    public qualifications(
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration {
+        if (!Array.isArray(validators)) {
+            validators = [validators];
+        }
+        this.def.$q = validators;
         return this;
     }
 

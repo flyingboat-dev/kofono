@@ -25,3 +25,12 @@ export function isEmptyString(value: any): boolean {
     }
     return value.trim().length === 0;
 }
+
+export function optional(key: string, value: any): any {
+    if (value === undefined) {
+        return {};
+    }
+    return {
+        [key]: value,
+    };
+}

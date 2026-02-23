@@ -1,3 +1,4 @@
+import { optional } from "../../common/helpers";
 import {
     evaluateCondition,
     parseConditionPlaceholders,
@@ -33,6 +34,18 @@ export const conditionValidatorFactory = {
         return new ConditionValidator(selector, type, opts);
     },
 };
+
+export function condition(
+    condition: Condition,
+    expect?: string,
+): SchemaConditionValidator {
+    return {
+        condition: {
+            condition,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class ConditionValidator extends AbstractValidator implements Validator {
     private readonly placeholders: PlaceholderList;

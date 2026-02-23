@@ -30,24 +30,24 @@ export function generateNewFormState(): State {
 
 export function getInvalidSelectors(form: Form): string[] {
     return Object.entries(form.state.validations)
-        .filter((x) => !x[1][0])
-        .map((x) => x[0]);
+        .filter(x => !x[1][0])
+        .map(x => x[0]);
 }
 
 export function getValidSelectors(form: Form): string[] {
     return Object.entries(form.state.validations)
-        .filter((x) => x[1][0])
-        .map((x) => x[0]);
+        .filter(x => x[1][0])
+        .map(x => x[0]);
 }
 
 export function getUnqualifiedSelectors(form: Form): string[] {
     return Object.entries(form.state.qualifications)
-        .filter((x) => !x[1][0])
-        .map((x) => x[0]);
+        .filter(x => !x[1][0])
+        .map(x => x[0]);
 }
 
 export function getQualifiedSelectors(form: Form): string[] {
     return Object.entries(form.state.qualifications)
-        .filter((x) => x[1][0])
-        .map((x) => x[0]);
+        .filter(x => x[1][0])
+        .map(x => x[0]);
 }

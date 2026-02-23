@@ -1,3 +1,4 @@
+import { optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import type { SchemaPropertyBaseValidator } from "../schema";
@@ -21,6 +22,18 @@ export const urlValidatorFactory = {
     url: (selector: string, type: ValidationType, opts: UrlValidatorOpts) =>
         new UrlValidator(selector, type, opts),
 };
+
+export function url(
+    opts: UrlValidatorOpts,
+    expect?: string,
+): SchemaUrlValidator {
+    return {
+        url: {
+            ...opts,
+            ...optional("error", expect),
+        },
+    };
+}
 
 /**
  * URL validator.

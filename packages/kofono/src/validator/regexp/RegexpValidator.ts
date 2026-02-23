@@ -1,3 +1,4 @@
+import { optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import type { SchemaPropertyBaseValidator } from "../schema";
@@ -34,6 +35,20 @@ export const regexpValidatorFactory = {
         opts: RegexValidatorOpts,
     ) => new RegexpValidator(selector, type, opts),
 };
+
+export function regexp(
+    pattern: string,
+    opts?: { flags?: FlagCombinations },
+    expect?: string,
+): SchemaRegexpValidator {
+    return {
+        regexp: {
+            pattern,
+            ...opts,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class RegexpValidator extends AbstractValidator implements Validator {
     protected readonly pattern: RegExp;

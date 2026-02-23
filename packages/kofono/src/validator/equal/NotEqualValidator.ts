@@ -1,22 +1,43 @@
+import { optional } from "../../common/helpers";
 import { ValidatorErrors } from "../errors";
+import type { SchemaPropertyBaseValidator } from "../schema";
 import type {
     ValidationContext,
     ValidationType,
     ValidatorResponse,
 } from "../types";
 import { EqualValidator } from "./EqualValidator";
-import {
-    type NotEqualValidatorOpts,
-    NotEqualValidatorSchemaToken,
-} from "./types";
+
+export type NotEqualValidatorOpts = SchemaPropertyBaseValidator & {
+    value: string | number | boolean | null;
+    caseSensitive?: boolean;
+};
+
+export interface SchemaNotEqualValidator {
+    notEqual: NotEqualValidatorOpts;
+}
 
 export const notEqualValidatorFactory = {
-    [NotEqualValidatorSchemaToken]: (
+    notEqual: (
         selector: string,
         type: ValidationType,
         opts: NotEqualValidatorOpts,
     ) => new NotEqualValidator(selector, type, opts),
 };
+
+export function notEqual(
+    value: NotEqualValidatorOpts["value"],
+    opts?: Pick<NotEqualValidatorOpts, "caseSensitive">,
+    expect?: string,
+) {
+    return {
+        notEqual: {
+            value,
+            ...opts,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class NotEqualValidator extends EqualValidator {
     validate(ctx: ValidationContext): ValidatorResponse {

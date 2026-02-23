@@ -1,3 +1,4 @@
+import { optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import type { SchemaPropertyBaseValidator } from "../schema";
@@ -23,6 +24,15 @@ export const alphaNumValidatorFactory = {
         opts: AlphaNumValidatorOpts,
     ) => new AlphaNumValidator(selector, type, opts),
 };
+
+export function alphaNum(opts: AlphaNumValidatorOpts, expect?: string) {
+    return {
+        alphaNum: {
+            ...opts,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class AlphaNumValidator extends AbstractValidator implements Validator {
     private readonly allowSpaces: boolean;

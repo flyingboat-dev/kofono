@@ -1,3 +1,4 @@
+import { optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import type { SchemaPropertyBaseValidator } from "../schema";
@@ -22,6 +23,15 @@ export const maxValidatorFactory = {
     max: (selector: string, type: ValidationType, opts: MaxValidatorOpts) =>
         new MaxValidator(selector, type, opts),
 };
+
+export function max(max: number, expect?: string): SchemaMaxValidator {
+    return {
+        max: {
+            value: max,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class MaxValidator extends AbstractValidator implements Validator {
     private readonly max: number;

@@ -1,4 +1,5 @@
 import { isAfter, isEqual, isValid, parse } from "date-fns";
+import { optional } from "../../common/helpers";
 import { AbstractValidator } from "../AbstractValidator";
 import { ValidatorErrors } from "../errors";
 import type { SchemaPropertyBaseValidator } from "../schema";
@@ -12,6 +13,12 @@ import type {
 export interface SchemaDatetimeValidator {
     datetime: DatetimeValidatorOpts;
 }
+
+type SchemaOpts = {
+    format: string;
+    min?: string;
+    max?: string;
+};
 
 export type DatetimeValidatorOpts =
     | string
@@ -28,6 +35,18 @@ export const datetimeValidatorFactory = {
         opts: DatetimeValidatorOpts,
     ) => new DatetimeValidator(selector, type, opts),
 };
+
+export function datetime(
+    opts: SchemaOpts,
+    expect?: string,
+): SchemaDatetimeValidator {
+    return {
+        datetime: {
+            ...opts,
+            ...optional("error", expect),
+        },
+    };
+}
 
 /**
  * Datetime validator.

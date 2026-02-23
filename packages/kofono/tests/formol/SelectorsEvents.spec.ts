@@ -64,7 +64,7 @@ test("FormEvents selector events dependencies", async () => {
     f.events.onSelector(
         "propA",
         Events.SelectorValidation,
-        (ctx) => {
+        ctx => {
             if (ctx.form.$d("propB") === "foo") {
                 return [false, "propB is foo!"];
             }

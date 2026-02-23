@@ -53,7 +53,7 @@ export function resolvePartialSelectors(
     // }
     // return resolvedSelector;
 
-    return selectors.map((sel) =>
+    return selectors.map(sel =>
         sel.startsWith(DataSelector.separator) ? `${baseSelector}${sel}` : sel,
     );
 }

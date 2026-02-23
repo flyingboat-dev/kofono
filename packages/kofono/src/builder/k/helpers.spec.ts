@@ -2,93 +2,10 @@ import { expect, test } from "vitest";
 import type { Schema } from "../../schema/Schema";
 import type { SchemaPropertiesDeclarations } from "../types";
 import {
-    optional,
     schemaToPropertiesDeclarations,
     separate$keysFromProps,
 } from "./helpers";
 import { PropertyDeclaration } from "./PropertyDeclaration";
-
-test("optional()", () => {
-    const tests: {
-        key: string;
-        value: any;
-        expected: Record<string, any>;
-    }[] = [
-        {
-            key: "test",
-            value: undefined,
-            expected: {},
-        },
-        {
-            key: "test",
-            value: null,
-            expected: {
-                test: null,
-            },
-        },
-        {
-            key: "test",
-            value: 123,
-            expected: {
-                test: 123,
-            },
-        },
-        {
-            key: "test",
-            value: "abc",
-            expected: {
-                test: "abc",
-            },
-        },
-        {
-            key: "test",
-            value: [],
-            expected: {
-                test: [],
-            },
-        },
-        {
-            key: "test",
-            value: {},
-            expected: {
-                test: {},
-            },
-        },
-        {
-            key: "test",
-            value: true,
-            expected: {
-                test: true,
-            },
-        },
-        {
-            key: "test",
-            value: false,
-            expected: {
-                test: false,
-            },
-        },
-        {
-            key: "test",
-            value: 0,
-            expected: {
-                test: 0,
-            },
-        },
-        {
-            key: "test",
-            value: NaN,
-            expected: {
-                test: NaN,
-            },
-        },
-    ];
-
-    for (const { key, value, expected } of tests) {
-        const result = optional(key, value);
-        expect(result).toEqual(expected);
-    }
-});
 
 test("separate$keysFromProps()", () => {
     const props: SchemaPropertiesDeclarations = {

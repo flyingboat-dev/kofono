@@ -7,15 +7,15 @@ describe("FormProperty", () => {
     let form: Form;
     beforeEach(async () => {
         const schema = K.schema({
-            propA: K.string().validations((v) => v.notEmpty()),
+            propA: K.string().$v(v => v.notEmpty()),
             propB: K.string()
-                .validations((v) => v.notEmpty())
+                .$v(v => v.notEmpty())
                 .default("test"),
             propC: K.object({
                 c1: K.string(),
                 c2: K.string(),
-                c3: K.string().validations((v) => v.notEmpty()),
-            }).qualifications((q) => q.valid("propA")),
+                c3: K.string().$v(v => v.notEmpty()),
+            }).$q(q => q.valid("propA")),
             propD: K.null(),
             propF: K.string(),
         });

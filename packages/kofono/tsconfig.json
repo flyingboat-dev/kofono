@@ -5,7 +5,9 @@
         "lib": ["es2015.iterable", "ES2022", "dom"],
         "types": ["node", "vitest"],
         "outDir": "./dist",
-        "declarationDir": "./dist"
+        "declarationDir": "./dist",
+        "sourceMap": false,
+        "declarationMap": false
     },
     "exclude": ["test.ts", "**/*.spec.ts"],
     "files": ["./src/index.ts"]

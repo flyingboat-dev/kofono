@@ -79,20 +79,19 @@ export class K {
     public static string(
         validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
     ): PropertyDeclaration<string> {
-        // todo: modify the others methods with this
-        return K.propWithValidations(PropertyType.String, validators);
+        return PropertyDeclaration.create(PropertyType.String, validators);
     }
 
-    public static number(): PropertyDeclaration<number> {
-        return new PropertyDeclaration({
-            type: PropertyType.Number,
-        });
+    public static number(
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration<number> {
+        return PropertyDeclaration.create(PropertyType.Number, validators);
     }
 
-    public static boolean(): PropertyDeclaration<boolean> {
-        return new PropertyDeclaration({
-            type: PropertyType.Boolean,
-        });
+    public static boolean(
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration<boolean> {
+        return PropertyDeclaration.create(PropertyType.Boolean, validators);
     }
 
     public static array(
@@ -104,47 +103,33 @@ export class K {
         });
     }
 
-    public static listBoolean(): PropertyDeclaration<boolean[]> {
-        return new PropertyDeclaration({
-            type: PropertyType.ListBoolean,
-        });
+    public static listBoolean(
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration<boolean[]> {
+        return PropertyDeclaration.create(PropertyType.ListBoolean, validators);
     }
 
-    public static listNumber(): PropertyDeclaration<number[]> {
-        return new PropertyDeclaration({
-            type: PropertyType.ListNumber,
-        });
+    public static listNumber(
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration<number[]> {
+        return PropertyDeclaration.create(PropertyType.ListNumber, validators);
     }
 
-    public static listString(): PropertyDeclaration<string[]> {
-        return new PropertyDeclaration({
-            type: PropertyType.ListString,
-        });
+    public static listString(
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration<string[]> {
+        return PropertyDeclaration.create(PropertyType.ListString, validators);
     }
 
-    public static listMixed(): PropertyDeclaration<any[]> {
-        return new PropertyDeclaration({
-            type: PropertyType.ListMixed,
-        });
+    public static listMixed(
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration<any[]> {
+        return PropertyDeclaration.create(PropertyType.ListMixed, validators);
     }
 
     public static null(): PropertyDeclaration<never> {
         return new PropertyDeclaration({
             type: PropertyType.Null,
         });
-    }
-
-    private static propWithValidations<T>(
-        type: PropertyType,
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
-    ): PropertyDeclaration<T> {
-        const prop = new PropertyDeclaration({ type } as SchemaProperty);
-        if (!Array.isArray(validators)) {
-            validators = [validators];
-        }
-        if (validators.length > 0) {
-            prop.set("$v", validators);
-        }
-        return prop;
     }
 }

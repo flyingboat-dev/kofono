@@ -246,10 +246,55 @@ describe("S builder", () => {
         });
     });
 
-    describe("test validations shortcut with type declaration", () => {
-        it("should create a string property with validations", () => {
+    describe("test functional validators declaration", () => {
+        const result = {
+            type: "string",
+            $v: [
+                {
+                    notEmpty: {},
+                },
+                {
+                    min: {
+                        value: 5,
+                    },
+                },
+            ],
+        };
+
+        it("should create a string property with validations when declared on type", () => {
             const prop = K.string([notEmpty(), min(5)]);
-            console.log(prop.def);
+            expect(prop.def).toEqual(result);
+        });
+
+        it("should create a string property with validations", () => {
+            const prop = K.string().validations([notEmpty(), min(5)]);
+            expect(prop.def).toEqual(result);
+        });
+
+        it("should create a number property with validations", () => {
+            const prop = K.string().validations([min(5)]);
+            expect(prop.def).toEqual({
+                type: "string",
+                $v: [
+                    {
+                        min: {
+                            value: 5,
+                        },
+                    },
+                ],
+            });
+        });
+
+        it("should create a string property with qualifications", () => {
+            const prop = K.string().qualifications(notEmpty());
+            expect(prop.def).toEqual({
+                type: "string",
+                $q: [
+                    {
+                        notEmpty: {},
+                    },
+                ],
+            });
         });
     });
 });

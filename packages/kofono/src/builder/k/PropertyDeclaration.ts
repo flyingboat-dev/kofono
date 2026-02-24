@@ -1,3 +1,4 @@
+import type { PropertyType } from "../../property/types";
 import type {
     SchemaComponent,
     SchemaProperty,
@@ -8,6 +9,15 @@ import { PropertyValidations } from "./PropertyValidations";
 
 export class PropertyDeclaration<T = any> {
     constructor(public def: SchemaProperty) {}
+
+    public static create<T>(
+        type: PropertyType,
+        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+    ): PropertyDeclaration<T> {
+        const prop = new PropertyDeclaration({ type } as SchemaProperty);
+        prop.validations(validators);
+        return prop;
+    }
 
     public enum(options: SchemaPropertyEnum<any>[]): PropertyDeclaration {
         this.def.enum = options;
@@ -30,6 +40,10 @@ export class PropertyDeclaration<T = any> {
     ): PropertyDeclaration {
         if (!Array.isArray(validators)) {
             validators = [validators];
+        }
+
+        if (validators.length === 0) {
+            return this;
         }
 
         this.def.$v = Array.isArray(this.def.$v)
@@ -56,7 +70,15 @@ export class PropertyDeclaration<T = any> {
         if (!Array.isArray(validators)) {
             validators = [validators];
         }
-        this.def.$q = validators;
+
+        if (validators.length === 0) {
+            return this;
+        }
+
+        this.def.$q = Array.isArray(this.def.$v)
+            ? [...this.def.$v, ...validators]
+            : validators;
+
         return this;
     }
 

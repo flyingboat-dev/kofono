@@ -11,27 +11,25 @@ It can be run in any JavaScript environment, including Node.js and browsers, and
 is designed to work seamlessly with modern frameworks like React, Vue, SolidJS and more.
 
 ```typescript
-import { K } from "@flyingboat/kofono";
+import { K, } from "@flyingboat/kofono";
 
 const form = await K.form({
-    name: K.string().validations((v) => 
-        v.notEmpty().expect("Name cannot be empty")
-            .max(30).expect("Name cannot be longer than 30 characters")
-    ),
-    age: K.number().validations((v) =>
-        v.between(1, 120).expect("Age must be between 1 and 120"),
-    ),
-    email: K.string().validations((v) => v.email()),
+    name: K.string(notEmpty()),
+    age: K.number(between(1, 120, "Age must be between 1 and 120")),
+    email: K.string(email()),
     address: K.object({
-        street: K.string().validations((v) => v.notEmpty()),
-        city: K.string().validations((v) => v.notEmpty()),
-        zipCode: K.string().validations((v) => v.notEmpty()),
+        street: K.string([
+            notEmpty(),
+            min(1, "Street must be at least 1 char"),
+        ]),
+        city: K.string(notEmpty()),
+        zipCode: K.string(notEmpty()),
     }),
-    sameAsAddress: K.boolean().default(false),
+    sameAddress: K.boolean().default(false),
     billingAddress: K.object({
-        street: K.string().validations((v) => v.notEmpty()),
-        city: K.string().validations((v) => v.notEmpty()),
-        zipCode: K.string().validations((v) => v.notEmpty()),
-    }).qualifications((q) => q.condition("{data:sameAsAddress}", "==", false)),
+        street: K.string(notEmpty()),
+        city: K.string(notEmpty()),
+        zipCode: K.string(notEmpty()),
+    }).qualifications(condition(["{data:sameAddress}", "==", false])),
 });
 ```

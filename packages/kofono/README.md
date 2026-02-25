@@ -11,7 +11,7 @@ It can be run in any JavaScript environment, including Node.js and browsers, and
 is designed to work seamlessly with modern frameworks like React, Vue, SolidJS and more.
 
 ```typescript
-import { K, } from "@flyingboat/kofono";
+import { K, between, condition, email, min, notEmpty } from "@flyingboat/kofono";
 
 const form = await K.form({
     name: K.string(notEmpty()),

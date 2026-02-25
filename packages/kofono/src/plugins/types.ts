@@ -1,15 +1,16 @@
 import type { Form } from "../form/Form";
-import type { SchemaUpdatesCountPlugin } from "./UpdatesCount/UpdatesCountPlugin";
+import type {
+    SchemaUpdateCounterPlugin
+} from "./UpdateCounter/UpdateCounterPlugin";
 
-export type Plugins = Plugin[];
-
-export interface Plugin {
+export interface Plugin<T = any> {
     name: string;
     version: string;
+    defaultMeta: T;
 
     init(form: Form): Promise<void> | void;
 }
 
-export type SchemaPlugin = Record<string, any> & SchemaUpdatesCountPlugin;
+export type SchemaPlugin = Record<string, any> & SchemaUpdateCounterPlugin;
 
 export type SchemaPlugins = SchemaPlugin[];

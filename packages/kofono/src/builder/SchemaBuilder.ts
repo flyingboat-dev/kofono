@@ -4,7 +4,7 @@ import { defaultConfig } from "../form/defaults";
 import type { Form } from "../form/Form";
 import type { FormConfig, Properties } from "../form/types";
 import type { PluginsFactory } from "../plugins/PluginsFactory";
-import type { Plugins } from "../plugins/types";
+import type { Plugin } from "../plugins/types";
 import { PropertyType } from "../property/types";
 import type {
     Schema,
@@ -73,12 +73,12 @@ export class SchemaBuilder {
     public buildPlugins(
         schemaPlugins: Schema[Token.SchemaPlugins],
         pluginsFactory: PluginsFactory,
-    ): Plugins {
+    ): Plugin[] {
         if (!schemaPlugins) {
             return [];
         }
 
-        const plugins: Plugins = [];
+        const plugins: Plugin[] = [];
 
         for (const plugin of schemaPlugins) {
             const keys = Object.keys(plugin);

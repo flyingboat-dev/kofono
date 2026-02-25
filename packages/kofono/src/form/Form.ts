@@ -1,6 +1,6 @@
 import { version as packageVersion } from "../../package.json";
 import { Logs } from "../common/Logs";
-import type { Plugins } from "../plugins/types";
+import type { Plugin } from "../plugins/types";
 import type { Property } from "../property/Property";
 import type { SchemaProperty } from "../schema/Schema";
 import { DataSelector } from "../selector/DataSelector";
@@ -141,7 +141,7 @@ export class Form {
         return this.#status;
     }
 
-    public get plugins(): Plugins {
+    public get plugins(): Plugin[] {
         return this.#plugins.plugins;
     }
 

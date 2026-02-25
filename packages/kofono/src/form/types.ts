@@ -1,5 +1,5 @@
 import type { PluginsFactory } from "../plugins/PluginsFactory";
-import type { Plugins } from "../plugins/types";
+import type { Plugin } from "../plugins/types";
 import type { Property } from "../property/Property";
 import type { SchemaProperty } from "../schema/Schema";
 import type { ValidatorResponse } from "../validator/types";
@@ -24,7 +24,7 @@ export type FormConfig = {
     passHandler: PassHandler;
     validatorsFactory: ValidatorsFactory;
     pluginsFactory: PluginsFactory;
-    plugins?: Plugins;
+    plugins?: Plugin[];
     properties: Properties;
     vars: Record<string, unknown>;
     state?: Partial<State>;

@@ -257,12 +257,20 @@ export function evaluateCondition(
                 return processedField >= processedValue;
             case "<=":
                 return processedField <= processedValue;
-            case "contains":
+            case "includes":
                 if (
                     typeof processedField === "string" ||
                     Array.isArray(processedField)
                 ) {
                     return processedField.includes(processedValue);
+                }
+                return false;
+            case "!includes":
+                if (
+                    typeof processedField === "string" ||
+                    Array.isArray(processedField)
+                ) {
+                    return !processedField.includes(processedValue);
                 }
                 return false;
             default:

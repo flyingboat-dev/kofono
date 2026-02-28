@@ -217,28 +217,28 @@ describe("evaluateCondition()", () => {
         },
         {
             id: "should evaluate simple inequality condition",
-            condition: ["{data:tags}", "contains", "tagA"],
+            condition: ["{data:tags}", "includes", "tagA"],
             selector: "name",
             expected: true,
         },
         {
             id: "should evaluate simple inequality condition",
-            condition: ["{data:tags}", "contains", "tagD"],
+            condition: ["{data:tags}", "includes", "tagD"],
             selector: "name",
             expected: false,
         },
         {
-            id: "should evaluate simple inequality condition",
-            condition: ["{data:tags}", "contains", "tagD"],
+            id: "should evaluate do not include condition",
+            condition: ["{data:tags}", "!includes", "tagP"],
             selector: "name",
-            expected: false,
+            expected: true,
         },
         {
             id: "should evaluate condition with relation",
             condition: [
-                ["{data:tags}", "contains", "tagD"],
+                ["{data:tags}", "includes", "tagD"],
                 "or",
-                ["{data:tags}", "contains", "tagC"],
+                ["{data:tags}", "includes", "tagC"],
             ],
             selector: "name",
             expected: true,
@@ -247,15 +247,15 @@ describe("evaluateCondition()", () => {
             id: "should evaluate nested condition with relation",
             condition: [
                 [
-                    [`{data:tags}`, "contains", "tagA"],
+                    [`{data:tags}`, "includes", "tagA"],
                     "or",
-                    ["{data:tags}", "contains", "tagY"],
+                    ["{data:tags}", "includes", "tagY"],
                 ],
                 "and",
                 [
-                    ["{data:tags}", "contains", "tagX"],
+                    ["{data:tags}", "includes", "tagX"],
                     "or",
-                    ["{data:tags}", "contains", "tagB"],
+                    ["{data:tags}", "includes", "tagB"],
                 ],
             ],
             selector: "name",
@@ -281,9 +281,9 @@ describe("evaluateCondition()", () => {
                 ["{data:role}", "==", "admin"],
                 "and",
                 [
-                    ["{data:tags}", "contains", "tagB"],
+                    ["{data:tags}", "includes", "tagB"],
                     "or",
-                    ["{data:tags}", "contains", "tagC"],
+                    ["{data:tags}", "includes", "tagC"],
                 ],
                 "and",
                 ["{data:age}", ">=", 25],
@@ -297,21 +297,21 @@ describe("evaluateCondition()", () => {
                 ["{data:role}", "==", "admin"],
                 "and",
                 [
-                    ["{data:tags}", "contains", "tagA"],
+                    ["{data:tags}", "includes", "tagA"],
                     "and",
                     [
-                        ["{data:tags}", "contains", "tagB"],
+                        ["{data:tags}", "includes", "tagB"],
                         "and",
                         [
-                            ["{data:tags}", "contains", "tagC"],
+                            ["{data:tags}", "includes", "tagC"],
                             "and",
                             [
-                                ["{data:tags}", "contains", "tagA"],
+                                ["{data:tags}", "includes", "tagA"],
                                 "and",
                                 [
-                                    ["{data:tags}", "contains", "tagB"],
+                                    ["{data:tags}", "includes", "tagB"],
                                     "and",
-                                    ["{data:tags}", "contains", "UNKNOWN"],
+                                    ["{data:tags}", "includes", "UNKNOWN"],
                                 ],
                             ],
                         ],
@@ -330,7 +330,6 @@ describe("evaluateCondition()", () => {
             expected: false,
         },
         {
-            // TODO: we have validators missing to make this work
             id: "should handle qualification",
             condition: ["{data:acceptTerms}", "==", true],
             selector: "name",
@@ -355,8 +354,8 @@ describe("evaluateCondition()", () => {
         //     expected: true,
         // },
         // {
-        //     name: "should evaluate contains condition",
-        //     condition: ["tags", "contains", "frontend"],
+        //     name: "should evaluate includes condition",
+        //     condition: ["tags", "includes", "frontend"],
         //     // context: { tags: "frontend,backend,fullstack" },
         //     expected: true,
         // },
@@ -427,19 +426,19 @@ describe("evaluateCondition()", () => {
         //     expected: true,
         // },
         // {
-        //     name: "should handle string contains with complex values",
-        //     condition: ["skills", "contains", "javascript"],
+        //     name: "should handle string includes with complex values",
+        //     condition: ["skills", "includes", "javascript"],
         //     // context: { skills: "javascript,typescript,nodejs" },
         //     expected: true,
         // },
         // {
-        //     name: "should handle string contains with no match",
-        //     condition: ["skills", "contains", "python"],
+        //     name: "should handle string includes with no match",
+        //     condition: ["skills", "includes", "python"],
         //     // context: { skills: "javascript,typescript,nodejs" },
         //     expected: false,
         // },
         // {
-        //     name: "should handle deeply nested string contains",
+        //     name: "should handle deeply nested string includes",
         //     condition: [
         //         [
         //             ["role", "!=", "admin"],

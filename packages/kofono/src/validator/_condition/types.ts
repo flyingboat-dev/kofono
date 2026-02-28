@@ -1,13 +1,17 @@
-export type Operator = "==" | "!=" | ">" | "<" | ">=" | "<=" | "contains";
-export const operators: Operator[] = [
+export const operators: string[] = [
     "==",
     "!=",
     ">",
     "<",
     ">=",
     "<=",
-    "contains",
-];
+    "includes",
+    "!includes",
+    //todo: startsWith, endsWith, !contains
+    //todo: maybe contains should be rename into includes
+] as const;
+
+export type Operator = (typeof operators)[number];
 
 export type Relation = "and" | "or";
 export const relations: Relation[] = ["and", "or"];

@@ -7,7 +7,9 @@ import type { FormProperty } from "./FormProperty";
  * It uses the property definition SchemaComponent and FormProperty.
  * It is meant to be extended by a form renderer engine to provide additional functionality.
  */
-export class FormComponent<TSchemaComponent extends SchemaComponent> {
+export class FormComponent<
+    TSchemaComponent extends SchemaComponent & { [key: string]: unknown },
+> {
     protected component: TSchemaComponent;
 
     public constructor(private readonly prop: FormProperty) {
@@ -42,12 +44,12 @@ export class FormComponent<TSchemaComponent extends SchemaComponent> {
         return (
             (!this.prop.isQualified() &&
                 this.disqualificationBehavior === "disable") ||
-            this.component["disabled"] === true
+            this.component.disabled === true
         );
     }
 
     get isReadOnly(): boolean {
-        return this.component["readOnly"] === true;
+        return this.component.readOnly === true;
     }
 
     get type(): string {
@@ -75,7 +77,7 @@ export class FormComponent<TSchemaComponent extends SchemaComponent> {
     }
 
     get class(): string {
-        const classes = this.component["class"];
+        const classes = this.component.class ?? [];
         if (Array.isArray(classes)) {
             return classes.join(" ");
         }

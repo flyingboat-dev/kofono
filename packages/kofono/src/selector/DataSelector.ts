@@ -131,7 +131,7 @@ export class DataSelector {
         const [head, ...rest] = propPath.split(DataSelector.separator);
         if (!rest.length) {
             Array.isArray(obj)
-                ? obj.splice(parseInt(head), 1)
+                ? obj.splice(parseInt(head, 10), 1)
                 : delete obj[head];
         } else {
             this._delete(rest.join(DataSelector.separator), obj[head]);

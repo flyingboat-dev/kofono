@@ -125,8 +125,8 @@ describe("testing var and def type", () => {
             ),
         });
 
-        expect(form.state.qualifications["something"][0]).toBeTruthy();
-        expect(form.state.qualifications["somethingElse"][0]).toBeFalsy();
+        expect(form.state.qualifications.something[0]).toBeTruthy();
+        expect(form.state.qualifications.somethingElse[0]).toBeFalsy();
     });
     it("should use def for the condition", async () => {
         const form = await K.form({
@@ -139,7 +139,7 @@ describe("testing var and def type", () => {
                 .$q(q => q.condition("{def:test.name}", "==", "bob")),
         });
 
-        expect(form.state.qualifications["something"][0]).toBeTruthy();
+        expect(form.state.qualifications.something[0]).toBeTruthy();
     });
 });
 
@@ -155,10 +155,10 @@ describe("evaluateFieldValue()", () => {
             ),
         });
 
-        expect(form.state.qualifications["something"][0]).toBeTruthy();
-        expect(form.state.qualifications["somethingElse"][0]).toBeFalsy();
+        expect(form.state.qualifications.something[0]).toBeTruthy();
+        expect(form.state.qualifications.somethingElse[0]).toBeFalsy();
         await form.update("name", "foobar");
-        expect(form.state.qualifications["something"][0]).toBeFalsy();
+        expect(form.state.qualifications.something[0]).toBeFalsy();
     });
 });
 

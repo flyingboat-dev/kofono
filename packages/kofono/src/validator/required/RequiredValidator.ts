@@ -9,19 +9,11 @@ import type {
     ValidatorResponse,
 } from "../types";
 
-export interface SchemaRequiredValidator {
-    required: RequiredValidatorOpts;
-}
+export type SchemaRequiredValidator =
+    | "required"
+    | { required: RequiredValidatorOpts };
 
 export type RequiredValidatorOpts = SchemaPropertyBaseValidator;
-
-export const requiredValidatorFactory = {
-    required: (
-        selector: string,
-        type: ValidationType,
-        opts: RequiredValidatorOpts,
-    ) => new RequiredValidator(selector, type, opts),
-};
 
 export function required(expect?: string): SchemaRequiredValidator {
     return {
@@ -30,6 +22,15 @@ export function required(expect?: string): SchemaRequiredValidator {
         },
     };
 }
+
+export const requiredValidator = {
+    name: "required" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: RequiredValidatorOpts,
+    ) => new RequiredValidator(selector, type, opts),
+};
 
 export class RequiredValidator extends AbstractValidator implements Validator {
     validate(ctx: ValidationContext): ValidatorResponse {

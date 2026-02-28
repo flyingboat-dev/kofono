@@ -25,11 +25,6 @@ export interface SchemaIsValidValidator {
     valid: ValidValidatorOpts;
 }
 
-export const validValidatorFactory = {
-    valid: (selector: string, type: ValidationType, opts: ValidValidatorOpts) =>
-        new ValidValidator(selector, type, opts),
-};
-
 export function valid(selectors: string | string[], expect?: string) {
     return {
         valid: {
@@ -38,6 +33,15 @@ export function valid(selectors: string | string[], expect?: string) {
         },
     };
 }
+
+export const validValidator = {
+    name: "valid" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: ValidValidatorOpts,
+    ) => new ValidValidator(selector, type, opts),
+};
 
 export class ValidValidator extends AbstractValidator implements Validator {
     protected readonly selectors: string[] = [];

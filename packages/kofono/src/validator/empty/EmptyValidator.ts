@@ -9,9 +9,7 @@ import type {
     ValidatorResponse,
 } from "../types";
 
-export interface SchemaEmptyValidator {
-    empty: EmptyValidatorOpts;
-}
+export type SchemaEmptyValidator = "empty" | { empty: EmptyValidatorOpts };
 
 export type EmptyValidatorOpts = SchemaPropertyBaseValidator;
 
@@ -27,6 +25,15 @@ export function empty(expect?: string): SchemaEmptyValidator {
         },
     };
 }
+
+export const emptyValidator = {
+    name: "empty" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: EmptyValidatorOpts,
+    ) => new EmptyValidator(selector, type, opts),
+};
 
 export class EmptyValidator extends AbstractValidator implements Validator {
     validate(ctx: ValidationContext): ValidatorResponse {

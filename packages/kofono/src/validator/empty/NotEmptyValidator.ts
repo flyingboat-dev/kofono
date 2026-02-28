@@ -9,19 +9,11 @@ import type {
     ValidatorResponse,
 } from "../types";
 
-export interface SchemaNotEmptyValidator {
-    notEmpty: NotEmptyValidatorOpts;
-}
+export type SchemaNotEmptyValidator =
+    | "notEmpty"
+    | { notEmpty: NotEmptyValidatorOpts };
 
 export type NotEmptyValidatorOpts = SchemaPropertyBaseValidator;
-
-export const notEmptyValidatorFactory = {
-    notEmpty: (
-        selector: string,
-        type: ValidationType,
-        opts: NotEmptyValidatorOpts,
-    ) => new NotEmptyValidator(selector, type, opts),
-};
 
 export function notEmpty(expect?: string): SchemaNotEmptyValidator {
     return {
@@ -30,6 +22,15 @@ export function notEmpty(expect?: string): SchemaNotEmptyValidator {
         },
     };
 }
+
+export const notEmptyValidator = {
+    name: "notEmpty" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: NotEmptyValidatorOpts,
+    ) => new NotEmptyValidator(selector, type, opts),
+};
 
 export class NotEmptyValidator extends AbstractValidator implements Validator {
     validate(ctx: ValidationContext): ValidatorResponse {

@@ -9,6 +9,7 @@ import type { SchemaNotEmptyValidator } from "./empty/NotEmptyValidator";
 import type { SchemaEqualValidator } from "./equal/EqualValidator";
 import type { SchemaNotEqualValidator } from "./equal/NotEqualValidator";
 import type { SchemaIfValidator } from "./if/IfValidator";
+import type { SchemaIsTrueValidator } from "./isTrue/IsTrueValidator";
 import type { SchemaMaxValidator } from "./max/MaxValidator";
 import type { SchemaMinValidator } from "./min/MinValidator";
 import type { SchemaPasswordValidator } from "./password/PasswordValidator";
@@ -23,13 +24,6 @@ export type SchemaPropertyBaseValidator = {
 };
 
 export type SchemaPropertyValidator =
-    | "alpha"
-    | "alphaNum"
-    | "email"
-    | "empty"
-    | "notEmpty"
-    | "required"
-    | "url"
     | SchemaAlphaNumValidator
     | SchemaAlphaValidator
     | SchemaBetweenValidator
@@ -40,6 +34,7 @@ export type SchemaPropertyValidator =
     | SchemaEqualValidator
     | SchemaIfValidator
     | SchemaIsNotValidValidator
+    | SchemaIsTrueValidator
     | SchemaIsValidValidator
     | SchemaMaxValidator
     | SchemaMinValidator
@@ -50,23 +45,24 @@ export type SchemaPropertyValidator =
     | SchemaRequiredValidator
     | SchemaUrlValidator;
 
-export { AlphaValidatorOpts, alpha } from "./alpha/AlphaValidator";
-export { AlphaNumValidatorOpts, alphaNum } from "./alphaNum/AlphaNumValidator";
-export { BetweenValidatorOpts, between } from "./between/BetweenValidator";
-export {
-    ConditionValidatorOpts,
-    condition,
-} from "./condition/ConditionValidator";
-export { DatetimeValidatorOpts, datetime } from "./datetime/DatetimeValidator";
-export { EmailValidatorOpts, email } from "./email/EmailValidator";
-export { NotEmptyValidatorOpts, notEmpty } from "./empty/NotEmptyValidator";
-export { EqualValidatorOpts, equal } from "./equal/EqualValidator";
-export { NotEqualValidatorOpts, notEqual } from "./equal/NotEqualValidator";
-export { IfValidatorOpts, when } from "./if/IfValidator";
-export { MaxValidatorOpts, max } from "./max/MaxValidator";
-export { MinValidatorOpts, min } from "./min/MinValidator";
-export { PasswordValidatorOpts, password } from "./password/PasswordValidator";
-export { RegexValidatorOpts, regexp } from "./regexp/RegexpValidator";
-export { UrlValidatorOpts, url } from "./url/UrlValidator";
-export { NotValidValidatorOpts, notValid } from "./valid/NotValidValidator";
-export { ValidValidatorOpts, valid } from "./valid/ValidValidator";
+// validators options and schema builder functions
+export * from "./alpha/AlphaValidator";
+export * from "./alphaNum/AlphaNumValidator";
+export * from "./between/BetweenValidator";
+export * from "./condition/ConditionValidator";
+export * from "./condition/when";
+export * from "./datetime/DatetimeValidator";
+export * from "./email/EmailValidator";
+export * from "./empty/EmptyValidator";
+export * from "./empty/NotEmptyValidator";
+export * from "./equal/EqualValidator";
+export * from "./equal/NotEqualValidator";
+export * from "./if/IfValidator";
+export * from "./isTrue/IsTrueValidator";
+export * from "./max/MaxValidator";
+export * from "./min/MinValidator";
+export * from "./password/PasswordValidator";
+export * from "./regexp/RegexpValidator";
+export * from "./url/UrlValidator";
+export * from "./valid/NotValidValidator";
+export * from "./valid/ValidValidator";

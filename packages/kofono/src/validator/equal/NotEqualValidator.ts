@@ -17,14 +17,6 @@ export interface SchemaNotEqualValidator {
     notEqual: NotEqualValidatorOpts;
 }
 
-export const notEqualValidatorFactory = {
-    notEqual: (
-        selector: string,
-        type: ValidationType,
-        opts: NotEqualValidatorOpts,
-    ) => new NotEqualValidator(selector, type, opts),
-};
-
 export function notEqual(
     value: NotEqualValidatorOpts["value"],
     opts?: Pick<NotEqualValidatorOpts, "caseSensitive">,
@@ -38,6 +30,15 @@ export function notEqual(
         },
     };
 }
+
+export const notEqualValidator = {
+    name: "notEqual" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: NotEqualValidatorOpts,
+    ) => new NotEqualValidator(selector, type, opts),
+};
 
 export class NotEqualValidator extends EqualValidator {
     validate(ctx: ValidationContext): ValidatorResponse {

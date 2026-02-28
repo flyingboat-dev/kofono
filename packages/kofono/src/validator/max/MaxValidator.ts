@@ -19,11 +19,6 @@ export type MaxValidatorOpts =
           value: number;
       });
 
-export const maxValidatorFactory = {
-    max: (selector: string, type: ValidationType, opts: MaxValidatorOpts) =>
-        new MaxValidator(selector, type, opts),
-};
-
 export function max(max: number, expect?: string): SchemaMaxValidator {
     return {
         max: {
@@ -32,6 +27,12 @@ export function max(max: number, expect?: string): SchemaMaxValidator {
         },
     };
 }
+
+export const maxValidator = {
+    name: "max" as const,
+    factory: (selector: string, type: ValidationType, opts: MaxValidatorOpts) =>
+        new MaxValidator(selector, type, opts),
+};
 
 export class MaxValidator extends AbstractValidator implements Validator {
     private readonly max: number;

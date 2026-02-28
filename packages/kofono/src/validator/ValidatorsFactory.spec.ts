@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "vitest";
-import { defaultValidatorsFactory } from "./defaultValidatorsFactory";
+import { builtinValidatorFactories } from "./builtinValidators";
 import { ValidatorsFactory } from "./ValidatorsFactory";
 
 describe("DefaultValidatorsFactory test", () => {
@@ -9,7 +9,7 @@ describe("DefaultValidatorsFactory test", () => {
     });
 
     it("should register default validator", () => {
-        const defaultValidatorsName = Object.keys(defaultValidatorsFactory);
+        const defaultValidatorsName = Object.keys(builtinValidatorFactories);
         for (const validatorName of defaultValidatorsName) {
             expect(factory.has(validatorName)).toBeTruthy();
         }

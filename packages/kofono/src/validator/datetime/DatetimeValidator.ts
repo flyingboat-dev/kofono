@@ -28,14 +28,6 @@ export type DatetimeValidatorOpts =
           max?: string;
       });
 
-export const datetimeValidatorFactory = {
-    datetime: (
-        selector: string,
-        type: ValidationType,
-        opts: DatetimeValidatorOpts,
-    ) => new DatetimeValidator(selector, type, opts),
-};
-
 export function datetime(
     opts: SchemaOpts,
     expect?: string,
@@ -47,6 +39,15 @@ export function datetime(
         },
     };
 }
+
+export const datetimeValidator = {
+    name: "datetime" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: DatetimeValidatorOpts,
+    ) => new DatetimeValidator(selector, type, opts),
+};
 
 /**
  * Datetime validator.

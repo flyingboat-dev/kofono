@@ -28,14 +28,6 @@ export type RegexValidatorOpts =
           flags?: FlagCombinations;
       });
 
-export const regexpValidatorFactory = {
-    regexp: (
-        selector: string,
-        type: ValidationType,
-        opts: RegexValidatorOpts,
-    ) => new RegexpValidator(selector, type, opts),
-};
-
 export function regexp(
     pattern: string,
     opts?: { flags?: FlagCombinations },
@@ -49,6 +41,15 @@ export function regexp(
         },
     };
 }
+
+export const regexpValidator = {
+    name: "regexp" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: RegexValidatorOpts,
+    ) => new RegexpValidator(selector, type, opts),
+};
 
 export class RegexpValidator extends AbstractValidator implements Validator {
     protected readonly pattern: RegExp;

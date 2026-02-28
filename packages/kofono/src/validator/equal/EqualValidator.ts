@@ -37,6 +37,15 @@ export function equal(
     };
 }
 
+export const equalValidator = {
+    name: "equal" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: EqualValidatorOpts,
+    ) => new EqualValidator(selector, type, opts),
+};
+
 export class EqualValidator extends AbstractValidator implements Validator {
     protected readonly expectedValue: string | number | boolean | null;
     protected readonly caseSensitive: boolean = true;

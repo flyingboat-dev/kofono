@@ -9,18 +9,11 @@ import type {
     ValidatorResponse,
 } from "../types";
 
-export interface SchemaUrlValidator {
-    url: SchemaPropertyBaseValidator & {
-        protocols?: string[];
-        hostnames?: string[];
-    };
-}
+export type SchemaUrlValidator = "url" | { url: UrlValidatorOpts };
 
-export type UrlValidatorOpts = SchemaUrlValidator["url"];
-
-export const urlValidatorFactory = {
-    url: (selector: string, type: ValidationType, opts: UrlValidatorOpts) =>
-        new UrlValidator(selector, type, opts),
+export type UrlValidatorOpts = SchemaPropertyBaseValidator & {
+    protocols?: string[];
+    hostnames?: string[];
 };
 
 export function url(
@@ -34,6 +27,12 @@ export function url(
         },
     };
 }
+
+export const urlValidator = {
+    name: "url" as const,
+    factory: (selector: string, type: ValidationType, opts: UrlValidatorOpts) =>
+        new UrlValidator(selector, type, opts),
+};
 
 /**
  * URL validator.

@@ -19,14 +19,6 @@ export interface SchemaIsNotValidValidator {
     notValid: NotValidValidatorOpts;
 }
 
-export const notValidValidatorFactory = {
-    notValid: (
-        selector: string,
-        type: ValidationType,
-        opts: NotValidValidatorOpts,
-    ) => new NotValidValidator(selector, type, opts),
-};
-
 export function notValid(
     selectors: string | string[],
     expect?: string,
@@ -38,6 +30,15 @@ export function notValid(
         },
     };
 }
+
+export const notValidValidator = {
+    name: "notValid" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: NotValidValidatorOpts,
+    ) => new NotValidValidator(selector, type, opts),
+};
 
 export class NotValidValidator extends ValidValidator {
     validate(ctx: ValidationContext): ValidatorResponse {

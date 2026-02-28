@@ -24,18 +24,11 @@ export type IfValidatorOpts = {
     then: SchemaPropertyValidator[];
 };
 
-export const ifValidatorFactory = {
-    if: (selector: string, type: ValidationType, opts: IfValidatorOpts) =>
+export const ifValidator = {
+    name: "if" as const,
+    factory: (selector: string, type: ValidationType, opts: IfValidatorOpts) =>
         new IfValidator(selector, type, opts),
 };
-
-export function when(opts: IfValidatorOpts): SchemaIfValidator {
-    return {
-        if: {
-            ...opts,
-        },
-    };
-}
 
 export class IfValidator extends AbstractValidator implements Validator {
     private readonly placeholders: PlaceholderList;
@@ -75,6 +68,8 @@ export class IfValidator extends AbstractValidator implements Validator {
         const deps: string[] = [];
 
         for (const validator of this.propertyValidators) {
+            const validatorFn = ctx.form.validators.get(validator.name);
+            console.log(validatorFn);
             const valInstance = ctx.form.validators.get(validator.name)(
                 this.attachTo,
                 this.type,

@@ -18,14 +18,6 @@ export type BetweenValidatorOpts = SchemaPropertyBaseValidator & {
     max: number;
 };
 
-export const betweenValidatorFactory = {
-    between: (
-        selector: string,
-        type: ValidationType,
-        opts: BetweenValidatorOpts,
-    ) => new BetweenValidator(selector, type, opts),
-};
-
 export function between(
     min: number,
     max: number,
@@ -39,6 +31,15 @@ export function between(
         },
     };
 }
+
+export const betweenValidator = {
+    name: "between" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: BetweenValidatorOpts,
+    ) => new BetweenValidator(selector, type, opts),
+};
 
 // BetweenValidator is a validator that checks if a value is between two numbers
 // Support value of type string, number and array

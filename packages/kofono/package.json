@@ -1,6 +1,6 @@
 {
     "name": "@flyingboat/kofono",
-    "version": "0.7.0-canary.20260228.1",
+    "version": "0.7.0-canary.20260228.2",
     "description": "Kofono Form Engine Library",
     "keywords": ["form", "json", "schema", "validation", "typescript"],
     "author": "Francois Lajoie",

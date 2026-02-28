@@ -1,0 +1,53 @@
+import type { PlaceholderType } from "../_condition/types";
+import type { SchemaConditionValidator } from "../condition/ConditionValidator";
+import { condition } from "../schema";
+
+function _when(selector: string, type: PlaceholderType) {
+    return {
+        isEqualTo: (value: any): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, "==", value]);
+        },
+        isTrue: (): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, "==", true]);
+        },
+        isFalse: (): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, "==", false]);
+        },
+        isNull: (): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, "==", null]);
+        },
+        isNotEqualTo: (value: any): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, "!=", value]);
+        },
+        isGreaterThan: (value: any): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, ">", value]);
+        },
+        isGreaterThanOrEqualTo: (value: any): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, ">=", value]);
+        },
+        isLessThan: (value: any): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, "<", value]);
+        },
+        isLessThanOrEqualTo: (value: any): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, "<=", value]);
+        },
+        includes: (value: any): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, "includes", value]);
+        },
+        dotNotIncludes: (value: any): SchemaConditionValidator => {
+            return condition([`{${type}:${selector}}`, "!includes", value]);
+        },
+    };
+}
+
+export function when(selector: string) {
+    return _when(selector, "data");
+}
+
+export function whenVar(variable: string) {
+    return _when(variable, "var");
+}
+
+export function whenSelf() {
+    return _when("self", "self");
+}

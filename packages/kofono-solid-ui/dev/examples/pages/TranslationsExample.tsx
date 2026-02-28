@@ -49,14 +49,14 @@ const translations = {
 const schema: Schema = K.schema({
     $id: "translations-example",
     firstname: K.string()
-        .$v((v) => v.min(1).expect("firstname.error"))
+        .$v(v => v.min(1).expect("firstname.error"))
         .component({
             type: C.Input,
             title: "firstname.title",
             placeholder: "firstname.placeholder",
         }),
     lastname: K.string()
-        .$v((v) =>
+        .$v(v =>
             v
                 .alpha({ spaces: false })
                 .expect("lastname.alphaError")
@@ -69,7 +69,7 @@ const schema: Schema = K.schema({
             placeholder: "lastname.placeholder",
         }),
     consent: K.boolean()
-        .validations((v) => v.equal(true))
+        .$v(v => v.equal(true))
         .component({
             type: C.Checkbox,
             title: "consent.title",
@@ -84,9 +84,9 @@ export function TranslationsExample() {
     return (
         <ExamplePage
             schema={schema}
-            submit={(_) => {
+            submit={_ => {
                 // sleep for 2 sec
-                return new Promise((resolve) => setTimeout(resolve, 2000));
+                return new Promise(resolve => setTimeout(resolve, 2000));
             }}
         />
     );

@@ -39,9 +39,7 @@ const description =
 export const schema = K.schema({
     textInput: K.string()
         .default("Hello!")
-        .validations((v) =>
-            v.min(3).expect("should be at least 3 characters or more"),
-        )
+        .$v(v => v.min(3).expect("should be at least 3 characters or more"))
         .component<InputComponent>({
             type: C.Input,
             title: "TextInput",
@@ -57,7 +55,7 @@ export const schema = K.schema({
         }),
 
     textarea: K.number()
-        .validations((v) => v.notEmpty())
+        .$v(v => v.notEmpty())
         .component({
             type: C.Textarea,
             title: "Textarea",
@@ -141,7 +139,7 @@ export const schema = K.schema({
     }),
 
     slider: K.number()
-        .$v((v) => v.min(10).max(125))
+        .$v(v => v.min(10).max(125))
         .default(0)
         .component({
             type: C.Slider,

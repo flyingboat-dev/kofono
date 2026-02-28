@@ -63,16 +63,16 @@ describe("PropertyValidations", () => {
     });
 
     it("valid() should return the correct definition for", () => {
-        expect(pv().valid("test").def).toEqual([
+        expect(pv().isValid("test").def).toEqual([
             {
-                valid: {
+                isValid: {
                     selectors: "test",
                 },
             },
         ]);
-        expect(pv().valid(["test", "test2"]).expect("custom").def).toEqual([
+        expect(pv().isValid(["test", "test2"]).expect("custom").def).toEqual([
             {
-                valid: {
+                isValid: {
                     selectors: ["test", "test2"],
                     error: "custom",
                 },

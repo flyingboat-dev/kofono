@@ -24,7 +24,7 @@ describe("Testing qualifications / disqualifications", () => {
                     type: "number",
                     $q: [
                         {
-                            valid: "propA",
+                            isValid: "propA",
                         },
                     ],
                     $v: ["notEmpty"],
@@ -48,7 +48,7 @@ describe("Testing qualifications / disqualifications", () => {
         it("propB should be not qualified", () => {
             expect(form.$q("propB")).toEqual([
                 false,
-                ValidatorErrors.Valid.SelectorNotValid,
+                ValidatorErrors.IsValid.SelectorNotValid,
                 { selectors: ["propA"] },
             ]);
         });
@@ -111,7 +111,7 @@ describe("Testing qualifications / disqualifications", () => {
         it("propB should be not qualified", () => {
             expect(form.$q("propB")).toEqual([
                 false,
-                ValidatorErrors.Valid.SelectorNotValid,
+                ValidatorErrors.IsValid.SelectorNotValid,
                 { selectors: ["propA"] },
             ]);
         });
@@ -142,7 +142,7 @@ describe("Testing disqualifications with nested objects", () => {
                     type: "object",
                     $q: [
                         {
-                            valid: "propA",
+                            isValid: "propA",
                         },
                     ],
                     __: {
@@ -160,7 +160,7 @@ describe("Testing disqualifications with nested objects", () => {
                     type: "object",
                     $q: [
                         {
-                            valid: "propA",
+                            isValid: "propA",
                         },
                     ],
                     __: {
@@ -171,7 +171,7 @@ describe("Testing disqualifications with nested objects", () => {
                         two: {
                             $q: [
                                 {
-                                    valid: "propC.one",
+                                    isValid: "propC.one",
                                 },
                             ],
                             type: "object",
@@ -221,7 +221,7 @@ describe("Testing disqualifications with nested objects", () => {
         it("propB should not be qualified and valid", () => {
             expect(form.$q("propB")).toEqual([
                 false,
-                ValidatorErrors.Valid.SelectorNotValid,
+                ValidatorErrors.IsValid.SelectorNotValid,
                 { selectors: ["propA"] },
             ]);
             expect(form.state.validations.propB).toEqual([
@@ -261,7 +261,7 @@ describe("Testing disqualifications with nested objects", () => {
         it("propC should not be qualified", () => {
             expect(form.$q("propC")).toEqual([
                 false,
-                ValidatorErrors.Valid.SelectorNotValid,
+                ValidatorErrors.IsValid.SelectorNotValid,
                 { selectors: ["propA"] },
             ]);
         });
@@ -318,7 +318,7 @@ describe("Testing disqualifications with nested objects", () => {
             expect(form.$q("propC.one")).toEqual([true, ""]);
             expect(form.$q("propC.two")).toEqual([
                 false,
-                ValidatorErrors.Valid.SelectorNotValid,
+                ValidatorErrors.IsValid.SelectorNotValid,
                 { selectors: ["propC.one"] },
             ]);
             expect(form.$q("propC.two.other")).toEqual([true, ""]);

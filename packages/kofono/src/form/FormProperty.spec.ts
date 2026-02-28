@@ -15,7 +15,7 @@ describe("FormProperty", () => {
                 c1: K.string(),
                 c2: K.string(),
                 c3: K.string().$v(v => v.notEmpty()),
-            }).$q(q => q.valid("propA")),
+            }).$q(q => q.isValid("propA")),
             propD: K.null(),
             propF: K.string(),
         });

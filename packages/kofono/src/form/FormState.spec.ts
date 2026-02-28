@@ -27,7 +27,7 @@ describe("FormState getQualifiedSelectors() && getUnqualifiedSelectors()", () =>
     it("should return unqualified selectors", async () => {
         const form = await K.form({
             propA: K.string().$v(v => v.notEmpty()),
-            propB: K.string().$q(q => q.valid("propA")),
+            propB: K.string().$q(q => q.isValid("propA")),
         });
 
         expect(getUnqualifiedSelectors(form)).toEqual(["propB"]);

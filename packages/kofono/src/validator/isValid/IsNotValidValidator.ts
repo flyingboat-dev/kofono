@@ -6,9 +6,9 @@ import type {
     ValidationType,
     ValidatorResponse,
 } from "../types";
-import { ValidValidator } from "./ValidValidator";
+import { IsValidValidator } from "./IsValidValidator";
 
-export type NotValidValidatorOpts =
+export type IsNotValidValidatorOpts =
     | string
     | string[]
     | (SchemaPropertyBaseValidator & {
@@ -16,35 +16,35 @@ export type NotValidValidatorOpts =
       });
 
 export interface SchemaIsNotValidValidator {
-    notValid: NotValidValidatorOpts;
+    isNotValid: IsNotValidValidatorOpts;
 }
 
-export function notValid(
+export function isNotValid(
     selectors: string | string[],
     expect?: string,
 ): SchemaIsNotValidValidator {
     return {
-        notValid: {
+        isNotValid: {
             selectors,
             ...optional("error", expect),
         },
     };
 }
 
-export const notValidValidator = {
-    name: "notValid" as const,
+export const isNotValidValidator = {
+    name: "isNotValid" as const,
     factory: (
         selector: string,
         type: ValidationType,
-        opts: NotValidValidatorOpts,
-    ) => new NotValidValidator(selector, type, opts),
+        opts: IsNotValidValidatorOpts,
+    ) => new IsNotValidValidator(selector, type, opts),
 };
 
-export class NotValidValidator extends ValidValidator {
+export class IsNotValidValidator extends IsValidValidator {
     validate(ctx: ValidationContext): ValidatorResponse {
         for (const selector of this.selectors) {
             if (!ctx.form.hasProp(selector)) {
-                return this.error(ValidatorErrors.NotValid.SelectorNotFound, {
+                return this.error(ValidatorErrors.IsNotValid.SelectorNotFound, {
                     selectors: this.selectors,
                 });
             }
@@ -53,7 +53,7 @@ export class NotValidValidator extends ValidValidator {
                 ctx.form.prop(selector).isValid() &&
                 ctx.form.prop(selector).isQualified()
             ) {
-                return this.error(ValidatorErrors.NotValid.SelectorValid, {
+                return this.error(ValidatorErrors.IsNotValid.SelectorValid, {
                     selectors: this.selectors,
                 });
             }

@@ -52,7 +52,7 @@ __:
     propB:
         type: "number"
         $q:
-            - valid: "propA"
+            - isValid: "propA"
     propC:
         type: "boolean"
     propD:

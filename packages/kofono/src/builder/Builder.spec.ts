@@ -5,8 +5,8 @@ import {
     PluginsFactory,
     ValidatorErrors,
 } from "../";
+import { IsValidValidator } from "../validator/isValid/IsValidValidator";
 import { ValidatorsFactory } from "../validator/ValidatorsFactory";
-import { ValidValidator } from "../validator/valid/ValidValidator";
 import { Builder } from "./Builder";
 
 test("builder object", () => {
@@ -88,7 +88,7 @@ describe("Builder FormConfig", () => {
         const customValidatorsFactory = new ValidatorsFactory();
         let passHandler = false;
         customValidatorsFactory.register("fake", () => {
-            return new ValidValidator("foo", "validation", {
+            return new IsValidValidator("foo", "validation", {
                 selectors: "foo",
             });
         });

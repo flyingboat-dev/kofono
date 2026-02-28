@@ -11,6 +11,8 @@ import * as NotEqual from "./equal/NotEqualValidator";
 import * as If from "./if/IfValidator";
 import * as IsFalse from "./isFalse/IsFalseValidator";
 import * as IsTrue from "./isTrue/IsTrueValidator";
+import * as IsNotValid from "./isValid/IsNotValidValidator";
+import * as IsValid from "./isValid/IsValidValidator";
 import * as Max from "./max/MaxValidator";
 import * as Min from "./min/MinValidator";
 import * as Password from "./password/PasswordValidator";
@@ -18,8 +20,6 @@ import * as Regexp from "./regexp/RegexpValidator";
 import * as Required from "./required/RequiredValidator";
 import type { ValidatorFactoryHandler } from "./types";
 import * as Url from "./url/UrlValidator";
-import * as NotValid from "./valid/NotValidValidator";
-import * as Valid from "./valid/ValidValidator";
 
 export const builtinValidators = [
     Alpha.alphaValidator,
@@ -32,17 +32,17 @@ export const builtinValidators = [
     Equal.equalValidator,
     If.ifValidator,
     IsFalse.isFalseValidator,
+    IsNotValid.isNotValidValidator,
     IsTrue.isTrueValidator,
+    IsValid.isValidValidator,
     Max.maxValidator,
     Min.minValidator,
     NotEmpty.notEmptyValidator,
     NotEqual.notEqualValidator,
-    NotValid.notValidValidator,
     Password.passwordValidator,
     Regexp.regexpValidator,
     Required.requiredValidator,
     Url.urlValidator,
-    Valid.validValidator,
 ] as const;
 
 export const builtinValidatorFactories: Record<

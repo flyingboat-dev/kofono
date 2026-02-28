@@ -72,9 +72,9 @@ export const ValidatorErrors = {
         IsEqual: validatorPrefix("notEqual.isEqual"),
     },
 
-    NotValid: {
-        SelectorNotFound: validatorPrefix("notValid.selectorNotFound"),
-        SelectorValid: validatorPrefix("notValid.selectorValid"),
+    IsNotValid: {
+        SelectorNotFound: validatorPrefix("isNotValid.selectorNotFound"),
+        SelectorValid: validatorPrefix("isNotValid.selectorValid"),
     },
 
     Password: {
@@ -103,9 +103,9 @@ export const ValidatorErrors = {
         HostnameUnallowed: validatorPrefix("url.hostnameUnallowed"),
     },
 
-    Valid: {
-        SelectorNotFound: validatorPrefix("valid.selectorNotFound"),
-        SelectorNotValid: validatorPrefix("valid.selectorNotValid"),
+    IsValid: {
+        SelectorNotFound: validatorPrefix("isValid.selectorNotFound"),
+        SelectorNotValid: validatorPrefix("isValid.selectorNotValid"),
     },
 
     Value: {

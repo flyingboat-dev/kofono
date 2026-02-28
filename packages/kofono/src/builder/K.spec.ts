@@ -5,7 +5,7 @@ import { notEmpty } from "../validator/empty/NotEmptyValidator";
 import { min } from "../validator/min/MinValidator";
 import { K } from "./K";
 
-describe("S builder", () => {
+describe("K builder", () => {
     it("should create simple schema", () => {
         const schema = K.schema({
             propA: K.string(),
@@ -33,7 +33,7 @@ describe("S builder", () => {
                 },
             ]),
             propD: K.array(K.string()),
-            propE: K.listBoolean().$q(q => q.valid("propA").valid("propB")),
+            propE: K.listBoolean().$q(q => q.isValid("propA").isValid("propB")),
             propF: K.listNumber().$v(v => v.regexp("[0-9]{1,10}", "g")),
             propG: K.listString().component({
                 type: "custom",
@@ -45,13 +45,13 @@ describe("S builder", () => {
                 type: PropertyType.Boolean,
                 hello: "world",
             }),
-        }).$q(q => q.valid("propI"));
+        }).$q(q => q.isValid("propI"));
 
         expect(schema.def).toEqual({
             type: PropertyType.Object,
             $q: [
                 {
-                    valid: {
+                    isValid: {
                         selectors: "propI",
                     },
                 },
@@ -92,12 +92,12 @@ describe("S builder", () => {
                     type: T.ListBoolean,
                     $q: [
                         {
-                            valid: {
+                            isValid: {
                                 selectors: "propA",
                             },
                         },
                         {
-                            valid: {
+                            isValid: {
                                 selectors: "propB",
                             },
                         },

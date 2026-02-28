@@ -9,6 +9,7 @@
 - add a base plugin and rework UpdateCounterPlugins
 - add IsTrueValidator and IsFalseValidator
 - rework validators factory
+- prefix valid and notValid validators with is for consistency
 
 # 0.6.0 - 2026-01-03
 

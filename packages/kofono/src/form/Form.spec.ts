@@ -12,10 +12,10 @@ import { FormStatus, type State } from "./types";
 const schema: Schema = K.schema({
     propA: K.number().$v(v => v.notEmpty()),
     propB: K.string()
-        .$q(q => q.valid("propA"))
+        .$q(q => q.isValid("propA"))
         .$v(v => v.notEmpty())
         .default("bob"),
-    propC: K.number().$q(q => q.valid(["propA", "propB"])),
+    propC: K.number().$q(q => q.isValid(["propA", "propB"])),
     propD: K.string().$v(v => v.notEmpty()),
     propE: K.object({
         propE1: K.string(),
@@ -97,14 +97,14 @@ test("FormTest", async () => {
     expect(form.$v("propB")).toEqual([false, "SELECTOR_DISQUALIFIED"]);
     expect(form.$q("propB")).toEqual([
         false,
-        ValidatorErrors.Valid.SelectorNotValid,
+        ValidatorErrors.IsValid.SelectorNotValid,
         { selectors: ["propA"] },
     ]);
 
     expect(form.$v("propC")).toEqual([false, "SELECTOR_DISQUALIFIED"]);
     expect(form.$q("propC")).toEqual([
         false,
-        ValidatorErrors.Valid.SelectorNotValid,
+        ValidatorErrors.IsValid.SelectorNotValid,
         { selectors: ["propA", "propB"] },
     ]);
 
@@ -116,7 +116,7 @@ test("FormTest", async () => {
     expect(form.$q("propB")).toEqual([false, "CUSTOM_QUALIFICATION"]);
     expect(form.$q("propC")).toEqual([
         false,
-        ValidatorErrors.Valid.SelectorNotValid,
+        ValidatorErrors.IsValid.SelectorNotValid,
         { selectors: ["propA", "propB"] },
     ]);
 

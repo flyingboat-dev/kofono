@@ -6,10 +6,14 @@ import type {
     Operator,
 } from "../../validator/_condition/types";
 import type { AlphaValidatorOpts } from "../../validator/alpha/AlphaValidator";
-import type { AlphaNumValidatorOpts } from "../../validator/alphaNum/AlphaNumValidator";
+import type {
+    AlphaNumValidatorOpts
+} from "../../validator/alphaNum/AlphaNumValidator";
 
 import type { IfValidatorOpts } from "../../validator/if/IfValidator";
-import type { PasswordValidatorOpts } from "../../validator/password/PasswordValidator";
+import type {
+    PasswordValidatorOpts
+} from "../../validator/password/PasswordValidator";
 import type { FlagCombinations } from "../../validator/regexp/RegexpValidator";
 import type {
     EqualValidatorOpts,
@@ -144,18 +148,18 @@ export class PropertyValidations {
     }
 
     // ValidValidator
-    public valid(selectors: string | string[]): PropertyValidations {
+    public isValid(selectors: string | string[]): PropertyValidations {
         return this.addValidator({
-            valid: {
+            isValid: {
                 selectors,
             },
         });
     }
 
     // NotValidValidator
-    public notValid(selectors: string | string[]): PropertyValidations {
+    public isNotValid(selectors: string | string[]): PropertyValidations {
         return this.addValidator({
-            notValid: {
+            isNotValid: {
                 selectors,
             },
         });

@@ -11,7 +11,7 @@ const schema = K.schema({
         K.object({
             A: K.string().$v(v => v.notEmpty()),
             B: K.number().default(23),
-            C: K.boolean().$q(q => q.valid(".A")),
+            C: K.boolean().$q(q => q.isValid(".A")),
         }),
     ),
 });
@@ -64,7 +64,7 @@ describe("FormArray expand", () => {
         ]);
         expect(form.$q("propA.0.C")).toEqual([
             false,
-            ValidatorErrors.Valid.SelectorNotValid,
+            ValidatorErrors.IsValid.SelectorNotValid,
             {
                 selectors: ["propA.0.A"],
             },
@@ -144,7 +144,7 @@ describe("FormArray expand", () => {
         ]);
         expect(form.$q("propA.2.C")).toEqual([
             false,
-            ValidatorErrors.Valid.SelectorNotValid,
+            ValidatorErrors.IsValid.SelectorNotValid,
             {
                 selectors: ["propA.2.A"],
             },

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { K } from "../../builder/K";
+import { builtinValidators } from "../builtinValidators";
 
 describe("IfValidator test", () => {
     it("should execute correctly according to the condition provided", async () => {
@@ -12,6 +13,8 @@ describe("IfValidator test", () => {
         expect(form.prop("propB").isValid()).toBe(false);
         await form.update("propA", "b");
         expect(form.prop("propB").isValid()).toBe(true);
+
+        console.log(builtinValidators);
     });
 
     it("should execute correctly according to the condition provided", async () => {

@@ -4,9 +4,10 @@
 - add plugins to state meta
 - add events FormLoadState
 - add Form::isQualified()
+- add Form::pass()
 - refactor schema builder validators declaration
 - add a base plugin and rework UpdateCounterPlugins
-- add IsTrueValidator
+- add IsTrueValidator and IsFalseValidator
 - rework validators factory
 
 # 0.6.0 - 2026-01-03

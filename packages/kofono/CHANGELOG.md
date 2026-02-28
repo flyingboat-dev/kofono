@@ -6,6 +6,8 @@
 - add Form::isQualified()
 - refactor schema builder validators declaration
 - add a base plugin and rework UpdateCounterPlugins
+- add IsTrueValidator
+- rework validators factory
 
 # 0.6.0 - 2026-01-03
 

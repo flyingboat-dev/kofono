@@ -246,6 +246,10 @@ export class Form {
         return this.#formDataSelector;
     }
 
+    public get pass(): boolean {
+        return this.#state.pass[0] ?? false;
+    }
+
     public get props(): Properties {
         return this.#props;
     }

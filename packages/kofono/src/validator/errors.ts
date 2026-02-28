@@ -21,6 +21,10 @@ export const ValidatorErrors = {
         AboveLengthMax: validatorPrefix("between.aboveLengthMax"),
     },
 
+    Condition: {
+        IsFailing: validatorPrefix("exp.isFailing"),
+    },
+
     Datetime: {
         InvalidType: validatorPrefix("datetime.invalidType"),
         InvalidFormat: validatorPrefix("datetime.invalidFormat"),
@@ -42,8 +46,8 @@ export const ValidatorErrors = {
         IsNotEqual: validatorPrefix("equal.isNotEqual"),
     },
 
-    Condition: {
-        IsFailing: validatorPrefix("exp.isFailing"),
+    IsTrue: {
+        IsNotTrue: validatorPrefix("isTrue.isNotTrue"),
     },
 
     Max: {

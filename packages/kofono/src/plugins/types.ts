@@ -1,7 +1,5 @@
 import type { Form } from "../form/Form";
-import type {
-    SchemaUpdateCounterPlugin
-} from "./UpdateCounter/UpdateCounterPlugin";
+import type { SchemaUpdateCounterPlugin } from "./UpdateCounter/UpdateCounterPlugin";
 
 export interface Plugin<T = any> {
     name: string;

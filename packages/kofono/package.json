@@ -1,6 +1,6 @@
 {
     "name": "@flyingboat/kofono",
-    "version": "0.7.0-canary.20260222.2",
+    "version": "0.7.0-canary.20260228.1",
     "description": "Kofono Form Engine Library",
     "keywords": ["form", "json", "schema", "validation", "typescript"],
     "author": "Francois Lajoie",
@@ -19,12 +19,13 @@
         "build:watch": "tsc -p tsconfig.json -w",
         "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
         "coverage": "vitest run --coverage",
-        "lint": "pnpm dlx @biomejs/biome check",
+        "lint": "pnpm dlx @biomejs/biome check --config-path=./../../biome.json",
         "lint:fix": "pnpm lint --write",
         "format": "pnpm dlx @biomejs/biome format",
         "test": "vitest",
         "test:ui": "vitest --ui",
-        "prepublish": "pnpm lint:fix && pnpm build"
+        "prepublish": "pnpm lint:fix && pnpm build",
+        "canary": "tsx ./scripts/canary.ts"
     },
     "dependencies": {
         "date-fns": "4.1.0",
@@ -35,6 +36,7 @@
         "@vitest/coverage-v8": "^4.0.18",
         "@vitest/ui": "4.0.18",
         "tslib": "^2.8.1",
+        "tsx": "^4.21.0",
         "typescript": "^5.9.3",
         "vitest": "^4.0.18"
     },

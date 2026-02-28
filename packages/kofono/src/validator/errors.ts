@@ -46,6 +46,10 @@ export const ValidatorErrors = {
         IsNotEqual: validatorPrefix("equal.isNotEqual"),
     },
 
+    IsFalse: {
+        IsNotFalse: validatorPrefix("isFalse.isNotFalse"),
+    },
+
     IsTrue: {
         IsNotTrue: validatorPrefix("isTrue.isNotTrue"),
     },

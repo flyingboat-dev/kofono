@@ -9,6 +9,7 @@ import * as NotEmpty from "./empty/NotEmptyValidator";
 import * as Equal from "./equal/EqualValidator";
 import * as NotEqual from "./equal/NotEqualValidator";
 import * as If from "./if/IfValidator";
+import * as IsFalse from "./isFalse/IsFalseValidator";
 import * as IsTrue from "./isTrue/IsTrueValidator";
 import * as Max from "./max/MaxValidator";
 import * as Min from "./min/MinValidator";
@@ -30,6 +31,7 @@ export const builtinValidators = [
     Empty.emptyValidator,
     Equal.equalValidator,
     If.ifValidator,
+    IsFalse.isFalseValidator,
     IsTrue.isTrueValidator,
     Max.maxValidator,
     Min.minValidator,

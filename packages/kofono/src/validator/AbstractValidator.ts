@@ -1,4 +1,5 @@
 import { isObjectLiteral } from "../common/helpers";
+import type { PropertyType } from "../property/types";
 import type { SchemaPropertyBaseValidator } from "./schema";
 import type {
     ValidationType,
@@ -43,7 +44,12 @@ export abstract class AbstractValidator {
         return [false, this.errorCode(code)];
     }
 
-    // override the error code with custom error code if provided in opts
+    public isSupported(types: PropertyType[]): boolean {
+        types;
+        return true;
+    }
+
+    // override the error code with custom error code if provided in options
     private errorCode(code: string): string {
         if (isObjectLiteral(this.opts) && this.opts.error) {
             return this.opts.error;

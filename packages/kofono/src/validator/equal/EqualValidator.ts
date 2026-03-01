@@ -18,11 +18,6 @@ export interface SchemaEqualValidator {
     equal: EqualValidatorOpts;
 }
 
-export const equalValidatorFactory = {
-    equal: (selector: string, type: ValidationType, opts: EqualValidatorOpts) =>
-        new EqualValidator(selector, type, opts),
-};
-
 export function equal(
     value: EqualValidatorOpts["value"],
     opts?: Pick<EqualValidatorOpts, "caseSensitive">,

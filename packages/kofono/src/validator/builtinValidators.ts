@@ -9,6 +9,8 @@ import * as NotEmpty from "./empty/NotEmptyValidator";
 import * as Equal from "./equal/EqualValidator";
 import * as NotEqual from "./equal/NotEqualValidator";
 import * as If from "./if/IfValidator";
+import * as Includes from "./includes/IncludesValidator";
+import * as NotIncludes from "./includes/NotIncludesValidator";
 import * as IsFalse from "./isFalse/IsFalseValidator";
 import * as IsTrue from "./isTrue/IsTrueValidator";
 import * as IsNotValid from "./isValid/IsNotValidValidator";
@@ -31,6 +33,7 @@ export const builtinValidators = [
     Empty.emptyValidator,
     Equal.equalValidator,
     If.ifValidator,
+    Includes.includesValidator,
     IsFalse.isFalseValidator,
     IsNotValid.isNotValidValidator,
     IsTrue.isTrueValidator,
@@ -39,6 +42,7 @@ export const builtinValidators = [
     Min.minValidator,
     NotEmpty.notEmptyValidator,
     NotEqual.notEqualValidator,
+    NotIncludes.notIncludesValidator,
     Password.passwordValidator,
     Regexp.regexpValidator,
     Required.requiredValidator,

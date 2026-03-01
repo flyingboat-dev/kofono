@@ -34,7 +34,7 @@ function _when(selector: string, type: PlaceholderType) {
         includes: (value: any): SchemaConditionValidator => {
             return condition([`{${type}:${selector}}`, "includes", value]);
         },
-        dotNotIncludes: (value: any): SchemaConditionValidator => {
+        notIncludes: (value: any): SchemaConditionValidator => {
             return condition([`{${type}:${selector}}`, "!includes", value]);
         },
     };
@@ -46,8 +46,4 @@ export function when(selector: string) {
 
 export function whenVar(variable: string) {
     return _when(variable, "var");
-}
-
-export function whenSelf() {
-    return _when("self", "self");
 }

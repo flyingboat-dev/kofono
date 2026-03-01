@@ -46,6 +46,10 @@ export const ValidatorErrors = {
         IsNotEqual: validatorPrefix("equal.isNotEqual"),
     },
 
+    Includes: {
+        NotIncludes: validatorPrefix("includes.notIncludes"),
+    },
+
     IsFalse: {
         IsNotFalse: validatorPrefix("isFalse.isNotFalse"),
     },
@@ -70,6 +74,10 @@ export const ValidatorErrors = {
 
     NotEqual: {
         IsEqual: validatorPrefix("notEqual.isEqual"),
+    },
+
+    NotIncludes: {
+        Includes: validatorPrefix("notIncludes.includes"),
     },
 
     IsNotValid: {

@@ -17,6 +17,7 @@ import type { SchemaIsFalseValidator } from "./isFalse/IsFalseValidator";
 import type { SchemaIsTrueValidator } from "./isTrue/IsTrueValidator";
 import type { SchemaIsNotValidValidator } from "./isValid/IsNotValidValidator";
 import type { SchemaIsValidValidator } from "./isValid/IsValidValidator";
+import type { SchemaLengthValidator } from "./length/LengthValidator";
 import type { SchemaMaxValidator } from "./max/MaxValidator";
 import type { SchemaMinValidator } from "./min/MinValidator";
 import type { SchemaPasswordValidator } from "./password/PasswordValidator";
@@ -43,6 +44,7 @@ export type SchemaPropertyValidator =
     | SchemaIsNotValidValidator
     | SchemaIsTrueValidator
     | SchemaIsValidValidator
+    | SchemaLengthValidator
     | SchemaMaxValidator
     | SchemaMinValidator
     | SchemaNotEmptyValidator
@@ -72,6 +74,7 @@ export * from "./isFalse/IsFalseValidator";
 export * from "./isTrue/IsTrueValidator";
 export * from "./isValid/IsNotValidValidator";
 export * from "./isValid/IsValidValidator";
+export * from "./length/LengthValidator";
 export * from "./max/MaxValidator";
 export * from "./min/MinValidator";
 export * from "./password/PasswordValidator";

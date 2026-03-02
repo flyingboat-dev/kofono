@@ -15,6 +15,7 @@ import * as IsFalse from "./isFalse/IsFalseValidator";
 import * as IsTrue from "./isTrue/IsTrueValidator";
 import * as IsNotValid from "./isValid/IsNotValidValidator";
 import * as IsValid from "./isValid/IsValidValidator";
+import * as Length from "./length/LengthValidator";
 import * as Max from "./max/MaxValidator";
 import * as Min from "./min/MinValidator";
 import * as Password from "./password/PasswordValidator";
@@ -38,6 +39,7 @@ export const builtinValidators = [
     IsNotValid.isNotValidValidator,
     IsTrue.isTrueValidator,
     IsValid.isValidValidator,
+    Length.lengthValidator,
     Max.maxValidator,
     Min.minValidator,
     NotEmpty.notEmptyValidator,

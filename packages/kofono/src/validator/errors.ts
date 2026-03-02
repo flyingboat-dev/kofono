@@ -58,6 +58,10 @@ export const ValidatorErrors = {
         IsNotTrue: validatorPrefix("isTrue.isNotTrue"),
     },
 
+    Length: {
+        NotMatch: validatorPrefix("length.notMatch"),
+    },
+
     Max: {
         InvalidType: validatorPrefix("max.invalidType"),
         AboveMax: validatorPrefix("max.aboveMax"),

@@ -20,13 +20,11 @@ export interface SchemaNotIncludesValidator {
 
 export function notIncludes(
     value: NotIncludesValidatorOpts["value"],
-    opts?: Omit<NotIncludesValidatorOpts, "value">,
     expect?: string,
 ) {
     return {
         notIncludes: {
             value,
-            ...opts,
             ...optional("error", expect),
         },
     };

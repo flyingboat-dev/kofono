@@ -20,13 +20,11 @@ export interface SchemaIncludesValidator {
 
 export function includes(
     value: IncludesValidatorOpts["value"],
-    opts?: Omit<IncludesValidatorOpts, "value">,
     expect?: string,
 ) {
     return {
         includes: {
             value,
-            ...opts,
             ...optional("error", expect),
         },
     };

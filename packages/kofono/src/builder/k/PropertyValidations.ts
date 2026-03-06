@@ -6,14 +6,10 @@ import type {
     Operator,
 } from "../../validator/_condition/types";
 import type { AlphaValidatorOpts } from "../../validator/alpha/AlphaValidator";
-import type {
-    AlphaNumValidatorOpts
-} from "../../validator/alphaNum/AlphaNumValidator";
+import type { AlphaNumValidatorOpts } from "../../validator/alphaNum/AlphaNumValidator";
 
 import type { IfValidatorOpts } from "../../validator/if/IfValidator";
-import type {
-    PasswordValidatorOpts
-} from "../../validator/password/PasswordValidator";
+import type { PasswordValidatorOpts } from "../../validator/password/PasswordValidator";
 import type { FlagCombinations } from "../../validator/regexp/RegexpValidator";
 import type {
     EqualValidatorOpts,

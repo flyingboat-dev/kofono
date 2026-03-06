@@ -22,9 +22,9 @@
         "build:watch": "tsup --config tsup.config.ts --watch",
         "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
         "dev": "vite serve dev",
-        "lint": "pnpm dlx @biomejs/biome check",
+        "lint": "pnpm biome check",
         "lint:fix": "pnpm lint --write",
-        "format": "pnpm dlx @biomejs/biome format",
+        "format": "pnpm biome format",
         "old:build:vite": "vite build",
         "preview": "vite preview",
         "test": "vitest"

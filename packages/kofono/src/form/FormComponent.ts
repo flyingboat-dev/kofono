@@ -8,7 +8,7 @@ import type { FormProperty } from "./FormProperty";
  * It is meant to be extended by a form renderer engine to provide additional functionality.
  */
 export class FormComponent<
-    TSchemaComponent extends SchemaComponent & { [key: string]: unknown },
+    TSchemaComponent extends SchemaComponent & { [key: string]: any },
 > {
     protected component: TSchemaComponent;
 

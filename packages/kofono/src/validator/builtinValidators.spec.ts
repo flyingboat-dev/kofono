@@ -15,9 +15,9 @@ test("should have all builtin validators registered", async () => {
     validators = validators.filter(
         file => !["abstract", "generic"].includes(file),
     );
+    //console.log(validators);
 
     for (const validator of validators) {
-        console.log(validator);
         expect(builtinValidators.find(x => x.name === validator)?.name).toEqual(
             validator,
         );

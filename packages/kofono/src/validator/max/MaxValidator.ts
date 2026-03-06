@@ -44,6 +44,7 @@ export class MaxValidator extends AbstractValidator implements Validator {
     ) {
         super(attachTo, type, opts);
 
+        // todo should throw error if not an object (OptionsError)
         this.max = typeof opts === "number" ? opts : opts.value;
     }
 

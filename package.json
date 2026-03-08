@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "build": "turbo run --ui=stream build",
-        "build:watch": "node --experimental-strip-types scripts/build-watch.ts",
+        "build:watch": "turbo run --ui=stream build:watch",
         "clean": "turbo run clean",
         "test": "turbo test",
         "test:core": "pnpm run test --filter @flyingboat/kofono",
@@ -14,6 +14,7 @@
         "lint": "turbo run --ui=stream lint",
         "lint:fix": "turbo run --ui=stream lint",
         "format": "turbo run format",
+        "old:build:watch": "node --experimental-strip-types scripts/build-watch.ts",
         "turbo:dev": "turbo run dev --force --ui=stream",
         "turbo:build": "turbo run build",
         "turbo:build:watch": "turbo run --ui=stream build:watch",

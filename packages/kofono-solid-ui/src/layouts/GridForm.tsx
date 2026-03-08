@@ -11,6 +11,7 @@ import "../index.css";
 
 export interface GridFormProps {
     submit?: (form: Form) => Promise<void> | void;
+    cancel?: (form: Form) => Promise<void> | void;
     showThemeSelector?: boolean;
     showLanguageSelector?: boolean;
 }
@@ -62,8 +63,13 @@ export function GridForm(props: GridFormProps) {
                             selectors={store.form!.selectors.getRootSelectors()}
                         />
                         <Show when={props.submit}>
-                            <div class="col-span-12">
-                                <FormSubmitButton submit={submit} />
+                            <div class="col-start-12 content-end p-2">
+                                <div class="flex justify-end text-right">
+                                    <Show when={props.cancel}>
+                                        {t("cancel")}
+                                    </Show>
+                                    <FormSubmitButton submit={submit} />
+                                </div>
                             </div>
                         </Show>
                     </div>

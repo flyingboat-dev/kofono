@@ -19,6 +19,19 @@ export interface InputComponent extends BasicSchemaComponent {
         | "time";
 }
 
+export function input(props: InputComponent): InputComponent {
+    return {
+        ...props,
+    };
+}
+
+export function textInput(config: BasicSchemaComponent = {}): InputComponent {
+    return {
+        ...config,
+        inputType: "text",
+    };
+}
+
 export interface FormInputProps extends PropElementProps {}
 
 export function FormInput(props: FormInputProps) {

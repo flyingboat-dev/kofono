@@ -1,7 +1,7 @@
-import { K } from "@flyingboat/kofono";
+import { K, min, notEmpty } from "@flyingboat/kofono";
 import type { CheckboxComponent } from "@/components/checkbox";
 import type { CheckboxGroupComponent } from "@/components/checkboxGroup";
-import type { InputComponent } from "@/components/input";
+import { textInput } from "@/components/input";
 import { C } from "@/components/PropElement";
 import type { RadioGroupComponent } from "@/components/radioGroup";
 import type { BasicSchemaComponent } from "@/components/types";
@@ -39,48 +39,53 @@ const description =
     "This is a description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
 export const schema = K.schema({
-    textInput: K.string()
+    textInput: K.string(min(3, "should be at least 3 characters or more"))
         .default("Hello!")
-        .$v(v => v.min(3).expect("should be at least 3 characters or more"))
-        .component<InputComponent>({
-            type: C.Input,
-            title: "TextInput",
-            subTitle: "This is a subtitle",
-            description: description,
-            placeholder: "write something",
-            grid: {
-                default: 12,
-                sm: 6,
-                lg: 6,
-                xl: 6,
-            },
-        }),
+        .component(
+            textInput({
+                title: "Text Input",
+                subTitle: "This is a subtitle",
+                description: description,
+                placeholder: "write something",
+                grid: {
+                    default: 12,
+                    sm: 6,
+                    lg: 6,
+                    xl: 6,
+                },
+            }),
+        ),
 
-    textarea: K.number()
-        .$v(v => v.notEmpty())
-        .component({
-            type: C.Textarea,
-            title: "Textarea",
-            subTitle: "This is a subtitle",
-            description: description,
-            placeholder: "This is a placeholder",
-            grid: {
-                default: 12,
-                sm: 6,
-                lg: 6,
-                xl: 6,
-            },
-        }),
+    textarea: K.number(notEmpty()).component({
+        type: C.Textarea,
+        title: "Textarea",
+        subTitle: "This is a subtitle",
+        description: description,
+        placeholder: "This is a placeholder",
+        grid: {
+            default: 12,
+            sm: 6,
+            lg: 6,
+            xl: 6,
+        },
+    }),
 
     checkboxAndRadio: K.object({
-        checkbox: K.boolean().default(true).component<CheckboxComponent>({
-            type: C.Checkbox,
-            title: "Single Checkbox",
-            label: "Checkbox label",
-            description: description,
-            disqualificationBehavior: "disable",
-            grid: 4,
-        }),
+        checkbox: K.boolean()
+            .default(true)
+            .component<CheckboxComponent>({
+                type: C.Checkbox,
+                title: "Single Checkbox",
+                label: "Checkbox label",
+                description: description,
+                disqualificationBehavior: "disable",
+                grid: {
+                    default: 12,
+                    sm: 12,
+                    lg: 4,
+                    xl: 4,
+                },
+            }),
 
         checkboxGroup: K.listNumber()
             .enum([
@@ -93,7 +98,12 @@ export const schema = K.schema({
                 type: C.CheckboxGroup,
                 title: "Checkbox Group",
                 direction: "col",
-                grid: 4,
+                grid: {
+                    default: 12,
+                    sm: 12,
+                    lg: 4,
+                    xl: 4,
+                },
             }),
 
         radioGroup: K.string()
@@ -106,7 +116,12 @@ export const schema = K.schema({
                 type: C.RadioGroup,
                 title: "Radio Group",
                 direction: "col",
-                grid: 4,
+                grid: {
+                    default: 12,
+                    sm: 12,
+                    lg: 4,
+                    xl: 4,
+                },
             }),
     }).component<BasicSchemaComponent>({
         grid: 12,

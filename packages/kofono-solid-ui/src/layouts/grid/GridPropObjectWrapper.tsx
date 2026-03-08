@@ -19,7 +19,7 @@ export function GridPropObjectWrapper(props: GridPropObjectWrapperProps) {
         <div class={cn(classes)}>
             <div
                 class={cn(
-                    "grid grid-cols-12 gap-[var(--grid-gap)]",
+                    "grid grid-cols-12 gap-(--grid-gap)",
                     "rounded-lg border-0",
                     "bg-grid-prop-object-background border-grid-prop-object-border",
                 )}>

@@ -46,12 +46,13 @@ export function GridPropLayout(props: GridPropertyLayoutProps) {
     return (
         <Show when={property().isQualified()}>
             <div
-                onClick={() => setFocusedSelector(property().selector)}
+                onMouseOver={() => setFocusedSelector(property().selector)}
                 class={cn(
                     gridOption2Classes(grid()),
                     "m-1 p-4 rounded-md border border-secondary/30",
+                    "bg-secondary/10",
                     store.focusedSelector === property().selector &&
-                        "border-primary/10",
+                        "border-secondary/50 bg-secondary/15",
                 )}>
                 <div class="mb-2">
                     <Show when={component.title !== ""}>

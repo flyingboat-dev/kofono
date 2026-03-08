@@ -43,6 +43,7 @@ export function Dropdown(props: DropdownProps) {
             <div class="dropdown">
                 <div tabindex="0" class="btn m-1">
                     {value2label() ?? props.placeholder}
+                    <ChevronDownIcon />
                 </div>
                 <ul
                     tabindex="-1"
@@ -68,5 +69,22 @@ export function Dropdown(props: DropdownProps) {
                 </ul>
             </div>
         </div>
+    );
+}
+
+function ChevronDownIcon() {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4"
+            aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5" />
+        </svg>
     );
 }

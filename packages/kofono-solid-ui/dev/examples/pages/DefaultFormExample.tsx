@@ -11,6 +11,8 @@ export function DefaultFormExample() {
     return (
         <ExamplePage
             schema={schema}
+            submit={() => console.log("Form submitted")}
+            cancel={() => console.log("Form cancelled")}
             beforeForm={
                 <div class="p-4">
                     <h2 class="text-lg font-bold"> Hello Form!</h2>
@@ -151,6 +153,7 @@ export const schema = K.schema({
 
     files: K.listMixed().component({
         type: C.FileInput,
+        title: "FileInput",
         multiple: true,
         label: "",
         grid: 6,

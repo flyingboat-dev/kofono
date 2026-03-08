@@ -1,4 +1,4 @@
-import { type FormProperty, type MinValidatorOpts, } from "@flyingboat/kofono";
+import type { FormProperty, MinValidatorOpts } from "@flyingboat/kofono";
 import { debounce } from "@solid-primitives/scheduled";
 import type { JSX } from "solid-js";
 import { propComponent, propertyHtmlId } from "@/components/helpers";
@@ -34,7 +34,9 @@ export function RangeInput(props: RangeInputProps): JSX.Element {
     };
 
     return (
-        <div onFocus={() => setFocusedSelector(props.property().selector)}>
+        <div
+            class="w-full max-w-xs"
+            onFocus={() => setFocusedSelector(props.property().selector)}>
             <input
                 type="range"
                 class="range range-primary"
@@ -45,6 +47,7 @@ export function RangeInput(props: RangeInputProps): JSX.Element {
                 step={component.getOrDefault("step", 1)}
                 onInput={onInput}
             />
+            <div class="flex justify-end px-2.5 mt-2 text-xs">99</div>
         </div>
     );
 }

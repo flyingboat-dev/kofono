@@ -1,10 +1,10 @@
 import { createSignal, For, Show } from "solid-js";
 import { useFormContext } from "@/context";
 import { cn } from "@/libs/cn";
-import { DevFormData } from "../components/DevFormData";
-import { DevFormSchema } from "../components/DevFormSchema";
-import { DevFormValidations } from "../components/DevFormValidations";
-import { DevRawFormState } from "../components/DevRawFormState";
+import { DevFormData } from "./DevFormData";
+import { DevFormSchema } from "./DevFormSchema";
+import { DevFormValidations } from "./DevFormValidations";
+import { DevRawFormState } from "./DevRawFormState";
 
 interface Tab {
     label: string;
@@ -21,7 +21,7 @@ export function DevPanel() {
         { value: "validations", label: "Validations" },
     ]);
     return (
-        <>
+        <div class="bg-secondary/10 rounded-md p-4">
             <div class="flex gap-x-4 border-b-4 border-primary">
                 <For each={tabs()}>
                     {tab => (
@@ -51,6 +51,6 @@ export function DevPanel() {
             <Show when={currentTab() === "validations" && store.state}>
                 <DevFormValidations />
             </Show>
-        </>
+        </div>
     );
 }

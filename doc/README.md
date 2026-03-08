@@ -1,6 +1,6 @@
-Welcome to your new TanStack app! 
+# Kofono documentation
 
-# Getting Started
+## Getting Started
 
 To run this application:
 
@@ -9,7 +9,7 @@ pnpm install
 pnpm start
 ```
 
-# Building For Production
+## Building For Production
 
 To build this application for production:
 

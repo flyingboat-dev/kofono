@@ -5,7 +5,7 @@ import { ExamplePage } from "../ExamplePage";
 
 const schema: Schema = K.schema({
     paragraphs: K.object({
-        a: K.null() // property of type null don't have data, they are mainly used for display/ui stuff by the form renderer
+        a: K.null() // property of type null don't have data, they are mainly used for display/ui stuff by some form renderer
             .component({
                 type: C.Paragraph,
                 content: <div>This is a paragraph!</div>,

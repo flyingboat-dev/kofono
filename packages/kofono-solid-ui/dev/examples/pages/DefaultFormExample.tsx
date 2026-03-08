@@ -138,34 +138,21 @@ export const schema = K.schema({
         grid: 12,
     }),
 
-    slider: K.number()
+    range: K.number()
         .$v(v => v.min(10).max(125))
         .default(0)
         .component({
-            type: C.Slider,
-            title: "Slider",
-            label: "Slider label",
+            type: C.RangeInput,
+            title: "RangeInput",
+            label: "RangeInput label",
             description: description,
             grid: 6,
         }),
 
-    segment: K.string()
-        .default("1")
-        .enum([
-            { label: "Option AAA", value: "1" },
-            { label: "Option BBB", value: "2" },
-            { label: "Option CCC", value: "3" },
-        ])
-        .component({
-            type: C.Segment,
-            title: "Segment",
-            label: "Select a option!",
-            grid: 6,
-        }),
-
     files: K.listMixed().component({
-        type: C.Upload,
+        type: C.FileInput,
         multiple: true,
         label: "",
+        grid: 6,
     }),
 });

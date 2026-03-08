@@ -23,23 +23,18 @@ export function Select(props: FormElementProps) {
     return (
         <select
             id={propertyHtmlId(props.property())}
-            class={cn(
-                "appearance-none",
-                "flex w-full rounded-sm items-center justify-between border border-[var(--color-input-border)] bg-input-background p-2",
-                "shadow-sm ring-offset-background transition-shadow placeholder:text-muted-foreground focus:outline-none",
-                "focus-visible:ring-[1.5px] focus-visible:ring-ring focus-visible:ring-focus disabled:cursor-not-allowed disabled:opacity-50",
-            )}
+            class={cn("select")}
             onInput={onInput}
             onFocus={() => setFocusedSelector(props.property().selector)}>
             {!hasSelectedSomething() && (
                 <option value="">{component.placeholder || "Select..."}</option>
             )}
             <For each={options}>
-                {(opt) => {
+                {opt => {
                     return (
                         <option
                             class="appearance-none bg-transparent px-3 py-2"
-                            selected={opt.value == props.property().value}
+                            selected={opt.value === props.property().value}
                             value={opt.value}>
                             {opt.label || opt.value}
                         </option>

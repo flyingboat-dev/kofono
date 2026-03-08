@@ -1,4 +1,3 @@
-import { Button as KButton } from "@kobalte/core/button";
 import { type JSX, splitProps } from "solid-js";
 import "./style.css";
 
@@ -19,11 +18,11 @@ export function Button(props: ButtonProps) {
     };
 
     return (
-        <KButton
-            class="button cursor-pointer"
+        <button
+            class="btn btn-primary"
             onClick={onClickHandler}
             {...otherProps}>
             {local.children}
-        </KButton>
+        </button>
     );
 }

@@ -1,6 +1,8 @@
 import { type Component, createSignal, For, Show } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import { Dropdown, type DropdownOption } from "@/components/dropdown";
+
+import { Dropdown, type DropdownOption } from "@/components/dropdown/Dropdown";
+import { ThemeSwitcher } from "@/components/themeSelector/theme-switcher";
 import { examplesPages } from "./examples/examples";
 
 const LOCAL_STORAGE_KEY = "form-current-example" as const;
@@ -20,15 +22,18 @@ const App: Component = () => {
         localStorage.setItem(LOCAL_STORAGE_KEY, example);
     };
     return (
-        <div class="bg-default-background text-default p-4">
-            <Dropdown
-                onChange={changeExample}
-                options={options}
-                value={currentExample()}
-            />
+        <div class="text-default p-4">
+            <div class="flex items-center justify-between">
+                <Dropdown
+                    onChange={changeExample}
+                    options={options}
+                    value={currentExample()}
+                />
+                <ThemeSwitcher />
+            </div>
 
             <For each={Object.keys(examplesPages)}>
-                {(key) => (
+                {key => (
                     <ConditionalDynamic name={key} current={currentExample()} />
                 )}
             </For>

@@ -1,12 +1,11 @@
 import type { SchemaPropertyEnum } from "@flyingboat/kofono";
-import { Checkbox as KCheckbox } from "@kobalte/core/checkbox";
-import { HiOutlineCheck } from "solid-icons/hi";
-import { createEffect, createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For } from "solid-js";
 import { unwrap } from "solid-js/store";
 import { propComponent, propertyHtmlId } from "@/components/helpers";
 import type { PropElementProps } from "@/components/PropElement";
 import type { BasicSchemaComponent } from "@/components/types";
 import { useFormContext } from "@/context";
+import { useTranslator } from "@/i18n";
 import { cn } from "@/libs/cn";
 
 export interface CheckboxGroupComponent extends BasicSchemaComponent {
@@ -19,6 +18,7 @@ export interface CheckboxGroupProps extends PropElementProps {
 }
 
 export function CheckboxGroup(props: CheckboxGroupProps) {
+    const t = useTranslator();
     const { setFocusedSelector } = useFormContext();
     const component = propComponent<CheckboxGroupComponent>(props.property());
     const [values, setValues] = createSignal<any[]>([]);
@@ -74,44 +74,23 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
     return (
         <div
             id={propertyHtmlId(props.property())}
-            style={{ all: "unset" }}
             class={cn("isolate flex flex-wrap gap-2", `flex-${flexDirection}`)}>
             <For each={options}>
                 {(opt, index) => (
-                    <span>
-                        <KCheckbox
-                            class="checkbox"
-                            defaultChecked={values().includes(opt.value)}>
-                            <KCheckbox.Input
-                                id={id(index())}
-                                class="checkbox__input"
-                                disabled={component.isDisabled}
-                                value={opt.value}
-                                onInput={async () => await update(opt.value)}
-                                onFocus={() =>
-                                    setFocusedSelector(
-                                        props.property().selector,
-                                    )
-                                }
-                            />
-                            <KCheckbox.Control class="checkbox__control">
-                                <KCheckbox.Indicator>
-                                    <HiOutlineCheck class="w-5.5 h-5.5" />
-                                </KCheckbox.Indicator>
-                            </KCheckbox.Control>
-                            <Show when={opt.label !== ""}>
-                                <KCheckbox.Label
-                                    for={id(index())}
-                                    class="checkbox__label text-default dark:text-dark-default"
-                                    onClick={async (_) => {
-                                        // e.preventDefault()
-                                        await update(opt.value);
-                                    }}>
-                                    {opt.label}
-                                </KCheckbox.Label>
-                            </Show>
-                        </KCheckbox>
-                    </span>
+                    <label class="label" for={id(index())}>
+                        <input
+                            id={id(index())}
+                            type="checkbox"
+                            class="checkbox checkbox-primary"
+                            disabled={component.isDisabled}
+                            onInput={async () => await update(opt.value)}
+                            checked={values().includes(opt.value)}
+                            onFocus={() =>
+                                setFocusedSelector(props.property().selector)
+                            }
+                        />
+                        &nbsp;{t(opt.label ?? "")}
+                    </label>
                 )}
             </For>
         </div>

@@ -13,8 +13,8 @@ export function Table(props: TableProps) {
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow-sm ring-1 ring-black/5 sm:rounded-sm">
                         <table class="min-w-full divide-y divide-gray-300">
-                            <thead class="bg-gray-50">{props.header}</thead>
-                            <tbody class="divide-y divide-gray-200 bg-white">
+                            <thead class="bg-primary/10">{props.header}</thead>
+                            <tbody class="divide-y divider-success ">
                                 {props.body}
                             </tbody>
                         </table>
@@ -34,7 +34,7 @@ export function Th(props: ThProps) {
     return (
         <th
             scope="col"
-            class="py-3.5 pr-3 pl-3 text-left text-sm font-semibold text-gray-900"
+            class="py-3.5 pr-3 pl-3 text-left text-sm font-semibold"
             {...otherProps}>
             {local.children}
         </th>
@@ -49,10 +49,7 @@ export function Td(props: TdProps) {
     const [local, otherProps] = splitProps(props, ["children", "class"]);
     return (
         <td
-            class={cn(
-                "px-3 py-4 text-sm whitespace-nowrap text-gray-500",
-                local.class || "",
-            )}
+            class={cn("px-3 py-4 text-sm whitespace-nowrap", local.class || "")}
             {...otherProps}>
             {local.children}
         </td>

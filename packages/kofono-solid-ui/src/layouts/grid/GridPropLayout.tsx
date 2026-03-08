@@ -49,9 +49,9 @@ export function GridPropLayout(props: GridPropertyLayoutProps) {
                 onClick={() => setFocusedSelector(property().selector)}
                 class={cn(
                     gridOption2Classes(grid()),
-                    "bg-grid-prop-background p-3 rounded-md border border-grid-prop-border",
+                    "m-1 p-4 rounded-md border border-secondary/30",
                     store.focusedSelector === property().selector &&
-                        "bg-grid-prop-focus-background",
+                        "border-primary/10",
                 )}>
                 <div class="mb-2">
                     <Show when={component.title !== ""}>

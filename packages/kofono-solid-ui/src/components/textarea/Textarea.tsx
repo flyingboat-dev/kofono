@@ -18,15 +18,16 @@ export function Textarea(props: TextareaProps) {
     return (
         <textarea
             class={cn(
-                "flex w-full px-3 py-1 text-base text-input-text shadow-sm transition-shadow",
-                "bg-input-background",
-                "rounded-sm border border-[var(--color-input-border)]",
-                "placeholder-input-placeholder",
-                "disabled:cursor-not-allowed disabled:opacity-50",
-                "focus-visible:outline-none focus-visible:ring-[1.5px] focus-visible:ring-focus",
+                "textarea",
+                // "flex w-full px-3 py-1 text-base text-input-text shadow-sm transition-shadow",
+                // "bg-input-background",
+                // "rounded-sm border border-[var(--color-input-border)]",
+                // "placeholder-input-placeholder",
+                // "disabled:cursor-not-allowed disabled:opacity-50",
+                // "focus-visible:outline-none focus-visible:ring-[1.5px] focus-visible:ring-focus",
                 local.class,
                 local.error &&
-                    "text-red-800 border-red-800 placeholder-red-800 bg-red-50 focus-visible:ring-none",
+                    "text-red-500 border-red-500 placeholder-red-500 focus-visible:ring-none",
             )}
             {...otherProps}>
             {local.children}

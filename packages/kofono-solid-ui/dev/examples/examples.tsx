@@ -4,7 +4,6 @@ import { DefaultFormExample } from "./pages/DefaultFormExample";
 import { DisplayComponentsExample } from "./pages/DisplayComponentsExample";
 import { DropdownComponentExample } from "./pages/DropdownComponentExample";
 import { TranslationsExample } from "./pages/TranslationsExample";
-import { UploadsExample } from "./pages/UploadsExample";
 import { ValidatorsExample } from "./pages/ValidatorsExample";
 
 export interface Examples {
@@ -31,10 +30,6 @@ export const examplesPages: Examples = {
     TranslationsExample: {
         label: "Translations Example",
         component: TranslationsExample,
-    },
-    UploadsExample: {
-        label: "Uploads Example",
-        component: UploadsExample,
     },
     ValidatorsExample: {
         label: "Validators Example",

@@ -13,32 +13,28 @@ export interface GridPropertiesLayoutProps {
 export function GridPropsLayout(props: GridPropertiesLayoutProps) {
     const { store } = useFormContext();
     return (
-        <>
-            <For each={props.selectors}>
-                {(selector) => {
-                    if (
-                        store.form!.props[selector].type === PropertyType.Object
-                    ) {
-                        return (
-                            <GridPropObjectWrapper selector={selector}>
-                                <GridPropsLayout
-                                    updateHandler={props.updateHandler}
-                                    selectors={store
-                                        .form!.prop(selector)
-                                        .childrenSelectors()}
-                                />
-                            </GridPropObjectWrapper>
-                        );
-                    }
+        <For each={props.selectors}>
+            {selector => {
+                if (store.form!.props[selector].type === PropertyType.Object) {
                     return (
-                        <GridPropLayout
-                            data-test={store.form!.state.sessionId}
-                            updateHandler={props.updateHandler}
-                            selector={selector}
-                        />
+                        <GridPropObjectWrapper selector={selector}>
+                            <GridPropsLayout
+                                updateHandler={props.updateHandler}
+                                selectors={store
+                                    .form!.prop(selector)
+                                    .childrenSelectors()}
+                            />
+                        </GridPropObjectWrapper>
                     );
-                }}
-            </For>
-        </>
+                }
+                return (
+                    <GridPropLayout
+                        data-test={store.form?.state.sessionId}
+                        updateHandler={props.updateHandler}
+                        selector={selector}
+                    />
+                );
+            }}
+        </For>
     );
 }

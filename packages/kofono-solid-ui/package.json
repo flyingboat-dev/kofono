@@ -31,7 +31,6 @@
     },
     "dependencies": {
         "@flyingboat/kofono": "workspace:*",
-        "@kobalte/core": "0.13.11",
         "@solid-primitives/i18n": "2.2.1",
         "@solid-primitives/scheduled": "1.5.3",
         "class-variance-authority": "0.7.1",
@@ -49,6 +48,7 @@
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/user-event": "^14.6.1",
         "@types/node": "^25.3.0",
+        "daisyui": "^5.5.19",
         "jsdom": "^28.1.0",
         "postcss": "^8.5.6",
         "solid-icons": "^1.2.0",

@@ -36,7 +36,7 @@ export function DevFormValidations() {
                     }
                     body={
                         <For each={selectors()}>
-                            {(selector) => {
+                            {selector => {
                                 return (
                                     <tr>
                                         <Td>{selector}</Td>
@@ -54,7 +54,7 @@ export function DevFormValidations() {
                     }
                 />
             </Show>
-            <Show when={!store.form || !validations()}>werwerwer</Show>
+            <Show when={!store.form || !validations()}>nothing to show</Show>
         </>
     );
 }

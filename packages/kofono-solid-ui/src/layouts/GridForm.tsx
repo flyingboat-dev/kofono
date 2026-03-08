@@ -4,7 +4,6 @@ import { unwrap } from "solid-js/store";
 import { FormSubmitButton } from "@/components/button/FormSubmitButton";
 import { LanguageSelector } from "@/components/languageSelector";
 import { updateHandler as baseUpdateHandler } from "@/components/reactivity";
-import { ThemeSelector } from "@/components/themeSelector";
 import { useFormContext } from "@/context";
 import { useTranslator } from "@/i18n";
 import { GridPropsLayout } from "@/layouts/grid/GridPropsLayout";
@@ -20,7 +19,7 @@ export function GridForm(props: GridFormProps) {
     const { store, setState, setFocusedSelector } = useFormContext();
     const t = useTranslator();
 
-    const submit = async (f) => {
+    const submit = async f => {
         if (props.submit) {
             await props.submit(f);
         }
@@ -47,16 +46,6 @@ export function GridForm(props: GridFormProps) {
             <Suspense fallback={<div>{t("loading.form")}...</div>}>
                 <Show when={store.form !== null}>
                     <div class="flex justify-end-safe gap-x-4">
-                        <Show when={props.showThemeSelector}>
-                            <div>
-                                <span class="mr-2 leading-10">
-                                    {t("theme")}:
-                                </span>
-                                <ThemeSelector
-                                    targets={[".form-wrapper", "html"]}
-                                />
-                            </div>
-                        </Show>
                         <Show when={props.showLanguageSelector}>
                             <div>
                                 <span class="mr-2 leading-10">

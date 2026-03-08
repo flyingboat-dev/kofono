@@ -4,13 +4,18 @@ import { Checkbox, type CheckboxComponent } from "@/components/checkbox";
 import { CheckboxGroup } from "@/components/checkboxGroup";
 import { Code, Paragraph, Small, Span } from "@/components/displayElements";
 import { FormDropdown } from "@/components/dropdown";
+import {
+    FileInput,
+    type FileInputComponent,
+} from "@/components/FileInput/FileInput";
 import { FormInput, type InputComponent } from "@/components/input";
 import { RadioGroup } from "@/components/radioGroup";
-import { FormSegment } from "@/components/segment";
+import {
+    RangeInput,
+    type RangeInputComponent,
+} from "@/components/rangeInput/RangeInput";
 import { Select } from "@/components/select";
-import { Slider } from "@/components/slider";
 import { FormTextarea } from "@/components/textarea";
-import { FormUpload } from "@/components/upload";
 import type { UpdateHandler } from "./types";
 
 export interface PropElementProps {
@@ -22,20 +27,19 @@ export interface FormElementProps extends PropElementProps {}
 
 export enum ComponentType {
     Checkbox = "checkbox2",
-    CheckboxGroup = "checkboxGroup",
+    CheckboxGroup = "checkbox-group",
     Code = "code",
     Dropdown = "dropdown",
+    FileInput = "file-input",
     Input = "input",
     MaskedInput = "masked-input",
     Paragraph = "p",
-    RadioGroup = "radioGroup",
-    Segment = "segment",
+    RadioGroup = "radio-group",
+    RangeInput = "range-input",
     Select = "select",
-    Slider = "slider",
     Small = "small",
     Span = "span",
     Textarea = "textarea",
-    Upload = "upload",
 }
 
 export const C = {
@@ -43,17 +47,16 @@ export const C = {
     CheckboxGroup: ComponentType.CheckboxGroup,
     Code: ComponentType.Code,
     Dropdown: ComponentType.Dropdown,
+    FileInput: ComponentType.FileInput,
     Input: ComponentType.Input,
     MaskedInput: ComponentType.MaskedInput,
     Paragraph: ComponentType.Paragraph,
+    RangeInput: ComponentType.RangeInput,
     RadioGroup: ComponentType.RadioGroup,
-    Segment: ComponentType.Segment,
     Select: ComponentType.Select,
-    Slider: ComponentType.Slider,
     Small: ComponentType.Small,
     Span: ComponentType.Span,
     Textarea: ComponentType.Textarea,
-    Upload: ComponentType.Upload,
 } as const;
 
 export type ComponentMap = {
@@ -61,13 +64,13 @@ export type ComponentMap = {
     [ComponentType.CheckboxGroup]: CheckboxComponent;
     [ComponentType.Code]: SchemaComponent;
     [ComponentType.Dropdown]: SchemaComponent;
+    [ComponentType.FileInput]: FileInputComponent;
     [ComponentType.Input]: InputComponent;
     [ComponentType.MaskedInput]: SchemaComponent;
     [ComponentType.Paragraph]: SchemaComponent;
     [ComponentType.RadioGroup]: SchemaComponent;
-    [ComponentType.Segment]: SchemaComponent;
+    [ComponentType.RangeInput]: RangeInputComponent;
     [ComponentType.Select]: SchemaComponent;
-    [ComponentType.Slider]: SchemaComponent;
     default: SchemaComponent;
 };
 
@@ -81,6 +84,8 @@ export function PropElement(props: PropElementProps) {
         switch (componentType) {
             case C.Input:
                 return <FormInput {...elProps} />;
+            case C.FileInput:
+                return <FileInput {...elProps} />;
             case C.Textarea:
                 return <FormTextarea {...elProps} />;
             case C.Select:
@@ -93,6 +98,8 @@ export function PropElement(props: PropElementProps) {
                 return <CheckboxGroup {...elProps} />;
             case C.RadioGroup:
                 return <RadioGroup {...elProps} />;
+            case C.RangeInput:
+                return <RangeInput {...elProps} />;
             case C.Span:
                 return <Span {...elProps} />;
             case C.Small:
@@ -101,12 +108,6 @@ export function PropElement(props: PropElementProps) {
                 return <Paragraph {...elProps} />;
             case C.Code:
                 return <Code {...elProps} />;
-            case C.Segment:
-                return <FormSegment {...elProps} />;
-            case C.Slider:
-                return <Slider {...elProps} />;
-            case C.Upload:
-                return <FormUpload {...elProps} />;
             default:
                 return <FormInput {...elProps} />;
         }

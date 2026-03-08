@@ -38,55 +38,51 @@ export function DevFormState() {
     };
 
     return (
-        <>
-            <Show when={store.state} fallback={"no state"}>
-                <Table
-                    header={
-                        <>
-                            <tr>
-                                <Th>Selector</Th>
-                                <Th>V</Th>
-                                <Th>Q</Th>
-                                <Th colspan={2}>Value</Th>
-                            </tr>
-                        </>
-                    }
-                    body={
-                        <For each={selectors()}>
-                            {(selector) => {
-                                return (
-                                    <>
-                                        <tr class="border-b-transparent">
-                                            <Td>{selector}</Td>
-                                            <Td class="text-cent2er">
-                                                <BooleanToEmoji
-                                                    value={isValid(selector)}
-                                                />
-                                            </Td>
-                                            <Td class="text-ce2nter ">
-                                                <BooleanToEmoji
-                                                    value={isQualified(
-                                                        selector,
-                                                    )}
-                                                />
-                                            </Td>
-                                            <Td colspan={2}>
-                                                <span class="font-mono">
-                                                    {String(data()!(selector))}
-                                                </span>
-                                            </Td>
-                                        </tr>
-                                        <tr>
-                                            <Td></Td>
-                                        </tr>
-                                    </>
-                                );
-                            }}
-                        </For>
-                    }
-                />
-            </Show>
-        </>
+        <Show when={store.state} fallback={"no state"}>
+            <Table
+                header={
+                    <>
+                        <tr>
+                            <Th>Selector</Th>
+                            <Th>V</Th>
+                            <Th>Q</Th>
+                            <Th colspan={2}>Value</Th>
+                        </tr>
+                    </>
+                }
+                body={
+                    <For each={selectors()}>
+                        {selector => {
+                            return (
+                                <>
+                                    <tr class="border-b-transparent">
+                                        <Td>{selector}</Td>
+                                        <Td class="text-cent2er">
+                                            <BooleanToEmoji
+                                                value={isValid(selector)}
+                                            />
+                                        </Td>
+                                        <Td class="text-ce2nter ">
+                                            <BooleanToEmoji
+                                                value={isQualified(selector)}
+                                            />
+                                        </Td>
+                                        <Td colspan={2}>
+                                            <span class="font-mono">
+                                                {String(data()!(selector))}
+                                            </span>
+                                        </Td>
+                                    </tr>
+                                    <tr>
+                                        <Td></Td>
+                                    </tr>
+                                </>
+                            );
+                        }}
+                    </For>
+                }
+            />
+        </Show>
     );
 }
 

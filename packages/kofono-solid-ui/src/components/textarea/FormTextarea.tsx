@@ -26,16 +26,14 @@ export function FormTextarea(props: FormElementProps) {
     };
 
     return (
-        <>
-            <Textarea
-                onInput={onInput}
-                onFocus={() => setFocusedSelector(props.property().selector)}
-                disabled={component.isDisabled}
-                placeholder={component.placeholder}
-                rows={component.getOrDefault("rows", 3)}
-                error={status() === "error"}>
-                {`${props.property().valueOrDefault("")}`}
-            </Textarea>
-        </>
+        <Textarea
+            onInput={onInput}
+            onFocus={() => setFocusedSelector(props.property().selector)}
+            disabled={component.isDisabled}
+            placeholder={component.placeholder}
+            rows={component.getOrDefault("rows", 3)}
+            error={status() === "error"}>
+            {`${props.property().valueOrDefault("")}`}
+        </Textarea>
     );
 }

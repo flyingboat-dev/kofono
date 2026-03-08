@@ -22,14 +22,16 @@ export function DevPanel() {
     ]);
     return (
         <>
-            <div class="flex gap-x-4 border-b-4 border-gray-200">
+            <div class="flex gap-x-4 border-b-4 border-primary">
                 <For each={tabs()}>
-                    {(tab) => (
+                    {tab => (
                         <button
+                            type="button"
+                            role="tab"
                             class={cn(
                                 "py-2 px-3",
                                 currentTab() === tab.value &&
-                                    "bg-primary font-bold",
+                                    "bg-primary text-primary-content font-bold ",
                             )}
                             onClick={() => setCurrentTab(tab.value)}>
                             {tab.label}

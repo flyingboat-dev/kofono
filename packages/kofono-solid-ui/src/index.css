@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
-@import "./themes/default.css";
-@import "./themes/dark.css";
-@import "./themes/orange.css";
+@plugin "daisyui" {
+    /* biome-ignore lint/correctness/noUnknownProperty: tailwindcss plugin */
+    themes: all;
+}
 
 /* explicit classes (generally used at runtime) */
 @source inline("{sm:,md:,lg:,xl:,}grid-cols-{{1..12}}");

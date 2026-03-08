@@ -1,6 +1,4 @@
-import { Checkbox as KCheckbox } from "@kobalte/core/checkbox";
-import { HiOutlineCheck } from "solid-icons/hi";
-import { createSignal, Show } from "solid-js";
+import { createSignal } from "solid-js";
 import { isChecked, propComponent } from "@/components/helpers";
 import type { ComponentType, PropElementProps } from "../PropElement";
 import type { BasicSchemaComponent } from "../types";
@@ -36,42 +34,32 @@ export function Checkbox(props: CheckboxProps) {
     }
 
     const onInput = async (e: Event) => {
-        await props.updateHandler(
-            props.property().selector,
-            (e.target as HTMLInputElement).checked,
-        );
+        const value = (e.target as HTMLInputElement).checked;
+        await props.updateHandler(props.property().selector, value);
+        setInnerValue(value);
     };
 
     const id = `fc-${props.property().selector}`;
 
     return (
         <span>
-            <KCheckbox
-                class="checkbox"
-                id={id}
-                defaultChecked={isChecked(
-                    props.property().valueOrDefault<boolean>(false),
-                    innerValue(),
-                )}>
-                <KCheckbox.Input
-                    class="checkbox__input"
+            <label class="label" for={id}>
+                <input
+                    id={id}
+                    type="checkbox"
+                    class="checkbox checkbox-primary"
                     disabled={component.isDisabled}
                     onInput={onInput}
+                    checked={isChecked(
+                        props.property().valueOrDefault<boolean>(false),
+                        innerValue(),
+                    )}
                     onFocus={() =>
                         setFocusedSelector(props.property().selector)
                     }
                 />
-                <KCheckbox.Control class="checkbox__control">
-                    <KCheckbox.Indicator>
-                        <HiOutlineCheck class="w-5.5 h-5.5" />
-                    </KCheckbox.Indicator>
-                </KCheckbox.Control>
-                <Show when={label != ""}>
-                    <KCheckbox.Label class="checkbox__label text-default dark:text-dark-default">
-                        {t(label)}
-                    </KCheckbox.Label>
-                </Show>
-            </KCheckbox>
+                &nbsp;{t(label)}
+            </label>
         </span>
     );
 }

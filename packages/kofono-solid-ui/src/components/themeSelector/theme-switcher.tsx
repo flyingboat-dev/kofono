@@ -42,7 +42,7 @@ const themess = [
 
 export function ThemeSwitcher() {
     // todo: switch to signal
-    const userTheme = localStorage.getItem("theme") || "light";
+    // const userTheme = localStorage.getItem("theme") || "light";
     const updateTheme = (theme: string) => {
         localStorage.setItem("theme", theme);
         document.documentElement.setAttribute("data-theme", theme);

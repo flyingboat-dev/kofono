@@ -22,15 +22,15 @@ export interface DropdownProps {
 export function Dropdown(props: DropdownProps) {
     const t = !props.t ? (path, ..._): string => path : props.t;
 
-    const value2label = createMemo(() => {
+    const value2label = createMemo((): string => {
         const item = props.options.find(e => e.value === props.value);
         if (!item) {
-            return null;
+            return props.placeholder ?? "no value/label";
         }
         if (item.label) {
             item.label = t(item.label);
         }
-        return item.label ?? item.value ?? "no value/label";
+        return item.label ?? (item.value as string) ?? "no value/label";
     });
 
     const handleChange = (item: DropdownOption) => {
@@ -42,7 +42,7 @@ export function Dropdown(props: DropdownProps) {
         <div>
             <div class="dropdown">
                 <div tabindex="0" class="btn m-1">
-                    {value2label() ?? props.placeholder}
+                    {value2label()}
                     <ChevronDownIcon />
                 </div>
                 <ul

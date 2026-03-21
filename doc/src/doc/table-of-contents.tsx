@@ -3,6 +3,7 @@ import { Landing } from "@/doc/landing";
 import { SchemaBasics } from "@/doc/schema.basics";
 import { SchemaProperties } from "@/doc/schema.properties";
 import { SchemaSelectors } from "@/doc/schema.selectors";
+import { ValidatorList } from "@/doc/validator.list";
 import type { TableOfContents } from "@/types";
 
 export const tableOfContents: TableOfContents = [
@@ -17,6 +18,10 @@ export const tableOfContents: TableOfContents = [
             {
                 title: "Basics",
                 children: [SchemaBasics, SchemaProperties, SchemaSelectors],
+            },
+            {
+                title: "Validation",
+                children: [ValidatorList],
             },
         ],
     },

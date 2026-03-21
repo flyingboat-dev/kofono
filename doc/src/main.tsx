@@ -16,6 +16,7 @@ import { Landing } from "@/doc/landing";
 import { SchemaBasics } from "@/doc/schema.basics";
 import { SchemaProperties } from "@/doc/schema.properties";
 import { SchemaSelectors } from "@/doc/schema.selectors";
+import { ValidatorList } from "@/doc/validator.list";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const docPages: DocComponentPage[] = [
     SchemaBasics,
     SchemaProperties,
     SchemaSelectors,
+    ValidatorList,
 ];
 
 const rootElement = document.getElementById("app");
@@ -42,7 +44,7 @@ if (rootElement) {
         () => (
             <Router root={App}>
                 <For each={docPages}>
-                    {(d) => (
+                    {d => (
                         <Route path={d.path} component={d.component as any} />
                     )}
                 </For>

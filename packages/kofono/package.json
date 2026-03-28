@@ -26,9 +26,8 @@
         "build:watch": "tsc -p tsconfig.json -w",
         "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
         "coverage": "vitest run --coverage",
-        "lint": "pnpm biome check",
-        "lint:fix": "pnpm lint --write",
-        "format": "pnpm biome format",
+        "check": "pnpm biome check",
+        "check:fix": "pnpm lint --write",
         "test": "vitest",
         "test:ui": "vitest --ui",
         "prepublish": "pnpm lint:fix && pnpm build",
@@ -36,16 +35,16 @@
     },
     "dependencies": {
         "date-fns": "4.1.0",
-        "yaml": "2.8.2"
+        "yaml": "2.8.3"
     },
     "devDependencies": {
-        "@types/node": "^25.3.5",
-        "@vitest/coverage-v8": "^4.0.18",
-        "@vitest/ui": "4.0.18",
+        "@types/node": "^25.5.0",
+        "@vitest/coverage-v8": "^4.1.2",
+        "@vitest/ui": "^4.1.2",
         "tslib": "^2.8.1",
         "tsx": "^4.21.0",
         "typescript": "^5.9.3",
-        "vitest": "^4.0.18"
+        "vitest": "^4.1.2"
     },
     "engines": {
         "node": ">=20",

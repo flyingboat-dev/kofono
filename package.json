@@ -4,36 +4,29 @@
     "sideEffects": false,
     "type": "module",
     "scripts": {
-        "build": "turbo run --ui=stream build",
-        "build:watch": "turbo run --ui=stream build:watch",
+        "build": "turbo run build",
+        "build:watch": "turbo run build:watch",
         "clean": "turbo run clean",
-        "test": "turbo test",
-        "test:core": "pnpm run test --filter @flyingboat/kofono",
-        "dev": "turbo run --ui=stream dev",
-        "doc": "turbo run --ui=stream doc",
-        "lint": "turbo run --ui=stream lint",
-        "lint:fix": "turbo run --ui=stream lint",
+        "dev": "turbo run dev",
+        "dev:doc": "turbo run doc",
         "format": "turbo run format",
-        "old:build:watch": "node --experimental-strip-types scripts/build-watch.ts",
-        "turbo:dev": "turbo run dev --force --ui=stream",
-        "turbo:build": "turbo run build",
-        "turbo:build:watch": "turbo run --ui=stream build:watch",
-        "turbo:format": "turbo run format",
-        "turbo:tests": "turbo run tests",
+        "check": "turbo run check",
+        "check:fix": "turbo run check:fix",
+        "test": "turbo run test",
+        "test:core": "turbo run test --filter=@flyingboat/kofono",
         "turbo:clean": "turbo daemon clean"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.4.6",
-        "concurrently": "9.2.1",
-        "turbo": "2.8.14"
+        "@biomejs/biome": "2.4.9",
+        "turbo": "2.8.20"
     },
     "engines": {
         "node": ">=22",
         "pnpm": ">=10"
     },
-    "packageManager": "pnpm@10.30.3",
+    "packageManager": "pnpm@10.33.0",
     "volta": {
         "node": "25.0.0",
-        "pnpm": "10.30.3"
+        "pnpm": "10.33.0"
     }
 }

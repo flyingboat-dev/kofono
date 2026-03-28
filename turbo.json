@@ -1,47 +1,45 @@
 {
     "$schema": "https://turborepo.com/schema.json",
-    "ui": "tui",
+    "ui": "stream-with-experimental-timestamps",
     "tasks": {
         "build": {
+            "cache": true,
+            "inputs": ["$TURBO_DEFAULT$", ".env*"],
+            "outputs": ["dist/**"]
+        },
+        "build:editor": {
             "cache": false,
-            "dependsOn": ["^build"],
-            "inputs": ["$TURBO_DEFAULT$", ".env*"]
+            "outputs": ["dist/**"]
         },
         "build:watch": {
             "dependsOn": ["^build"],
-            "inputs": ["$TURBO_DEFAULT$", ".env*"]
+            "inputs": ["$TURBO_DEFAULT$", ".env*"],
+            "outputs": ["dist/**"],
+            "persistent": true
         },
-        "format": {
-            "dependsOn": ["^format"]
-        },
-        "lint": {
-            "dependsOn": ["^lint"],
+        "clean": {
             "cache": false
-        },
-        "lint:fix": {
-            "dependsOn": ["^lint:fix"],
-            "cache": false
-        },
-        "test": {
-            "cache": false,
-            "dependsOn": ["^test"]
         },
         "dev": {
-            "dependsOn": ["^build"],
             "cache": false,
+            "dependsOn": ["^build"],
             "persistent": true
         },
         "doc": {
-            "dependsOn": ["^build", "^build:editor"],
             "cache": false,
+            "dependsOn": ["^build", "^build:editor"],
             "persistent": true
         },
-        "build:editor": {
+        "format": {},
+        "check": {
+            "cache": true
+        },
+        "check:fix": {
             "cache": false
         },
-        "dev:form-store": {},
-        "clean": {
-            "cache": false
+        "test": {
+            "cache": true,
+            "dependsOn": ["^test"]
         }
     }
 }

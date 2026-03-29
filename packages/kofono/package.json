@@ -27,7 +27,7 @@
         "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
         "coverage": "vitest run --coverage",
         "check": "pnpm biome check",
-        "check:fix": "pnpm lint --write",
+        "check:fix": "pnpm check --write",
         "test": "vitest",
         "test:ui": "vitest --ui",
         "prepublish": "pnpm lint:fix && pnpm build",

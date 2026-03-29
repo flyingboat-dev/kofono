@@ -18,7 +18,7 @@
     },
     "devDependencies": {
         "@biomejs/biome": "2.4.9",
-        "turbo": "2.8.20"
+        "turbo": "2.8.21"
     },
     "engines": {
         "node": ">=22",

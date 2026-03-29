@@ -6,7 +6,7 @@ import { C } from "../src/components/PropElement";
 export const schema = S.schema({
     propA: S.string()
         .default("test")
-        .validations((v) =>
+        .validations(v =>
             v.min(3).expect("should be at least 3 characters or more"),
         )
         .component<InputComponent>({
@@ -36,14 +36,14 @@ export const schema = S.schema({
                 label: "Checkbox label",
                 disqualificationBehavior: "disable",
             })
-            .qualifications((q) => q.valid("propA")),
+            .qualifications(q => q.valid("propA")),
         checkbox2: S.boolean()
             .component({
                 type: C.Checkbox,
                 title: "Checkbox title",
                 label: "Checkbox label",
             })
-            .qualifications((q) => q.valid("propA")),
+            .qualifications(q => q.valid("propA")),
     }).component<BasicSchemaComponent>({
         grid: 4,
     }),
@@ -139,7 +139,7 @@ export const schema = S.schema({
 
     sliders: S.object({
         slider: S.number()
-            .$v((v) => v.min(10).max(125))
+            .$v(v => v.min(10).max(125))
             .default(0)
             .component({
                 type: C.Slider,
@@ -147,8 +147,8 @@ export const schema = S.schema({
                 label: "Schema Slider label",
             }),
         secondSlider: S.number()
-            .$v((v) => v.min(10).max(125))
-            .$q((q) => q.valid("sliders.slider"))
+            .$v(v => v.min(10).max(125))
+            .$q(q => q.valid("sliders.slider"))
             .component({
                 type: C.Slider,
                 title: "Slider question",

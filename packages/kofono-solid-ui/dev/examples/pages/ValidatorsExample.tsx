@@ -21,7 +21,7 @@ const schema: Schema = K.schema({
             grid: 12,
         }),
         a: K.string()
-            .$v((v) => v.alpha({ spaces: false }))
+            .$v(v => v.alpha({ spaces: false }))
             .component<InputComponent>({
                 type: C.Input,
                 title: "Letters only",
@@ -29,7 +29,7 @@ const schema: Schema = K.schema({
                 grid: 6,
             }),
         b: K.string()
-            .$v((v) => v.alpha({ spaces: true }))
+            .$v(v => v.alpha({ spaces: true }))
             .component<InputComponent>({
                 type: C.Input,
                 title: "Letters only w/o spaces",
@@ -46,7 +46,7 @@ const schema: Schema = K.schema({
             grid: 12,
         }),
         a: K.string()
-            .$v((v) => v.alphaNum({ spaces: false }))
+            .$v(v => v.alphaNum({ spaces: false }))
             .component<InputComponent>({
                 type: C.Input,
                 title: "Letters and numbers only",
@@ -54,7 +54,7 @@ const schema: Schema = K.schema({
                 grid: 6,
             }),
         b: K.string()
-            .$v((v) => v.alphaNum({ spaces: true }))
+            .$v(v => v.alphaNum({ spaces: true }))
             .component<InputComponent>({
                 type: C.Input,
                 title: "Letters and numbers only w/o spaces",
@@ -71,7 +71,7 @@ const schema: Schema = K.schema({
             grid: 12,
         }),
         a: K.number()
-            .$v((v) => v.between(10, 90))
+            .$v(v => v.between(10, 90))
             .component<InputComponent>({
                 type: C.Input,
                 inputType: "number",
@@ -81,7 +81,7 @@ const schema: Schema = K.schema({
                 grid: 6,
             }),
         b: K.string()
-            .$v((v) => v.between(10, 20))
+            .$v(v => v.between(10, 20))
             .component<InputComponent>({
                 type: C.Input,
                 inputType: "text",
@@ -108,7 +108,7 @@ const schema: Schema = K.schema({
             grid: 12,
         }),
         a: K.string()
-            .$v((v) => v.datetime("yyyy-MM-dd"))
+            .$v(v => v.datetime("yyyy-MM-dd"))
             .component<InputComponent>({
                 type: C.Input,
                 inputType: "date",
@@ -118,7 +118,7 @@ const schema: Schema = K.schema({
                 grid: 6,
             }),
         b: K.string()
-            .$v((v) => v.datetime("yyyy-MM-dd", "2026-01-01", "2026-12-31"))
+            .$v(v => v.datetime("yyyy-MM-dd", "2026-01-01", "2026-12-31"))
             .component<InputComponent>({
                 type: C.Input,
                 inputType: "date",
@@ -137,7 +137,7 @@ const schema: Schema = K.schema({
             grid: 12,
         }),
         a: K.string()
-            .$v((v) => v.email())
+            .$v(v => v.email())
             .component<InputComponent>({
                 type: C.Input,
                 subType: "email",
@@ -158,7 +158,7 @@ const schema: Schema = K.schema({
             grid: 12,
         }),
         a: K.string()
-            .$v((v) => v.equal("hello", false))
+            .$v(v => v.equal("hello", false))
             .component<InputComponent>({
                 type: C.Input,
                 subType: "text",
@@ -168,7 +168,7 @@ const schema: Schema = K.schema({
                 grid: 6,
             }),
         b: K.string()
-            .$v((v) => v.equal("HELLO", true))
+            .$v(v => v.equal("HELLO", true))
             .component<InputComponent>({
                 type: C.Input,
                 subType: "text",
@@ -181,7 +181,7 @@ const schema: Schema = K.schema({
 });
 
 export function ValidatorsExample() {
-    return <ExamplePage schema={schema} submit={(f) => console.log(f.state)} />;
+    return <ExamplePage schema={schema} submit={f => console.log(f.state)} />;
 }
 
 function Option(props: { opts: Record<string, any> }) {

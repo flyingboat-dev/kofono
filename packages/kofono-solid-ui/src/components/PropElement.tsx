@@ -4,7 +4,7 @@ import { Checkbox, type CheckboxComponent } from "@/components/checkbox";
 import { CheckboxGroup } from "@/components/checkboxGroup";
 import { Code, Paragraph, Small, Span } from "@/components/displayElements";
 import { FormDropdown } from "@/components/dropdown";
-import { FileInput, type FileInputComponent, } from "@/components/fileInput";
+import { FileInput, type FileInputComponent } from "@/components/fileInput";
 import { FormInput, type InputComponent } from "@/components/input";
 import { RadioGroup } from "@/components/radioGroup";
 import {

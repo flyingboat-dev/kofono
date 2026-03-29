@@ -1,5 +1,5 @@
-import { isObjectLiteral } from "kofono";
 import * as i18n from "@solid-primitives/i18n";
+import { isObjectLiteral } from "kofono";
 import { createResource } from "solid-js";
 import { useFormContext } from "@/context";
 import { dictionaries } from "@/i18n/index";

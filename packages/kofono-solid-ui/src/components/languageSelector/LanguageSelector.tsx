@@ -26,7 +26,7 @@ export function LanguageSelector() {
         <Dropdown
             class="w-40"
             value={store.locale}
-            onChange={(v) => setLocale(v.value)}
+            onChange={v => setLocale(v.value)}
             options={options}
         />
     );

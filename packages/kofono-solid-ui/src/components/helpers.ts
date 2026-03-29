@@ -1,8 +1,4 @@
-import {
-    FormComponent,
-    type FormProperty,
-    type SchemaComponent,
-} from "kofono";
+import { FormComponent, type FormProperty, type SchemaComponent } from "kofono";
 import { isDev as _isDev } from "solid-js/web";
 import type { CheckboxComponent } from "@/components/checkbox";
 import type { InputComponent } from "./input";

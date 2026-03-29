@@ -1,5 +1,5 @@
-import type { FormProperty, MinValidatorOpts } from "kofono";
 import { debounce } from "@solid-primitives/scheduled";
+import type { FormProperty, MinValidatorOpts } from "kofono";
 import type { JSX } from "solid-js";
 import { propComponent, propertyHtmlId } from "@/components/helpers";
 import type { ComponentType, PropElementProps } from "@/components/PropElement";

@@ -25,6 +25,15 @@ export type ConditionValidatorOpts =
           condition: Condition;
       });
 
+export const conditionValidator = {
+    name: "condition" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: ConditionValidatorOpts,
+    ) => new ConditionValidator(selector, type, opts),
+};
+
 export function condition(
     condition: Condition,
     expect?: string,
@@ -36,15 +45,6 @@ export function condition(
         },
     };
 }
-
-export const conditionValidator = {
-    name: "condition" as const,
-    factory: (
-        selector: string,
-        type: ValidationType,
-        opts: ConditionValidatorOpts,
-    ) => new ConditionValidator(selector, type, opts),
-};
 
 export class ConditionValidator extends AbstractValidator implements Validator {
     private readonly placeholders: PlaceholderList;

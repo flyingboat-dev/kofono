@@ -15,14 +15,6 @@ export type SchemaRequiredValidator =
 
 export type RequiredValidatorOpts = SchemaPropertyBaseValidator;
 
-export function required(expect?: string): SchemaRequiredValidator {
-    return {
-        required: {
-            ...optional("error", expect),
-        },
-    };
-}
-
 export const requiredValidator = {
     name: "required" as const,
     factory: (
@@ -31,6 +23,14 @@ export const requiredValidator = {
         opts: RequiredValidatorOpts,
     ) => new RequiredValidator(selector, type, opts),
 };
+
+export function required(expect?: string): SchemaRequiredValidator {
+    return {
+        required: {
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class RequiredValidator extends AbstractValidator implements Validator {
     validate(ctx: ValidationContext): ValidatorResponse {

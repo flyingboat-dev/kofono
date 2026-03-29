@@ -18,18 +18,6 @@ export interface SchemaNotIncludesValidator {
     notIncludes: NotIncludesValidatorOpts;
 }
 
-export function notIncludes(
-    value: NotIncludesValidatorOpts["value"],
-    expect?: string,
-) {
-    return {
-        notIncludes: {
-            value,
-            ...optional("error", expect),
-        },
-    };
-}
-
 export const notIncludesValidator = {
     name: "notIncludes" as const,
     factory: (
@@ -46,7 +34,19 @@ export const notIncludesValidator = {
     ],
 };
 
-export function safeNotIncludes(value: any, search: any): boolean {
+export function notIncludes(
+    value: NotIncludesValidatorOpts["value"],
+    expect?: string,
+) {
+    return {
+        notIncludes: {
+            value,
+            ...optional("error", expect),
+        },
+    };
+}
+
+function safeNotIncludes(value: any, search: any): boolean {
     if (!value?.includes) {
         return true;
     }

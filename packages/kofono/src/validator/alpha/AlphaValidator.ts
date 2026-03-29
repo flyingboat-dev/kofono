@@ -15,15 +15,6 @@ export type AlphaValidatorOpts = SchemaPropertyBaseValidator & {
     spaces?: boolean;
 };
 
-export function alpha(opts: AlphaValidatorOpts, expect?: string) {
-    return {
-        alpha: {
-            ...opts,
-            ...optional("error", expect),
-        },
-    };
-}
-
 export const alphaValidator = {
     name: "alpha" as const,
     factory: (
@@ -32,6 +23,15 @@ export const alphaValidator = {
         opts: AlphaValidatorOpts,
     ) => new AlphaValidator(selector, type, opts),
 };
+
+export function alpha(opts: AlphaValidatorOpts, expect?: string) {
+    return {
+        alpha: {
+            ...opts,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class AlphaValidator extends AbstractValidator implements Validator {
     private readonly allowSpaces: boolean;

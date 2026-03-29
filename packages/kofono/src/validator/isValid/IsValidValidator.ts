@@ -25,15 +25,6 @@ export interface SchemaIsValidValidator {
     isValid: IsValidValidatorOpts;
 }
 
-export function isValid(selectors: string | string[], expect?: string) {
-    return {
-        isValid: {
-            selectors,
-            ...optional("error", expect),
-        },
-    };
-}
-
 export const isValidValidator = {
     name: "isValid" as const,
     factory: (
@@ -42,6 +33,14 @@ export const isValidValidator = {
         opts: IsValidValidatorOpts,
     ) => new IsValidValidator(selector, type, opts),
 };
+export function isValid(selectors: string | string[], expect?: string) {
+    return {
+        isValid: {
+            selectors,
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class IsValidValidator extends AbstractValidator implements Validator {
     protected readonly selectors: string[] = [];

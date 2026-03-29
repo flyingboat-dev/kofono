@@ -15,14 +15,6 @@ export type SchemaNotEmptyValidator =
 
 export type NotEmptyValidatorOpts = SchemaPropertyBaseValidator;
 
-export function notEmpty(expect?: string): SchemaNotEmptyValidator {
-    return {
-        notEmpty: {
-            ...optional("error", expect),
-        },
-    };
-}
-
 export const notEmptyValidator = {
     name: "notEmpty" as const,
     factory: (
@@ -31,6 +23,14 @@ export const notEmptyValidator = {
         opts: NotEmptyValidatorOpts,
     ) => new NotEmptyValidator(selector, type, opts),
 };
+
+export function notEmpty(expect?: string): SchemaNotEmptyValidator {
+    return {
+        notEmpty: {
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class NotEmptyValidator extends AbstractValidator implements Validator {
     validate(ctx: ValidationContext): ValidatorResponse {

@@ -20,6 +20,12 @@ export type MinValidatorOpts =
           value: number;
       });
 
+export const minValidator = {
+    name: "min" as const,
+    factory: (selector: string, type: ValidationType, opts: MinValidatorOpts) =>
+        new MinValidator(selector, type, opts),
+};
+
 export function min(min: number, expect?: string): SchemaMinValidator {
     return {
         min: {
@@ -28,12 +34,6 @@ export function min(min: number, expect?: string): SchemaMinValidator {
         },
     };
 }
-
-export const minValidator = {
-    name: "min" as const,
-    factory: (selector: string, type: ValidationType, opts: MinValidatorOpts) =>
-        new MinValidator(selector, type, opts),
-};
 
 export class MinValidator extends AbstractValidator implements Validator {
     private readonly min: number;

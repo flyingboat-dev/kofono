@@ -18,18 +18,6 @@ export interface SchemaIncludesValidator {
     includes: IncludesValidatorOpts;
 }
 
-export function includes(
-    value: IncludesValidatorOpts["value"],
-    expect?: string,
-) {
-    return {
-        includes: {
-            value,
-            ...optional("error", expect),
-        },
-    };
-}
-
 export const includesValidator = {
     name: "includes" as const,
     factory: (
@@ -46,7 +34,19 @@ export const includesValidator = {
     ],
 };
 
-export function safeIncludes(value: any, search: any): boolean {
+export function includes(
+    value: IncludesValidatorOpts["value"],
+    expect?: string,
+) {
+    return {
+        includes: {
+            value,
+            ...optional("error", expect),
+        },
+    };
+}
+
+function safeIncludes(value: any, search: any): boolean {
     if (!value?.includes) {
         return false;
     }

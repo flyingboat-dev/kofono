@@ -18,15 +18,6 @@ export interface SchemaLengthValidator {
     length: LengthValidatorOpts;
 }
 
-export function length(value: number, expect?: string) {
-    return {
-        length: {
-            value,
-            ...optional("error", expect),
-        },
-    };
-}
-
 export const lengthValidator = {
     name: "length" as const,
     factory: (
@@ -43,7 +34,15 @@ export const lengthValidator = {
     ],
 };
 
-export function safeLength(value: any, expectedLength: number): boolean {
+export function length(value: number, expect?: string) {
+    return {
+        length: {
+            value,
+            ...optional("error", expect),
+        },
+    };
+}
+function safeLength(value: any, expectedLength: number): boolean {
     if (typeof value === "string" || Array.isArray(value)) {
         return value.length === expectedLength;
     }

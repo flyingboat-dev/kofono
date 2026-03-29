@@ -23,6 +23,14 @@ export type PasswordValidatorOpts = SchemaPropertyBaseValidator & {
     specialCharsList?: string;
 };
 
+export const passwordValidator = {
+    name: "password" as const,
+    factory: (
+        selector: string,
+        type: ValidationType,
+        opts: PasswordValidatorOpts,
+    ) => new PasswordValidator(selector, type, opts),
+};
 export function password(
     opts: PasswordValidatorOpts,
     expect?: string,
@@ -32,15 +40,6 @@ export function password(
         ...optional("error", expect),
     };
 }
-
-export const passwordValidator = {
-    name: "password" as const,
-    factory: (
-        selector: string,
-        type: ValidationType,
-        opts: PasswordValidatorOpts,
-    ) => new PasswordValidator(selector, type, opts),
-};
 
 export class PasswordValidator extends AbstractValidator implements Validator {
     constructor(

@@ -13,14 +13,6 @@ export type SchemaIsTrueValidator = "isTrue" | { isTrue: IsTrueValidatorOpts };
 
 export type IsTrueValidatorOpts = SchemaPropertyBaseValidator;
 
-export function isTrue(expect?: string): SchemaIsTrueValidator {
-    return {
-        isTrue: {
-            ...optional("error", expect),
-        },
-    };
-}
-
 export const isTrueValidator = {
     name: "isTrue" as const,
     factory: (
@@ -29,6 +21,14 @@ export const isTrueValidator = {
         opts: IsTrueValidatorOpts,
     ) => new IsTrueValidator(selector, type, opts),
 };
+
+export function isTrue(expect?: string): SchemaIsTrueValidator {
+    return {
+        isTrue: {
+            ...optional("error", expect),
+        },
+    };
+}
 
 export class IsTrueValidator extends AbstractValidator implements Validator {
     validate(ctx: ValidationContext): ValidatorResponse {

@@ -16,6 +16,12 @@ export type UrlValidatorOpts = SchemaPropertyBaseValidator & {
     hostnames?: string[];
 };
 
+export const urlValidator = {
+    name: "url" as const,
+    factory: (selector: string, type: ValidationType, opts: UrlValidatorOpts) =>
+        new UrlValidator(selector, type, opts),
+};
+
 export function url(
     opts: UrlValidatorOpts,
     expect?: string,
@@ -27,12 +33,6 @@ export function url(
         },
     };
 }
-
-export const urlValidator = {
-    name: "url" as const,
-    factory: (selector: string, type: ValidationType, opts: UrlValidatorOpts) =>
-        new UrlValidator(selector, type, opts),
-};
 
 /**
  * URL validator.

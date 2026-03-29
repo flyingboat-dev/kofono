@@ -8,7 +8,6 @@
         "test": "vitest run"
     },
     "dependencies": {
-        "kofono": "workspace:*",
         "@flyingboat/kofono-solid-ui": "workspace:*",
         "@flyingboat/solid-editor": "workspace:*",
         "@fontsource/lato": "5.2.7",
@@ -21,6 +20,7 @@
         "@solidjs/router": "^0.16.1",
         "@solidjs/meta": "^0.29.4",
         "clsx": "2.1.1",
+        "kofono": "workspace:*",
         "solid-icons": "^1.2.0",
         "solid-js": "^1.9.12",
         "tailwindcss": "^4.2.2"

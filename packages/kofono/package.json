@@ -1,6 +1,6 @@
 {
-    "name": "@flyingboat/kofono",
-    "version": "0.7.0-canary.20260228.2",
+    "name": "kofono",
+    "version": "0.7.0-dev20260329",
     "description": "Kofono Form Engine Library",
     "keywords": [
         "form",
@@ -30,7 +30,7 @@
         "check:fix": "pnpm check --write",
         "test": "vitest",
         "test:ui": "vitest --ui",
-        "prepublish": "pnpm lint:fix && pnpm build",
+        "prepublish": "pnpm check:fix && pnpm build",
         "canary": "tsx ./scripts/canary.ts"
     },
     "dependencies": {

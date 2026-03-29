@@ -1,4 +1,4 @@
-import type { SchemaPropertyEnum } from "@flyingboat/kofono";
+import type { SchemaPropertyEnum } from "kofono";
 import { createSignal } from "solid-js";
 import { Dropdown, type DropdownOption } from "@/components/dropdown/Dropdown";
 import { propComponent } from "@/components/helpers";

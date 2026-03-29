@@ -8,7 +8,7 @@
         "test": "vitest run"
     },
     "dependencies": {
-        "@flyingboat/kofono": "workspace:*",
+        "kofono": "workspace:*",
         "@flyingboat/kofono-solid-ui": "workspace:*",
         "@flyingboat/solid-editor": "workspace:*",
         "@fontsource/lato": "5.2.7",

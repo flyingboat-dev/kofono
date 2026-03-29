@@ -1,8 +1,8 @@
-import type { Schema } from "@flyingboat/kofono";
+import type { Schema } from "kofono";
 import type { JSX } from "solid-js";
 import type { SubmitHandler } from "@/components/types";
 import { FormSchemaProvider } from "@/context";
-import { FormContent } from "./FormContent";
+import { FormContent } from "./FormContent"; // import { useFormContext } from "@/context/helpers";
 
 // import { useFormContext } from "@/context/helpers";
 

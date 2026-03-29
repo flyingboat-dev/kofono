@@ -1,4 +1,4 @@
-import { GenericDataQuerier } from "@flyingboat/kofono";
+import { GenericDataQuerier } from "kofono";
 import { createMemo, For, Show } from "solid-js";
 import { useFormContext } from "@/context";
 import { Table, Td, Th } from "./Table";

@@ -1,4 +1,4 @@
-import type { ValidatorResponse } from "@flyingboat/kofono";
+import type { ValidatorResponse } from "kofono";
 import { createEffect, createMemo, createSignal, For, Show } from "solid-js";
 import { useFormContext } from "@/context";
 import { Table, Td, Th } from "./Table";

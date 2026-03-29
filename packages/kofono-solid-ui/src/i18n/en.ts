@@ -1,4 +1,4 @@
-import { ValidatorErrors } from "@flyingboat/kofono";
+import { ValidatorErrors } from "kofono";
 
 export const en = {
     language: "Language",

@@ -1,4 +1,4 @@
-import { type Form, tryBuildSchema } from "@flyingboat/kofono";
+import { type Form, tryBuildSchema } from "kofono";
 import { type Accessor, createMemo, Show, Suspense } from "solid-js";
 import { isDev } from "@/components/helpers";
 import { updateHandler } from "@/components/reactivity";

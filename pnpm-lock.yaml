@@ -20,9 +20,6 @@ importers:
 
   doc:
     dependencies:
-      '@flyingboat/kofono':
-        specifier: workspace:*
-        version: link:../packages/kofono
       '@flyingboat/kofono-solid-ui':
         specifier: workspace:*
         version: link:../packages/kofono-solid-ui
@@ -59,6 +56,9 @@ importers:
       clsx:
         specifier: 2.1.1
         version: 2.1.1
+      kofono:
+        specifier: workspace:*
+        version: link:../packages/kofono
       solid-icons:
         specifier: ^1.2.0
         version: 1.2.0(solid-js@1.9.12)
@@ -194,9 +194,6 @@ importers:
 
   packages/kofono-solid-ui:
     dependencies:
-      '@flyingboat/kofono':
-        specifier: workspace:*
-        version: link:../kofono
       '@solid-primitives/i18n':
         specifier: 2.2.1
         version: 2.2.1(solid-js@1.9.12)
@@ -209,6 +206,9 @@ importers:
       clsx:
         specifier: 2.1.1
         version: 2.1.1
+      kofono:
+        specifier: workspace:*
+        version: link:../kofono
       solid-js:
         specifier: ^1.9.12
         version: 1.9.12

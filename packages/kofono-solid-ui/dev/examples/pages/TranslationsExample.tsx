@@ -1,4 +1,4 @@
-import { K, type Schema } from "@flyingboat/kofono";
+import { K, type Schema } from "kofono";
 import { C } from "@/components/PropElement";
 import { ExamplePage } from "../ExamplePage";
 

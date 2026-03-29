@@ -1,4 +1,4 @@
-import { K, type Schema } from "@flyingboat/kofono";
+import { K, type Schema } from "kofono";
 import { ExamplePage } from "../ExamplePage";
 
 const schema: Schema = K.schema({

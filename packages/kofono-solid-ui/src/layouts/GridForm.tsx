@@ -1,4 +1,4 @@
-import type { Form } from "@flyingboat/kofono";
+import type { Form } from "kofono";
 import { Show, Suspense } from "solid-js";
 import { unwrap } from "solid-js/store";
 import { FormSubmitButton } from "@/components/button/FormSubmitButton";

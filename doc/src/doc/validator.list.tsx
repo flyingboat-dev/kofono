@@ -1,4 +1,4 @@
-import { builtinValidators } from "@flyingboat/kofono";
+import { builtinValidators } from "kofono";
 import { For } from "solid-js";
 import { H1, Spacer } from "@/components/html";
 

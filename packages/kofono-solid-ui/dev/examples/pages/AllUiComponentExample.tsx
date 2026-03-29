@@ -1,4 +1,4 @@
-import { K, type Schema } from "@flyingboat/kofono";
+import { K, type Schema } from "kofono";
 import { FormSchemaProvider } from "@/context";
 import { FormContent } from "../FormContent";
 

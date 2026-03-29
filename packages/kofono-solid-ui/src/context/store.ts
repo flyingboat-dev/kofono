@@ -1,4 +1,4 @@
-import type { Form, Schema, State } from "@flyingboat/kofono";
+import type { Form, Schema, State } from "kofono";
 import type { Accessor, Setter } from "solid-js";
 import { createStore } from "solid-js/store";
 import type { FormStore } from "@/context/types";

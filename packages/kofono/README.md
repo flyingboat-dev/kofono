@@ -1,6 +1,6 @@
 # Kofono
 
-[![npm version](https://img.shields.io/npm/v/@flyingboat/kofono.svg)](https://www.npmjs.com/package/@flyingboat/kofono)
+[![npm version](https://img.shields.io/npm/v/kofono.svg)](https://www.npmjs.com/package/@flyingboat/kofono)
 [![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](LICENSE)
 
 A powerful headless form engine library. Kofono provides
@@ -11,7 +11,7 @@ It can be run in any JavaScript environment, including Node.js and browsers, and
 is designed to work seamlessly with modern frameworks like React, Vue, SolidJS and more.
 
 ```typescript
-import { K, between, condition, email, min, notEmpty } from "@flyingboat/kofono";
+import { K, between, condition, email, min, notEmpty } from "kofono";
 
 const form = await K.form({
     name: K.string(notEmpty()),

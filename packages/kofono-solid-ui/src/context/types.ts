@@ -1,6 +1,6 @@
-import type { Form, Schema, State } from "@flyingboat/kofono";
+import type { Form, Schema, State } from "kofono";
 import type { Accessor, Setter } from "solid-js";
-import type { createFormStore } from "./store";
+import type { createFormStore } from "./store"; // https://gist.github.com/alexamy/d69152eae3619a61567a7e89e52797fe
 
 // https://gist.github.com/alexamy/d69152eae3619a61567a7e89e52797fe
 export type FormState = ReturnType<typeof createFormStore>;

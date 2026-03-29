@@ -1,4 +1,4 @@
-import type { SchemaPropertyEnum } from "@flyingboat/kofono";
+import type { SchemaPropertyEnum } from "kofono";
 import { createSignal, For } from "solid-js";
 import { propComponent, propertyHtmlId } from "@/components/helpers";
 import type { FormElementProps } from "@/components/PropElement";

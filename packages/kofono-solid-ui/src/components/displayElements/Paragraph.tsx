@@ -1,4 +1,4 @@
-import { TreeType } from "@flyingboat/kofono";
+import { TreeType } from "kofono";
 import type { JSX } from "solid-js";
 import type { DisplayElementProps } from "@/components/displayElements/type";
 import { propComponent } from "@/components/helpers";

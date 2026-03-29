@@ -1,4 +1,4 @@
-import { PropertyType } from "@flyingboat/kofono";
+import { PropertyType } from "kofono";
 import { For } from "solid-js";
 import type { UpdateHandler } from "@/components/types";
 import { useFormContext } from "@/context/helpers";

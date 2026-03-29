@@ -1,4 +1,4 @@
-import { type Form, type Schema, tryBuildSchema } from "@flyingboat/kofono";
+import { type Form, type Schema, tryBuildSchema } from "kofono";
 import {
     type Accessor,
     createMemo,

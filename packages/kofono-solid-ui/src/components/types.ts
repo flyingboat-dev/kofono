@@ -1,4 +1,4 @@
-import type { Form, SchemaComponent } from "@flyingboat/kofono";
+import type { Form, SchemaComponent } from "kofono";
 import type { Accessor, Setter } from "solid-js";
 import type { GridSchemaOption } from "@/layouts/types";
 

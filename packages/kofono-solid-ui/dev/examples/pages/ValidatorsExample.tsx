@@ -1,4 +1,4 @@
-import { K, type Schema } from "@flyingboat/kofono";
+import { K, type Schema } from "kofono";
 import { For } from "solid-js";
 import type { InputComponent } from "@/components/input";
 import { C } from "@/components/PropElement";

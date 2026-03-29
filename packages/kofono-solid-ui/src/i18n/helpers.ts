@@ -1,4 +1,4 @@
-import { isObjectLiteral } from "@flyingboat/kofono";
+import { isObjectLiteral } from "kofono";
 import * as i18n from "@solid-primitives/i18n";
 import { createResource } from "solid-js";
 import { useFormContext } from "@/context";

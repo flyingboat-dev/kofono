@@ -1,4 +1,4 @@
-import { isObjectLiteral } from "@flyingboat/kofono";
+import { isObjectLiteral } from "kofono";
 import {
     type GridSchemaOption,
     type GridValueType,

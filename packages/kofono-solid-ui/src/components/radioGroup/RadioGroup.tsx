@@ -1,4 +1,4 @@
-import type { SchemaPropertyEnum } from "@flyingboat/kofono";
+import type { SchemaPropertyEnum } from "kofono";
 import { createSignal, For } from "solid-js";
 import type { CheckboxProps } from "@/components/checkbox";
 import { propComponent, propertyHtmlId } from "@/components/helpers";

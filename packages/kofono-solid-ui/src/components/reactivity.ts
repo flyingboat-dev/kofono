@@ -1,4 +1,4 @@
-import type { Form } from "@flyingboat/kofono";
+import type { Form } from "kofono";
 import type { PropertiesSignals } from "@/components/types";
 
 export function ripplesEffect(

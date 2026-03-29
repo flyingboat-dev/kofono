@@ -1,4 +1,4 @@
-import type { FormProperty, SchemaComponent } from "@flyingboat/kofono";
+import type { FormProperty, SchemaComponent } from "kofono";
 import type { Accessor } from "solid-js";
 import { Checkbox, type CheckboxComponent } from "@/components/checkbox";
 import { CheckboxGroup } from "@/components/checkboxGroup";

@@ -1,4 +1,4 @@
-import { S } from "@flyingboat/kofono";
+import { S } from "kofono";
 import type { BasicSchemaComponent } from "@/components/types";
 import type { InputComponent } from "../src/components/input";
 import { C } from "../src/components/PropElement";

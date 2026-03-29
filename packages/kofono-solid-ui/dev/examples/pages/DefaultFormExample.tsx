@@ -1,4 +1,4 @@
-import { K, min, notEmpty } from "@flyingboat/kofono";
+import { K, min, notEmpty } from "kofono";
 import type { CheckboxComponent } from "@/components/checkbox";
 import type { CheckboxGroupComponent } from "@/components/checkboxGroup";
 import { textInput } from "@/components/input";

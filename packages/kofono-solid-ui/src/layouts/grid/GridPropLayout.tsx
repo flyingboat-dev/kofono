@@ -1,4 +1,4 @@
-import type { ValidatorResponse } from "@flyingboat/kofono";
+import type { ValidatorResponse } from "kofono";
 import { createEffect, createSignal, Show } from "solid-js";
 import { ParagraphBase } from "@/components/displayElements";
 import { propComponent, propertyHtmlId } from "@/components/helpers";

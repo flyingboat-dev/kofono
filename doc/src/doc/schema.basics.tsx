@@ -35,7 +35,7 @@ function RouteComponent() {
                         active: true,
                         content: (
                             <CodeBlock
-                                value={`import { Schema } from "@flyingboat/kofono";
+                                value={`import { Schema } from "kofono";
 
 const schema: Schema = {
     $id: "my-form",
@@ -52,7 +52,7 @@ const schema: Schema = {
                         label: "Typescript Builder",
                         content: (
                             <CodeBlock
-                                value={`import { S } from "@flyingboat/kofono";
+                                value={`import { S } from "kofono";
 
 const schema = K.schema({
     $id: "my-form",

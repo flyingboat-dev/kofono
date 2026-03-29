@@ -40,6 +40,9 @@
         "test": {
             "cache": true,
             "dependsOn": ["^test"]
+        },
+        "prepublish": {
+            "cache": false
         }
     }
 }

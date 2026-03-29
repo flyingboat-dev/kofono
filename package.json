@@ -9,9 +9,10 @@
         "clean": "turbo run clean",
         "dev": "turbo run dev",
         "dev:doc": "turbo run doc",
-        "format": "turbo run format",
         "check": "turbo run check",
         "check:fix": "turbo run check:fix",
+        "format": "turbo run format",
+        "prepublish": "turbo run prepublish",
         "test": "turbo run test",
         "test:core": "turbo run test --filter=@flyingboat/kofono",
         "turbo:clean": "turbo daemon clean"

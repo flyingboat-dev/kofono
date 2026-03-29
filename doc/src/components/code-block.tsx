@@ -1,4 +1,4 @@
-import { Editor } from "@flyingboat/solid-editor";
+import { Editor } from "@kofono/solid-editor";
 
 type CodeBlockProps = {
     value: string;

@@ -30,7 +30,7 @@ async function main() {
     if (publish.stderr) console.error(publish.stderr);
 
     const distTag = await execAsync(
-        `npm dist-tag add @flyingboat/kofono@${version} latest`,
+        `npm dist-tag add kofono@${version} latest`,
     );
     if (distTag.stdout) console.log(distTag.stdout);
     if (distTag.stderr) console.error(distTag.stderr);

@@ -20,12 +20,6 @@ importers:
 
   doc:
     dependencies:
-      '@flyingboat/kofono-solid-ui':
-        specifier: workspace:*
-        version: link:../packages/kofono-solid-ui
-      '@flyingboat/solid-editor':
-        specifier: workspace:*
-        version: link:../internal/editor
       '@fontsource/lato':
         specifier: 5.2.7
         version: 5.2.7
@@ -35,6 +29,12 @@ importers:
       '@fontsource/roboto-mono':
         specifier: 5.2.8
         version: 5.2.8
+      '@kofono/solid-editor':
+        specifier: workspace:*
+        version: link:../internal/editor
+      '@kofono/solid-ui':
+        specifier: workspace:*
+        version: link:../packages/kofono-solid-ui
       '@solidjs/meta':
         specifier: ^0.29.4
         version: 0.29.4(solid-js@1.9.12)

@@ -1,5 +1,5 @@
 {
-    "name": "@flyingboat/kofono-doc",
+    "name": "@kofono/doc",
     "private": true,
     "type": "module",
     "scripts": {
@@ -8,8 +8,8 @@
         "test": "vitest run"
     },
     "dependencies": {
-        "@flyingboat/kofono-solid-ui": "workspace:*",
-        "@flyingboat/solid-editor": "workspace:*",
+        "@kofono/solid-ui": "workspace:*",
+        "@kofono/solid-editor": "workspace:*",
         "@fontsource/lato": "5.2.7",
         "@fontsource/roboto": "5.2.10",
         "@fontsource/roboto-mono": "5.2.8",

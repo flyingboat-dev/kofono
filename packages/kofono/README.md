@@ -1,6 +1,6 @@
 # Kofono
 
-[![npm version](https://img.shields.io/npm/v/kofono.svg)](https://www.npmjs.com/package/@flyingboat/kofono)
+[![npm version](https://img.shields.io/npm/v/kofono.svg)](https://www.npmjs.com/package/kofono)
 [![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](LICENSE)
 
 A powerful headless form engine library. Kofono provides

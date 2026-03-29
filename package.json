@@ -14,7 +14,7 @@
         "format": "turbo run format",
         "prepublish": "turbo run prepublish",
         "test": "turbo run test",
-        "test:core": "turbo run test --filter=@flyingboat/kofono",
+        "test:core": "turbo run test --filter=kofono",
         "turbo:clean": "turbo daemon clean"
     },
     "devDependencies": {

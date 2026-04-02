@@ -11,10 +11,10 @@
         "dev:doc": "turbo run doc",
         "check": "turbo run check",
         "check:fix": "turbo run check:fix",
+        "check:fix:core": "turbo run check:fix --filter kofono",
         "format": "turbo run format",
         "prepublish": "turbo run prepublish",
-        "test": "turbo run test",
-        "test:core": "turbo run test --filter=kofono",
+        "test:core": "turbo run test --filter kofono --ui tui",
         "turbo:clean": "turbo daemon clean"
     },
     "devDependencies": {

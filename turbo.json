@@ -41,6 +41,10 @@
             "cache": true,
             "dependsOn": ["^test"]
         },
+        "test:core": {
+            "cache": false,
+            "interactive": true
+        },
         "prepublish": {
             "cache": false
         }

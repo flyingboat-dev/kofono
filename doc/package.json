@@ -3,7 +3,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "doc": "vite preview --port 8080",
+        "doc": "vite serve --port 8080",
         "doc:build": "tsc && vite build",
         "test": "vitest run"
     },

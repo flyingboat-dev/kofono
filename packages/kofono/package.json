@@ -1,6 +1,6 @@
 {
     "name": "kofono",
-    "version": "0.7.0-dev20260330",
+    "version": "0.8.0-dev20260330",
     "description": "Kofono Form Engine Library",
     "keywords": [
         "form",
@@ -38,13 +38,13 @@
         "yaml": "2.8.3"
     },
     "devDependencies": {
-        "@types/node": "^25.5.0",
-        "@vitest/coverage-v8": "^4.1.2",
-        "@vitest/ui": "^4.1.2",
+        "@types/node": "^25.6.0",
+        "@vitest/coverage-v8": "^4.1.4",
+        "@vitest/ui": "^4.1.4",
         "tslib": "^2.8.1",
         "tsx": "^4.21.0",
         "typescript": "^5.9.3",
-        "vitest": "^4.1.2"
+        "vitest": "^4.1.4"
     },
     "engines": {
         "node": ">=20",

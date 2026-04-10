@@ -38,8 +38,8 @@
         "solid-js": "^1.9.12"
     },
     "peerDependencies": {
-        "solid-js": "^1.9.11",
-        "tailwindcss": "^4.2.0"
+        "solid-js": "^1.9.12",
+        "tailwindcss": "^4.2.2"
     },
     "devDependencies": {
         "@solidjs/testing-library": "^0.8.10",
@@ -47,10 +47,10 @@
         "@tailwindcss/vite": "^4.2.2",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/user-event": "^14.6.1",
-        "@types/node": "^25.5.0",
+        "@types/node": "^25.6.0",
         "daisyui": "^5.5.19",
-        "jsdom": "^29.0.1",
-        "postcss": "^8.5.8",
+        "jsdom": "^29.0.2",
+        "postcss": "^8.5.9",
         "solid-icons": "^1.2.0",
         "tailwind-merge": "^3.5.0",
         "tailwindcss": "^4.2.2",
@@ -59,9 +59,9 @@
         "tsup": "^8.5.1",
         "tsup-preset-solid": "^2.2.0",
         "typescript": "5.9.3",
-        "vite": "^7.3.1",
-        "vite-plugin-solid": "^2.11.11",
-        "vitest": "^4.1.2"
+        "vite": "^7.3.2",
+        "vite-plugin-solid": "^2.11.12",
+        "vitest": "^4.1.4"
     },
     "typesVersions": {},
     "engines": {

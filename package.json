@@ -18,8 +18,8 @@
         "turbo:clean": "turbo daemon clean"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.4.9",
-        "turbo": "2.8.21"
+        "@biomejs/biome": "2.4.11",
+        "turbo": "2.9.6"
     },
     "engines": {
         "node": ">=22",

@@ -18,18 +18,18 @@ const form = await K.form({
     age: K.number(between(1, 120, "Age must be between 1 and 120")),
     email: K.string(email()),
     address: K.object({
-        street: K.string([
+        street: K.string(
             notEmpty(),
             min(1, "Street must be at least 1 char"),
-        ]),
+        ),
         city: K.string(notEmpty()),
-        zipCode: K.string([min(6), max(7)]),
+        zipCode: K.string(min(6), max(7)),
     }),
     sameAddressForBilling: K.boolean().default(false),
     billingAddress: K.object({
         street: K.string(notEmpty()),
         city: K.string(notEmpty()),
-        zipCode: K.string([min(6), max(7)]),
+        zipCode: K.string(min(6), max(7)),
     }).qualifications(when("sameAddressForBilling").isFalse()),
     acceptTerms: K.boolean(isTrue()).default(false),
 });

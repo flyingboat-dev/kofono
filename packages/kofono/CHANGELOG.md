@@ -1,4 +1,8 @@
-# 0.7.0 - ?
+# 0.8.0 - ?
+
+- K type methods use variadic params
+
+# 0.7.0 - 2026-03-29
 
 - rework form session to use state meta
 - add plugins to state meta

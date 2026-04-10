@@ -262,7 +262,7 @@ describe("K builder", () => {
         };
 
         it("should create a string property with validations when declared on type", () => {
-            const prop = K.string([notEmpty(), min(5)]);
+            const prop = K.string(notEmpty(), min(5));
             expect(prop.def).toEqual(result);
         });
 

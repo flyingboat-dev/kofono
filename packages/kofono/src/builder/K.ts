@@ -77,19 +77,19 @@ export class K {
     }
 
     public static string(
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        ...validators: SchemaPropertyValidator[]
     ): PropertyDeclaration<string> {
         return PropertyDeclaration.create(PropertyType.String, validators);
     }
 
     public static number(
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        ...validators: SchemaPropertyValidator[]
     ): PropertyDeclaration<number> {
         return PropertyDeclaration.create(PropertyType.Number, validators);
     }
 
     public static boolean(
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        ...validators: SchemaPropertyValidator[]
     ): PropertyDeclaration<boolean> {
         return PropertyDeclaration.create(PropertyType.Boolean, validators);
     }
@@ -104,25 +104,25 @@ export class K {
     }
 
     public static listBoolean(
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        ...validators: SchemaPropertyValidator[]
     ): PropertyDeclaration<boolean[]> {
         return PropertyDeclaration.create(PropertyType.ListBoolean, validators);
     }
 
     public static listNumber(
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        ...validators: SchemaPropertyValidator[]
     ): PropertyDeclaration<number[]> {
         return PropertyDeclaration.create(PropertyType.ListNumber, validators);
     }
 
     public static listString(
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        ...validators: SchemaPropertyValidator[]
     ): PropertyDeclaration<string[]> {
         return PropertyDeclaration.create(PropertyType.ListString, validators);
     }
 
     public static listMixed(
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        ...validators: SchemaPropertyValidator[]
     ): PropertyDeclaration<any[]> {
         return PropertyDeclaration.create(PropertyType.ListMixed, validators);
     }

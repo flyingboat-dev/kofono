@@ -27,11 +27,10 @@
     },
     "devDependencies": {
         "daisyui": "^5.5.19",
-        "postcss": "^8.5.9",
         "tailwind-merge": "^3.5.0",
         "tailwindcss-animate": "^1.0.7",
         "typescript": "^5.9.3",
-        "vite": "7.3.2",
+        "vite": "8.0.8",
         "vite-plugin-solid": "2.11.12"
     }
 }

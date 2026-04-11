@@ -45,6 +45,8 @@ export function GridPropLayout(props: GridPropertyLayoutProps) {
 
     return (
         <Show when={property().isQualified()}>
+            {/** biome-ignore lint/a11y/noStaticElementInteractions: ok */}
+            {/** biome-ignore lint/a11y/useKeyWithMouseEvents: ok too, trust me bro */}
             <div
                 onMouseOver={() => setFocusedSelector(property().selector)}
                 class={cn(

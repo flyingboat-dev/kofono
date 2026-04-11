@@ -8,7 +8,7 @@
         "test": "vitest run"
     },
     "dependencies": {
-        "@kofono/solid-ui": "workspace:*",
+        "@kofono/solid-form": "workspace:*",
         "@kofono/solid-editor": "workspace:*",
         "@fontsource/lato": "5.2.7",
         "@fontsource/roboto": "5.2.10",

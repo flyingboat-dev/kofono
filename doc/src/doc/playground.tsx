@@ -1,5 +1,9 @@
 import { Editor } from "@kofono/solid-editor";
-import { ComponentType, FormSchemaProvider, GridForm } from "@kofono/solid-ui";
+import {
+    ComponentType,
+    FormSchemaProvider,
+    GridForm
+} from "@kofono/solid-form";
 import { K, max, min, Schema } from "kofono";
 import { createSignal } from "solid-js";
 import { H1, H4, Hr } from "@/components/html";

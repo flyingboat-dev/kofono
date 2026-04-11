@@ -1,6 +1,7 @@
 // src/components/AceEditor.tsx
 
 import * as ace from "ace-builds";
+import * as Completer from "ace-builds/src-noconflict/ext-language_tools";
 import { onCleanup, onMount } from "solid-js";
 import { defaultOptions } from "./default";
 import type { AceOptions } from "./types";
@@ -36,6 +37,8 @@ export function Editor(props: AceEditorProps) {
         }
 
         const editor = ace.edit(editorRef, {
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true,
             mode: `ace/mode/${props.mode ?? "javascript"}`,
             theme: `ace/theme/${props.theme ?? "merbivore"}`,
             value: props.value ?? "",
@@ -58,6 +61,61 @@ export function Editor(props: AceEditorProps) {
         editor.session.on("change", () => {
             const val = editor.getValue();
             props.onChange?.(val);
+        });
+
+        // Enable language tools
+        Completer.setCompleters([
+            // Basic word completions (built-in)
+            // Language completions (for supported languages)
+            // Custom completers here
+        ]);
+        // Add custom completions
+        Completer.addCompleter({
+            getCompletions: (_editor, _session, _pos, _prefix, callback) => {
+                const completions = [
+                    {
+                        name: "min",
+                        value: "min(0)",
+                        type: "function",
+                        meta: "Validator",
+                    },
+                ];
+                callback(null, completions);
+            },
+        });
+
+        Completer.addCompleter({
+            identifierRegexps: [/[a-zA-Z_0-9$\u00A1-\uFFFF]/],
+            getCompletions: (_editor, _session, _pos, _prefix, callback) => {
+                const completions = [
+                    {
+                        caption: "form",
+                        meta: "method",
+                        value: "form({})",
+                        type: "function",
+                    },
+                    {
+                        caption: "string",
+                        meta: "function",
+                        value: "string()",
+                        type: "function",
+                    },
+                    {
+                        caption: "number",
+                        meta: "function",
+                        value: "number()",
+                        type: "function",
+                    },
+                    {
+                        caption: "boolean",
+                        meta: "function",
+                        value: "boolean()",
+                        type: "function",
+                    },
+                    // Add other K methods here
+                ];
+                callback(null, completions);
+            },
         });
 
         onCleanup(() => {

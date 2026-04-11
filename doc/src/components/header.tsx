@@ -17,7 +17,7 @@ export function Header() {
                             Kofono docs
                         </span>
                         <sup class="ml-2 -mt-1 font-light text-xs">
-                            v0.4.6 &#123;latest&#125;
+                            v{import.meta.env.VITE_VERSION}
                         </sup>
                     </A>
                 </H2>

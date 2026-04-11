@@ -11,8 +11,9 @@ import "@fontsource/lato/400-italic.css";
 import { MetaProvider } from "@solidjs/meta";
 import { Route, Router } from "@solidjs/router";
 import { For, type ParentProps } from "solid-js";
-import { Layout } from "@/components/layout";
+import { RootLayout } from "@/components/layouts/root-layout";
 import { Landing } from "@/doc/landing";
+import { Playground } from "@/doc/playground";
 import { SchemaBasics } from "@/doc/schema.basics";
 import { SchemaProperties } from "@/doc/schema.properties";
 import { SchemaSelectors } from "@/doc/schema.selectors";
@@ -24,7 +25,7 @@ function App(props: ParentProps) {
     return (
         <MetaProvider>
             <QueryClientProvider client={queryClient}>
-                <Layout>{props.children}</Layout>
+                <RootLayout>{props.children}</RootLayout>
             </QueryClientProvider>
         </MetaProvider>
     );
@@ -32,6 +33,7 @@ function App(props: ParentProps) {
 
 const docPages: DocComponentPage[] = [
     Landing,
+    Playground,
     SchemaBasics,
     SchemaProperties,
     SchemaSelectors,

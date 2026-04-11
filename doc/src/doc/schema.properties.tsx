@@ -1,6 +1,7 @@
 import { CodeBlock } from "@/components/code-block";
 import { CodeTabs } from "@/components/code-tabs";
 import { Code, H1, H2, Spacer, Table } from "@/components/html";
+import { DocLayout } from "@/components/layouts/doc-layout";
 
 export const SchemaProperties: DocComponentPage = {
     path: "/schema/properties",
@@ -46,7 +47,7 @@ const exampleStringNumberBoolJson: string = `const schema = {
 
 function RouteComponent() {
     return (
-        <>
+        <DocLayout>
             <H1>Properties</H1>
             <p>
                 Properties are the bread and butter of your schema. They define
@@ -390,6 +391,6 @@ function RouteComponent() {
                     },
                 ]}
             />
-        </>
+        </DocLayout>
     );
 }

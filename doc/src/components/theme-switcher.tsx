@@ -47,7 +47,7 @@ export function ThemeSwitcher() {
     };
     return (
         <div class="dropdown dropdown-end">
-            <div class="btn btn-primary">
+            <button type="button" class="btn btn-primary">
                 <VsColorMode class="inline-block w-6 h-6" />
                 <svg
                     aria-hidden="true"
@@ -58,7 +58,7 @@ export function ThemeSwitcher() {
                     viewBox="0 0 2048 2048">
                     <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
                 </svg>
-            </div>
+            </button>
             <ul
                 tabIndex="-1"
                 class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 mt-2 shadow-2xl">

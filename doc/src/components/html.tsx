@@ -1,8 +1,11 @@
 import { type JSXElement, Show } from "solid-js";
 import { cn } from "@/utils";
 
-type ElementWithProps = {
+type ElementWithClass = {
     class?: string;
+};
+
+type ElementWithProps = ElementWithClass & {
     children?: JSXElement;
 };
 
@@ -52,6 +55,10 @@ export function Code(props: ElementWithProps) {
             {props.children}
         </code>
     );
+}
+
+export function Hr(props: ElementWithClass) {
+    return <hr class={cn("text-secondary", props.class)} />;
 }
 
 export interface TableProps {

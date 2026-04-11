@@ -3,7 +3,7 @@ import { Header } from "@/components/header";
 import { TableOfContents } from "@/components/table-of-contents";
 import { tableOfContents } from "@/doc/table-of-contents";
 
-export function Layout(props: { children: JSX.Element }) {
+export function DocLayout(props: { children: JSX.Element }) {
     // const navigate = useNavigate();
 
     return (

@@ -1,6 +1,7 @@
 import { Title } from "@solidjs/meta";
 import { CodeBlock } from "@/components/code-block";
 import { H1 } from "@/components/html";
+import { DocLayout } from "@/components/layouts/doc-layout";
 
 export const SchemaSelectors: DocComponentPage = {
     path: "/schema/selectors",
@@ -13,7 +14,7 @@ export const SchemaSelectors: DocComponentPage = {
 
 function RouteComponent() {
     return (
-        <>
+        <DocLayout>
             <Title>{SchemaSelectors.title}</Title>
             <H1>Selectors</H1>
             <p>
@@ -63,6 +64,6 @@ function RouteComponent() {
                     <code>address.location.lng</code>
                 </li>
             </ul>
-        </>
+        </DocLayout>
     );
 }

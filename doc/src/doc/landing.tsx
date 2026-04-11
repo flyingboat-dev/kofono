@@ -1,6 +1,7 @@
 import { CodeBlock } from "@/components/code-block";
 import { CodeTabs } from "@/components/code-tabs";
 import { H1, Spacer, StrongAccent } from "@/components/html";
+import { DocLayout } from "@/components/layouts/doc-layout";
 
 export const Landing: DocComponentPage = {
     title: "Kofono documentation",
@@ -13,7 +14,7 @@ export const Landing: DocComponentPage = {
 
 function Content() {
     return (
-        <>
+        <DocLayout>
             <H1 class="font-bold text-3xl">Kofono documentation</H1>
             <H1>What is Kofono?</H1>
 
@@ -147,6 +148,6 @@ function Content() {
             {/*        />*/}
             {/*    </FormSchemaProvider>*/}
             {/*</div>*/}
-        </>
+        </DocLayout>
     );
 }

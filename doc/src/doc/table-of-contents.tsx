@@ -1,5 +1,6 @@
 import { VsDebugStart } from "solid-icons/vs";
 import { Landing } from "@/doc/landing";
+import { Playground } from "@/doc/playground";
 import { SchemaBasics } from "@/doc/schema.basics";
 import { SchemaProperties } from "@/doc/schema.properties";
 import { SchemaSelectors } from "@/doc/schema.selectors";
@@ -10,7 +11,7 @@ export const tableOfContents: TableOfContents = [
     {
         title: "Getting started",
         icon: <VsDebugStart />,
-        children: [Landing],
+        children: [Landing, Playground],
     },
     {
         title: "Schema",

@@ -1,6 +1,7 @@
 import { CodeBlock } from "@/components/code-block";
 import { CodeTabs } from "@/components/code-tabs";
 import { Code, H1, Spacer } from "@/components/html";
+import { DocLayout } from "@/components/layouts/doc-layout";
 
 export const SchemaBasics: DocComponentPage = {
     path: "/schema/basics",
@@ -13,7 +14,7 @@ export const SchemaBasics: DocComponentPage = {
 
 function RouteComponent() {
     return (
-        <>
+        <DocLayout>
             <H1>Schema Basics</H1>
             <p>
                 At is root, Kofono is a schema based validation library. You
@@ -64,6 +65,6 @@ const schema = K.schema({
                 ]}
             />
             <Spacer />
-        </>
+        </DocLayout>
     );
 }

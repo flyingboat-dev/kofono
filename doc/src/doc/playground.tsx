@@ -1,5 +1,5 @@
 import { Editor } from "@kofono/solid-editor";
-import { FormSchemaProvider, GridForm } from "@kofono/solid-ui";
+import { ComponentType, FormSchemaProvider, GridForm } from "@kofono/solid-ui";
 import { K, max, min, Schema } from "kofono";
 import { createSignal } from "solid-js";
 import { H1, H4, Hr } from "@/components/html";
@@ -30,14 +30,19 @@ const schema = K.schema({
         en: {
             name: {
                 title: "Enter your name",
-                min: {
-                    error: "Your name must be at least 1 character",
-                },
+                description: "Enter your first name only",
+                "min.error": "Your name must be at least 1 character",
+                "max.error": "Your name should not exceed 250 characters!",
             },
         },
     },
-    name: K.string(min(1, "name.min.error"), max(250)).component({
+    name: K.string(
+        min(1, "name.min.error"),
+        max(250, "name.max.error"),
+    ).component({
+        type: ComponentType.Input,
         title: "name.title",
+        description: "name.description",
     }),
 });
 
@@ -47,7 +52,7 @@ function RouteComponent() {
 
     const onEditorChange = (val: string) => {
         console.log("onEditorChange");
-        setValue(val);
+        // setValue(val);
         // biome-ignore lint/security/noGlobalEval: todo: to replace
         const schema = eval(val);
         setPreviewSchema(schema);

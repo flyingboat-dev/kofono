@@ -10,7 +10,7 @@ export function Header() {
         <div class="px-4 py-2 bg-primary shadow-2xl ">
             <div class="flex flex-row justify-between ">
                 <H2 class="m-0 p-0 leading-10 text-primary-content font-bold">
-                    <A href={"s"}>
+                    <A href={"/"}>
                         {/*<TbForms />*/}
                         <CgFormatCenter class="inline-block w-6 h-6 mr-2 -mt-1 text-primary-content/70 " />
                         <span class="bg-primary-content/10 p-2 rounded-md">
@@ -26,6 +26,7 @@ export function Header() {
                     <a
                         href={import.meta.env.VITE_GITURL}
                         target="_blank"
+                        rel="noopener noreferrer"
                         class="btn btn-primary">
                         <FaBrandsSquareGitlab class="w-6 h-6" />
                     </a>

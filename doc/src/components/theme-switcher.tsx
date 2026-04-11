@@ -1,5 +1,5 @@
-import { For } from "solid-js";
 import { VsColorMode } from "solid-icons/vs";
+import { For } from "solid-js";
 
 const themes = [
     "light",
@@ -47,24 +47,23 @@ export function ThemeSwitcher() {
     };
     return (
         <div class="dropdown dropdown-end">
-            <div tabIndex={0} role="button" class="btn btn-primary">
+            <div class="btn btn-primary">
                 <VsColorMode class="inline-block w-6 h-6" />
                 <svg
+                    aria-hidden="true"
                     width="12px"
                     height="12px"
                     class="inline-block ml-2 h-2 w-2 fill-current opacity-60"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 2048 2048"
-                >
+                    viewBox="0 0 2048 2048">
                     <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
                 </svg>
             </div>
             <ul
                 tabIndex="-1"
-                class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 mt-2 shadow-2xl"
-            >
+                class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 mt-2 shadow-2xl">
                 <For each={themes}>
-                    {(theme) => (
+                    {theme => (
                         <li>
                             <input
                                 type="radio"

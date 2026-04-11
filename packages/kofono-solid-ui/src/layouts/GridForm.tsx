@@ -57,7 +57,7 @@ export function GridForm(props: GridFormProps) {
                         </Show>
                     </div>
                     <div
-                        class={`isolate grid grid-cols-12 gap-[var(--grid-gap)] mt-4`}>
+                        class={`isolate grid grid-cols-12 gap-[var(--grid-gap)]`}>
                         <GridPropsLayout
                             updateHandler={updateHandler}
                             selectors={store.form!.selectors.getRootSelectors()}

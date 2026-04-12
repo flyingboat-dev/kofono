@@ -4,7 +4,7 @@ export type ValidationsKeyToken = "$v";
 
 export enum Token {
     SchemaId = "$id",
-    SchemaPlugins = "$plugins",
+    SchemaExtensions = "$extensions",
     SchemaVars = "$vars",
     SchemaTranslations = "$translations",
     DefaultValue = "default",

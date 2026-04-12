@@ -1,6 +1,7 @@
 # 0.8.0 - ?
 
 - K type methods use variadic params
+- renamed plugins to extensions for better intent
 
 # 0.7.0 - 2026-03-29
 

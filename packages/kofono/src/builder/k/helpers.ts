@@ -34,8 +34,8 @@ export function schemaToPropertiesDeclarations(
     if (schema.$vars) {
         properties.$vars = schema.$vars;
     }
-    if (schema.$plugins) {
-        properties.$plugins = schema.$plugins;
+    if (schema.$extensions) {
+        properties.$extensions = schema.$extensions;
     }
     if (schema[Token.SchemaTranslations]) {
         properties[Token.SchemaTranslations] = schema[Token.SchemaTranslations];

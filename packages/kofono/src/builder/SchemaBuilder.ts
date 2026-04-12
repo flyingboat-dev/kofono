@@ -1,10 +1,10 @@
 import * as YAML from "yaml";
 import { isObjectLiteral } from "../common/helpers";
+import type { ExtensionsFactory } from "../extension/ExtensionsFactory";
+import type { Extension } from "../extension/types";
 import { defaultConfig } from "../form/defaults";
 import type { Form } from "../form/Form";
 import type { FormConfig, Properties } from "../form/types";
-import type { PluginsFactory } from "../plugins/PluginsFactory";
-import type { Plugin } from "../plugins/types";
 import { PropertyType } from "../property/types";
 import type {
     Schema,
@@ -63,38 +63,38 @@ export class SchemaBuilder {
         this.processProps(builder, schema.__, "root");
 
         const finalConfig = this.processConfig(schema, config);
-        finalConfig.plugins = this.buildPlugins(
-            schema[Token.SchemaPlugins],
-            finalConfig.pluginsFactory,
+        finalConfig.extensions = this.buildPlugins(
+            schema[Token.SchemaExtensions],
+            finalConfig.extensionsFactory,
         );
 
         return await builder.build(finalConfig);
     }
 
     public buildPlugins(
-        schemaPlugins: Schema[Token.SchemaPlugins],
-        pluginsFactory: PluginsFactory,
-    ): Plugin[] {
+        schemaPlugins: Schema[Token.SchemaExtensions],
+        extensionsFactory: ExtensionsFactory,
+    ): Extension[] {
         if (!schemaPlugins) {
             return [];
         }
 
-        const plugins: Plugin[] = [];
+        const extensions: Extension[] = [];
 
-        for (const plugin of schemaPlugins) {
-            const keys = Object.keys(plugin);
+        for (const extension of schemaPlugins) {
+            const keys = Object.keys(extension);
             let name: string = "";
             if (keys.length === 1) {
                 name = keys[0];
             }
 
-            if (pluginsFactory.has(name)) {
-                const factory = pluginsFactory.get(name);
-                plugins.push(factory(plugin[name]));
+            if (extensionsFactory.has(name)) {
+                const factory = extensionsFactory.get(name);
+                extensions.push(factory(extension[name]));
             }
         }
 
-        return plugins;
+        return extensions;
     }
 
     public buildProp(

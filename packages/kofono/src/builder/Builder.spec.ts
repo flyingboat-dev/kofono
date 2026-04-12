@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it, test } from "vitest";
 import {
     defaultPassHandler,
+    ExtensionsFactory,
     FormEnv,
-    PluginsFactory,
     ValidatorErrors,
 } from "../";
 import { IsValidValidator } from "../validator/isValid/IsValidValidator";
@@ -95,7 +95,7 @@ describe("Builder FormConfig", () => {
         const form = await builder.build({
             env: FormEnv.test,
             validatorsFactory: customValidatorsFactory,
-            pluginsFactory: new PluginsFactory(),
+            extensionsFactory: new ExtensionsFactory(),
             properties: {},
             passHandler: form => {
                 passHandler = true;

@@ -1,5 +1,5 @@
-import type { PluginsFactory } from "../plugins/PluginsFactory";
-import type { Plugin } from "../plugins/types";
+import type { ExtensionsFactory } from "../extension/ExtensionsFactory";
+import type { Extension } from "../extension/types";
 import type { Property } from "../property/Property";
 import type { SchemaProperty } from "../schema/Schema";
 import type { ValidatorResponse } from "../validator/types";
@@ -23,8 +23,8 @@ export type FormConfig = {
     env: FormEnv;
     passHandler: PassHandler;
     validatorsFactory: ValidatorsFactory;
-    pluginsFactory: PluginsFactory;
-    plugins?: Plugin[];
+    extensionsFactory: ExtensionsFactory;
+    extensions?: Extension[];
     properties: Properties;
     vars: Record<string, unknown>;
     state?: Partial<State>;
@@ -38,7 +38,7 @@ export type Data = Record<string, any>;
 
 export interface Meta {
     hasBeenUpdated: string[];
-    plugins: Record<string, any>;
+    extensions: Record<string, any>;
 }
 
 export type Stats = {

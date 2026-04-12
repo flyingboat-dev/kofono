@@ -13,7 +13,7 @@ test("separate$keysFromProps()", () => {
         $vars: {
             name: "foo",
         },
-        $plugins: [],
+        $extensions: [],
         $special: "specialValue",
         propA: new PropertyDeclaration({
             type: "string",
@@ -30,7 +30,7 @@ test("separate$keysFromProps()", () => {
     expect(Object.keys(schemaOptions)).toEqual([
         "$id",
         "$vars",
-        "$plugins",
+        "$extensions",
         "$special",
     ]);
 });
@@ -41,7 +41,7 @@ test("schemaToPropertiesDeclarations()", () => {
         $vars: {
             name: "foo",
         },
-        $plugins: [],
+        $extensions: [],
         __: {
             propA: {
                 type: "string",
@@ -58,7 +58,7 @@ test("schemaToPropertiesDeclarations()", () => {
         $vars: {
             name: "foo",
         },
-        $plugins: [],
+        $extensions: [],
         propA: new PropertyDeclaration({
             type: "string",
         }),

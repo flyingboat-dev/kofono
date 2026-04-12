@@ -1,4 +1,4 @@
-import type { SchemaPlugins } from "../plugins/types";
+import type { SchemaExtension } from "../extension/types";
 import type { PropertyType } from "../property/types";
 import type { SchemaPropertyValidator } from "../validator/schema";
 import { Token } from "./Tokens";
@@ -7,7 +7,7 @@ export interface Schema {
     $id?: string;
     $vars?: Record<string, unknown>;
     __: SchemaProperties;
-    $plugins?: SchemaPlugins;
+    $extensions?: SchemaExtension[];
     $translations?: SchemaTranslations;
 }
 

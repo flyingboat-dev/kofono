@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { K } from "../../builder/K";
-import { updateCounter } from "./UpdateCounterPlugin";
+import { updateCounter } from "./UpdateCounterExtension";
 
-describe("UpdateCounterPlugin", () => {
+describe("UpdateCounterExtension", () => {
     it("should create correct schema", async () => {
         const schema = K.schema({
-            $plugins: [updateCounter()],
+            $extensions: [updateCounter()],
         });
         expect(schema).toEqual({
-            $plugins: [
+            $extensions: [
                 {
                     updateCounter: {},
                 },
@@ -19,12 +19,12 @@ describe("UpdateCounterPlugin", () => {
 
     it("should count updates", async () => {
         const form = await K.form({
-            $plugins: [updateCounter()],
+            $extensions: [updateCounter()],
             propA: K.string(),
         });
 
-        expect(form.state.meta.plugins.updateCounter).toBeDefined();
-        expect(form.state.meta.plugins.updateCounter).toBe(0);
+        expect(form.state.meta.extensions.updateCounter).toBeDefined();
+        expect(form.state.meta.extensions.updateCounter).toBe(0);
         await form.update("propA", "foo");
     });
 });

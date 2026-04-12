@@ -1,6 +1,6 @@
 import { version as packageVersion } from "../../package.json";
 import { Logs } from "../common/Logs";
-import type { Plugin } from "../plugins/types";
+import type { Extension } from "../extension/types";
 import type { Property } from "../property/Property";
 import type { SchemaProperty } from "../schema/Schema";
 import { DataSelector } from "../selector/DataSelector";
@@ -16,7 +16,7 @@ import { Events, type SelectorUpdateCtx } from "./events/types";
 import { FormArray } from "./FormArray";
 import { FormDataSelector } from "./FormDataSelector";
 import { FormEvents } from "./FormEvents";
-import { FormPlugins } from "./FormPlugins";
+import { FormExtensions } from "./FormExtensions";
 import { FormProperty } from "./FormProperty";
 import { FormSelectors } from "./FormSelectors";
 import { FormSession } from "./FormSession";
@@ -42,7 +42,7 @@ export class Form {
     #dataSelector: DataSelector;
     #formDataSelector: FormDataSelector;
     #selectors: FormSelectors;
-    #plugins: FormPlugins;
+    #extensions: FormExtensions;
     #props: Properties = {};
     #session: FormSession;
     #state: State;
@@ -67,7 +67,7 @@ export class Form {
         this.#stats = new FormStats(this);
         this.logs = new Logs();
         this.events = new FormEvents(this);
-        this.#plugins = new FormPlugins(this);
+        this.#extensions = new FormExtensions(this);
 
         this.compileStats();
 
@@ -95,9 +95,9 @@ export class Form {
             await this.loadState(this.#config.state);
         }
 
-        if (this.#config.plugins) {
-            await this.#plugins.init(this.#config.plugins);
-            this.#config.plugins = [];
+        if (this.#config.extensions) {
+            await this.#extensions.init(this.#config.extensions);
+            this.#config.extensions = [];
         }
 
         this.#status = FormStatus.Ready;
@@ -141,8 +141,8 @@ export class Form {
         return this.#status;
     }
 
-    public get plugins(): Plugin[] {
-        return this.#plugins.plugins;
+    public get extensions(): Extension[] {
+        return this.#extensions.extensions;
     }
 
     public addProp(prop: Property<SchemaProperty>): Form {

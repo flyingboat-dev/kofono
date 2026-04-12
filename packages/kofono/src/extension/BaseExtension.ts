@@ -1,8 +1,8 @@
 import { objectHasKey } from "../common/helpers";
 import type { Form } from "../form/Form";
-import type { Plugin } from "./types";
+import type { Extension } from "./types";
 
-export abstract class BasePlugin<T> implements Plugin<T> {
+export abstract class BaseExtension<T> implements Extension<T> {
     abstract name: string;
     abstract version: string;
     abstract defaultMeta: T;
@@ -10,12 +10,12 @@ export abstract class BasePlugin<T> implements Plugin<T> {
     abstract init(form: Form): Promise<void> | void;
 
     public initMeta(form: Form): void {
-        if (!objectHasKey(form.state.meta.plugins, this.name)) {
-            form.state.meta.plugins[this.name] = this.defaultMeta;
+        if (!objectHasKey(form.state.meta.extensions, this.name)) {
+            form.state.meta.extensions[this.name] = this.defaultMeta;
         }
     }
 
     meta(form: Form): T {
-        return form.state.meta.plugins[this.name];
+        return form.state.meta.extensions[this.name];
     }
 }

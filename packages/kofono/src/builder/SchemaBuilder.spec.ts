@@ -106,10 +106,10 @@ describe("SchemaBuilder testing configs", () => {
     });
 });
 
-describe("SchemaBuilder testing plugins", () => {
+describe("SchemaBuilder testing extension", () => {
     const schemaBuilder = new SchemaBuilder();
     const schema: Schema = {
-        $plugins: [
+        $extensions: [
             {
                 updateCounter: {},
             },
@@ -120,12 +120,12 @@ describe("SchemaBuilder testing plugins", () => {
             },
         },
     };
-    it("should have working default test plugin", async () => {
+    it("should have working default test extension", async () => {
         const form = await schemaBuilder.build(schema);
-        expect(form.plugins).toHaveLength(1);
+        expect(form.extensions).toHaveLength(1);
 
-        expect(form.plugins[0].name).toEqual("updateCounter");
-        expect(form.state.meta.plugins.updateCounter).toBeDefined();
+        expect(form.extensions[0].name).toEqual("updateCounter");
+        expect(form.state.meta.extensions.updateCounter).toBeDefined();
     });
 });
 

@@ -38,7 +38,7 @@ export class K {
         return {
             ...optional(Token.SchemaId, opts[Token.SchemaId]),
             ...optional(Token.SchemaVars, opts[Token.SchemaVars]),
-            ...optional(Token.SchemaPlugins, opts[Token.SchemaPlugins]),
+            ...optional(Token.SchemaExtensions, opts[Token.SchemaExtensions]),
             ...optional(
                 Token.SchemaTranslations,
                 opts[Token.SchemaTranslations],

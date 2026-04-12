@@ -173,7 +173,7 @@ describe("K builder", () => {
                 $vars: {
                     name: "foo",
                 },
-                $plugins: [],
+                $extensions: [],
                 $translations: {},
                 $test: "test", // should be ignored, see SchemaPropertiesDeclarations
                 propA: K.string().$v(v => v.notEmpty()),
@@ -182,7 +182,7 @@ describe("K builder", () => {
 
             expect(schema).toEqual({
                 $id: "test",
-                $plugins: [],
+                $extensions: [],
                 $translations: {},
                 $vars: {
                     name: "foo",

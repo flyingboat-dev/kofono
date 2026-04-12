@@ -77,4 +77,5 @@ export * from "./max/MaxValidator";
 export * from "./min/MinValidator";
 export * from "./password/PasswordValidator";
 export * from "./regexp/RegexpValidator";
+export * from "./required/RequiredValidator";
 export * from "./url/UrlValidator";

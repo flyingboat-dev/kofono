@@ -7,7 +7,6 @@ export default defineConfig({
         alias: [
             {
                 find: "@",
-                // @ts-expect-error
                 replacement: fileURLToPath(new URL("../src", import.meta.url)),
             },
         ],

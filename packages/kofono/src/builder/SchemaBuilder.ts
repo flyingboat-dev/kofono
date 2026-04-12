@@ -20,7 +20,8 @@ export const SchemaBuilderError = {
     InvalidPropertyKeyName: `Property key {key} cannot contain "${DataSelector.separator}" (dot)`,
     InvalidPropertyValue: `Property {key} is undefined in schema`,
     MissingRootProperties: `Schema must have a root properties key "${Token.Properties}"`,
-    UnknownPropertyType: `Unknown type {type}`,
+    UnknownPropertyType: `Unknown property type`,
+    UnknownPropertyTypeOf: `Unknown property type "{type}"`,
 } as const;
 
 /**
@@ -179,9 +180,16 @@ export class SchemaBuilder {
                 return builder.string(selector, prop);
         }
 
-        throw new Error(
-            SchemaBuilderError.UnknownPropertyType.replace("{type}", prop.type),
-        );
+        if (typeof (prop as SchemaProperty).type === "string") {
+            throw new Error(
+                SchemaBuilderError.UnknownPropertyTypeOf.replace(
+                    "{type}",
+                    (prop as SchemaProperty).type,
+                ),
+            );
+        }
+
+        throw new Error(SchemaBuilderError.UnknownPropertyType);
     }
 
     private joinSelectors(parentSelector: string, selector: string): string {

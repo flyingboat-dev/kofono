@@ -5,9 +5,10 @@ import {
     GridForm
 } from "@kofono/solid-form";
 import { K, max, min, Schema } from "kofono";
-import { createSignal } from "solid-js";
+import { createSignal, Show } from "solid-js";
 import { H1, H4, Hr } from "@/components/html";
 import { FullScreenLayout } from "@/components/layouts/fullscreen-layout";
+import { evalWithContext } from "./schema";
 
 export const Playground: DocComponentPage = {
     title: "Kofono documentation",
@@ -17,16 +18,39 @@ export const Playground: DocComponentPage = {
     keywords: ["kofono", "form", "schema", "typescript", "playground"],
     component: RouteComponent,
 };
+/*
 
-const startingSchemaString = `K.schema({
+K.schema({
     name: K.string(
-            min(1, "Your name must be at least 1 character"), 
+            min(1, "Your name must be at least 1 character"),
             max(250, "Your name should not exceed 250 characters!"),
         )
         .component({
-            title: "Enter your name",
+            title: "Enter your ndfsdfsdfsdfame",
             description: "Please enter your name",
         }),
+
+    acceptTerms: K.boolean(required()).component({
+        type: "checkbox2",
+        title:"DO you surrender your soul?"
+    })
+})
+ */
+
+const startingSchemaString = `K.schema({
+    name: K.string(
+            min(1, "Your name must be at least 1 character"),
+            max(250, "Your name should not exceed 250 characters!"),
+        )
+        .component({
+            title: "Enter your ndfsdfsdfsdfame",
+            description: "Please enter your name",
+        }),
+
+    acceptTerms: K.boolean(required()).component({
+        type: "checkbox2",
+        title:"DO you surrender your soul?"
+    })
 })`;
 
 const schema = K.schema({
@@ -51,28 +75,43 @@ const schema = K.schema({
 });
 
 function RouteComponent() {
-    const [value, setValue] = createSignal<string>(startingSchemaString);
+    // const [value, setValue] = createSignal<string>(startingSchemaString);
     const [previewSchema, setPreviewSchema] = createSignal<Schema>(schema);
+    const [previewSchemaVersion, setPreviewSchemaVersion] = createSignal(1);
 
     const onEditorChange = (val: string) => {
         console.log("onEditorChange");
-        // setValue(val);
-        // biome-ignore lint/security/noGlobalEval: todo: to replace
-        const schema = eval(val);
-        setPreviewSchema(schema);
-        console.log("schema", schema);
+        try {
+            const schema = evalWithContext(val);
+            updateSchema(schema);
+        } catch (error) {
+            console.error(error);
+        }
     };
+
+    const updateSchema = (nextSchema: Schema) => {
+        setPreviewSchema(nextSchema);
+        setPreviewSchemaVersion(v => v + 1);
+    };
+
+    const reloadBtn = () => {
+        updateSchema(previewSchema());
+    };
+
     return (
         <FullScreenLayout>
             <H1>Playground</H1>
             <div class="flex flex-row justify-between gap-2">
                 <div class="flex-3/5 bg-base-200 p-2">
                     <H4>Schema</H4>
-                    <Hr class="-mx-2 my-1" />
+                    <button class="hidden" type="button" onClick={reloadBtn}>
+                        reload
+                    </button>
+                    <Hr class="-mx-2 my-3" />
                     <Editor
                         onChange={onEditorChange}
                         class="p-0"
-                        value={value()}
+                        value={startingSchemaString}
                         mode={"javascript"}
                         theme="github_dark"
                         style={{ height: "500px", width: "100%" }}
@@ -87,10 +126,16 @@ function RouteComponent() {
                 </div>
                 <div class="flex-2/5 bg-base-200 p-2">
                     <H4>Preview</H4>
-                    <Hr class="-mx-2 my-1" />
-                    <FormSchemaProvider schema={previewSchema()} locale={"en"}>
-                        <GridForm></GridForm>
-                    </FormSchemaProvider>
+                    <Hr class="-mx-2 my-3" />
+                    <Show when={previewSchemaVersion()} keyed>
+                        {_version => (
+                            <FormSchemaProvider
+                                schema={previewSchema()}
+                                locale={"en"}>
+                                <GridForm />
+                            </FormSchemaProvider>
+                        )}
+                    </Show>
                 </div>
             </div>
         </FullScreenLayout>

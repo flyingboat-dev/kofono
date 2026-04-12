@@ -1,9 +1,9 @@
-import { Landing } from "@/doc/landing";
-import { Playground } from "@/doc/playground";
 import { SchemaBasics } from "@/doc/schema.basics";
 import { SchemaProperties } from "@/doc/schema.properties";
 import { SchemaSelectors } from "@/doc/schema.selectors";
 import { ValidatorList } from "@/doc/validator.list";
+import { Landing } from "@/pages/landing";
+import { Playground } from "@/pages/playground";
 import type { TableOfContents } from "@/types";
 
 export const tableOfContents: TableOfContents = [

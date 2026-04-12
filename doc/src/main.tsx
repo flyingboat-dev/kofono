@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { render } from "solid-js/web";
 import "./styles.css";
-import "../../packages/kofono-solid-ui/dist/index.css";
+import "../../packages/kofono-solid-form/dist/index.css";
 
 import "@fontsource/roboto-mono/700.css";
 import "@fontsource/lato/400.css";
@@ -12,12 +12,12 @@ import { MetaProvider } from "@solidjs/meta";
 import { Route, Router } from "@solidjs/router";
 import { For, type ParentProps } from "solid-js";
 import { RootLayout } from "@/components/layouts/root-layout";
-import { Landing } from "@/doc/landing";
-import { Playground } from "@/doc/playground";
 import { SchemaBasics } from "@/doc/schema.basics";
 import { SchemaProperties } from "@/doc/schema.properties";
 import { SchemaSelectors } from "@/doc/schema.selectors";
 import { ValidatorList } from "@/doc/validator.list";
+import { Landing } from "@/pages/landing";
+import { Playground } from "@/pages/playground";
 
 const queryClient = new QueryClient();
 

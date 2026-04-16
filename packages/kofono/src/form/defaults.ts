@@ -1,4 +1,4 @@
-import { PluginsFactory } from "../plugins/PluginsFactory";
+import { ExtensionsFactory } from "../extension/ExtensionsFactory";
 import type { ValidatorResponse } from "../validator/types";
 import { ValidatorsFactory } from "../validator/ValidatorsFactory";
 import type { Form } from "./Form";
@@ -17,8 +17,8 @@ export const defaultConfig: FormConfig = {
     env: FormEnv.prod,
     passHandler: defaultPassHandler,
     validatorsFactory: new ValidatorsFactory(),
-    pluginsFactory: new PluginsFactory(),
-    plugins: [],
+    extensionsFactory: new ExtensionsFactory(),
+    extensions: [],
     properties: {},
     vars: {},
 };

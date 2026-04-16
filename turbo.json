@@ -7,10 +7,6 @@
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
             "outputs": ["dist/**"]
         },
-        "build:editor": {
-            "cache": false,
-            "outputs": ["dist/**"]
-        },
         "build:watch": {
             "dependsOn": ["^build"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
@@ -27,7 +23,7 @@
         },
         "doc": {
             "cache": false,
-            "dependsOn": ["^build", "^build:editor"],
+            "dependsOn": ["^build"],
             "persistent": true
         },
         "format": {},
@@ -38,8 +34,7 @@
             "cache": false
         },
         "test": {
-            "cache": true,
-            "dependsOn": ["^test"]
+            "cache": true
         },
         "test:core": {
             "cache": false,

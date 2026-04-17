@@ -24,8 +24,8 @@ export function TestForm(_: TestFormProps) {
             console.log(buildResult.error);
             return null;
         }
-        // @ts-expect-error
-        window["form"] = buildResult.Form;
+
+        window["form"] = buildResult.form;
         setForm(buildResult.form);
         return buildResult.form;
     });

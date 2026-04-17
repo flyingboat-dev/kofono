@@ -1,9 +1,9 @@
+import { ThemeSwitcher } from "@kofono/solid-form";
 import { A } from "@solidjs/router";
 import { CgFormatCenter } from "solid-icons/cg";
 import { FaBrandsSquareGitlab } from "solid-icons/fa";
 import { H2 } from "@/components/html";
 import { Search } from "@/components/search";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export function Header() {
     return (

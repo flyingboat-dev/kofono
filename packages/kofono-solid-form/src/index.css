@@ -1,8 +1,34 @@
 @import "tailwindcss";
 
+@import "./themes/andromeda.css";
+@import "./themes/ayudark.css";
+@import "./themes/catppuccin.css";
+@import "./themes/everforest.css";
+@import "./themes/flexoki.css";
+@import "./themes/githubdark.css";
+@import "./themes/githublight.css";
+@import "./themes/gruvbox.css";
+@import "./themes/kanagawa.css";
+@import "./themes/monokai.css";
+@import "./themes/nightfox.css";
+@import "./themes/nightowl.css";
+@import "./themes/onedarkpro.css";
+@import "./themes/rosepine.css";
+@import "./themes/solarized.css";
+@import "./themes/tokyonight.css";
+@import "./themes/vscode.css";
+
+@plugin "tailwindcss-animate";
+
 @plugin "daisyui" {
-    /* biome-ignore lint/correctness/noUnknownProperty: tailwindcss plugin */
     themes: all;
+}
+
+@plugin "daisyui" {
+    themes:
+        light,
+        dark --default --prefersdark,
+        gruvbox;
 }
 
 /* explicit classes (generally used at runtime) */
@@ -10,3 +36,10 @@
 @source inline("{sm:,md:,lg:,xl:,}col-span-{{1..12}}");
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+    /* daisyui themes overrides */
+    --radius-selector: 0.4rem;
+    --radius-field: 0.4rem;
+    --radius-box: 0.4rem;
+}

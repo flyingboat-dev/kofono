@@ -31,6 +31,7 @@ export interface SchemaComponent {
     subType?: string;
     title?: string;
     description?: string;
+    legend?: string;
     placeholder?: string;
     label?: string;
     disqualificationBehavior?: "hide" | "disable";

@@ -12,10 +12,10 @@ export class PropertyDeclaration<T = any> {
 
     public static create<T>(
         type: PropertyType,
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        validators: SchemaPropertyValidator[] = [],
     ): PropertyDeclaration<T> {
         const prop = new PropertyDeclaration({ type } as SchemaProperty);
-        prop.validations(validators);
+        prop.validations(...validators);
         return prop;
     }
 
@@ -25,6 +25,7 @@ export class PropertyDeclaration<T = any> {
     }
 
     // old chained way of adding validations
+    // @deprecated should be deleted in 0.9
     public $v(
         fn: (v: PropertyValidations) => PropertyValidations,
     ): PropertyDeclaration {
@@ -36,12 +37,8 @@ export class PropertyDeclaration<T = any> {
     }
 
     public validations(
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        ...validators: SchemaPropertyValidator[]
     ): PropertyDeclaration {
-        if (!Array.isArray(validators)) {
-            validators = [validators];
-        }
-
         if (validators.length === 0) {
             return this;
         }
@@ -54,6 +51,7 @@ export class PropertyDeclaration<T = any> {
     }
 
     // old chained way of adding qualifications
+    // @deprecated should be deleted in 0.9
     public $q(
         fn: (q: PropertyValidations) => PropertyValidations,
     ): PropertyDeclaration {
@@ -65,20 +63,15 @@ export class PropertyDeclaration<T = any> {
     }
 
     public qualifications(
-        validators: SchemaPropertyValidator | SchemaPropertyValidator[] = [],
+        ...validators: SchemaPropertyValidator[]
     ): PropertyDeclaration {
-        if (!Array.isArray(validators)) {
-            validators = [validators];
-        }
-
         if (validators.length === 0) {
             return this;
         }
 
-        this.def.$q = Array.isArray(this.def.$v)
-            ? [...this.def.$v, ...validators]
+        this.def.$q = Array.isArray(this.def.$q)
+            ? [...this.def.$q, ...validators]
             : validators;
-
         return this;
     }
 

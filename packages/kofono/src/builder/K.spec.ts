@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
+import { deepLog } from "../../tests";
 import { Form } from "../form/Form";
 import { PropertyType, PropertyType as T } from "../property/types";
 import { notEmpty } from "../validator/empty/NotEmptyValidator";
+import { max } from "../validator/max/MaxValidator";
 import { min } from "../validator/min/MinValidator";
 import { K } from "./K";
 
@@ -267,12 +269,12 @@ describe("K builder", () => {
         });
 
         it("should create a string property with validations", () => {
-            const prop = K.string().validations([notEmpty(), min(5)]);
+            const prop = K.string().validations(notEmpty(), min(5));
             expect(prop.def).toEqual(result);
         });
 
         it("should create a number property with validations", () => {
-            const prop = K.string().validations([min(5)]);
+            const prop = K.string().validations(min(5));
             expect(prop.def).toEqual({
                 type: "string",
                 $v: [
@@ -286,12 +288,18 @@ describe("K builder", () => {
         });
 
         it("should create a string property with qualifications", () => {
-            const prop = K.string().qualifications(notEmpty());
+            const prop = K.string().qualifications(notEmpty(), max(100));
+            deepLog(prop.def);
             expect(prop.def).toEqual({
                 type: "string",
                 $q: [
                     {
                         notEmpty: {},
+                    },
+                    {
+                        max: {
+                            value: 100,
+                        },
                     },
                 ],
             });

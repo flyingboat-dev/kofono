@@ -1,8 +1,10 @@
 # 0.8.0 - ?
 
 - K type methods use variadic params
-- renamed plugins to extensions for better intent
-- moved out of FormConfig properties and extensions because they were only computed data by builders
+- rename plugins to extensions for better intent
+- move out FormConfig properties and extensions to building steps
+- deprecate K builder $v() and $q()
+- K validations() and qualications() use variadic params
 
 # 0.7.0 - 2026-03-29
 

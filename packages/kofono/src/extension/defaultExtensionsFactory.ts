@@ -1,7 +1,5 @@
 import type { Extension } from "./types";
-import {
-    updateCounterExtensionFactory
-} from "./UpdateCounter/UpdateCounterExtension";
+import { updateCounterExtensionFactory } from "./UpdateCounter/UpdateCounterExtension";
 
 export const defaultExtensionsFactory: Record<
     string,

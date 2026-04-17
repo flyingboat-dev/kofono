@@ -1,7 +1,5 @@
 import type { Form } from "../form/Form";
-import type {
-    SchemaUpdateCounterExtension
-} from "./UpdateCounter/UpdateCounterExtension";
+import type { SchemaUpdateCounterExtension } from "./UpdateCounter/UpdateCounterExtension";
 
 export interface Extension<T = any> {
     name: string;

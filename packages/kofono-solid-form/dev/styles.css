@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
-@plugin "daisyui" {
-    /* biome-ignore lint/correctness/noUnknownProperty: tailwindcss plugin */
-    themes: all;
-}
+@plugin "tailwindcss-animate";
+
+/*@plugin "daisyui" {*/
+/*    !* biome-ignore lint/correctness/noUnknownProperty: tailwindcss plugin *!*/
+/*    themes: all;*/
+/*}*/
 
 /*body {*/
 /*  margin: 0;*/

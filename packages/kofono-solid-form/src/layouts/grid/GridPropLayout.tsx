@@ -47,14 +47,16 @@ export function GridPropLayout(props: GridPropertyLayoutProps) {
         <Show when={property().isQualified()}>
             {/** biome-ignore lint/a11y/noStaticElementInteractions: ok */}
             {/** biome-ignore lint/a11y/useKeyWithMouseEvents: ok too, trust me bro */}
-            <div
+            <fieldset
                 onMouseOver={() => setFocusedSelector(property().selector)}
                 class={cn(
+                    // "fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4",
                     gridOption2Classes(grid()),
-                    "m-1 p-4 rounded-md border border-secondary/30",
-                    "bg-secondary/10",
-                    store.focusedSelector === property().selector &&
-                        "border-secondary/50 bg-secondary/15",
+                    "m-1 p-4",
+                    property().parentLevel() === 0 &&
+                        "rounded-md border border-(--grid-prop-border) bg-(--grid-prop-bg)",
+                    // store.focusedSelector === property().selector &&
+                    //     "bg-secondary/10",
                 )}>
                 <div class="mb-2">
                     <Show when={component.title !== ""}>
@@ -94,7 +96,7 @@ export function GridPropLayout(props: GridPropertyLayoutProps) {
                         {t(component.description)}
                     </ParagraphBase>
                 </Show>
-            </div>
+            </fieldset>
         </Show>
     );
 }

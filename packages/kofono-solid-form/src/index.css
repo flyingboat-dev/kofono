@@ -42,4 +42,13 @@
     --radius-selector: 0.4rem;
     --radius-field: 0.4rem;
     --radius-box: 0.4rem;
+    /* end daisyui themes overrides */
+
+    /* GridForm */
+    --grid-prop-bg: color-mix(in oklch, var(--color-accent) 60%, transparent);
+    --grid-prop-border: color-mix(
+        in oklch,
+        var(--color-accent-content) 15%,
+        transparent
+    );
 }

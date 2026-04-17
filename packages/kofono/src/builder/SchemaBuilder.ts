@@ -63,15 +63,15 @@ export class SchemaBuilder {
         this.processProps(builder, schema.__, "root");
 
         const finalConfig = this.processConfig(schema, config);
-        finalConfig.extensions = this.buildPlugins(
+        const extensions = this.buildExtensions(
             schema[Token.SchemaExtensions],
             finalConfig.extensionsFactory,
         );
 
-        return await builder.build(finalConfig);
+        return await builder.build(finalConfig, extensions);
     }
 
-    public buildPlugins(
+    public buildExtensions(
         schemaPlugins: Schema[Token.SchemaExtensions],
         extensionsFactory: ExtensionsFactory,
     ): Extension[] {

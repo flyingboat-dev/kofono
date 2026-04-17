@@ -96,7 +96,6 @@ describe("Builder FormConfig", () => {
             env: FormEnv.test,
             validatorsFactory: customValidatorsFactory,
             extensionsFactory: new ExtensionsFactory(),
-            properties: {},
             passHandler: form => {
                 passHandler = true;
                 return defaultPassHandler(form);

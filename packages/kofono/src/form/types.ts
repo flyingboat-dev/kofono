@@ -1,5 +1,4 @@
 import type { ExtensionsFactory } from "../extension/ExtensionsFactory";
-import type { Extension } from "../extension/types";
 import type { Property } from "../property/Property";
 import type { SchemaProperty } from "../schema/Schema";
 import type { ValidatorResponse } from "../validator/types";
@@ -24,8 +23,6 @@ export type FormConfig = {
     passHandler: PassHandler;
     validatorsFactory: ValidatorsFactory;
     extensionsFactory: ExtensionsFactory;
-    extensions?: Extension[];
-    properties: Properties;
     vars: Record<string, unknown>;
     state?: Partial<State>;
     init?: (form: Form) => void;

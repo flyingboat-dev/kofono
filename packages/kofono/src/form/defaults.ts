@@ -18,7 +18,5 @@ export const defaultConfig: FormConfig = {
     passHandler: defaultPassHandler,
     validatorsFactory: new ValidatorsFactory(),
     extensionsFactory: new ExtensionsFactory(),
-    extensions: [],
-    properties: {},
     vars: {},
 };

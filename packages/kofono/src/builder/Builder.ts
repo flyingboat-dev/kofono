@@ -1,3 +1,4 @@
+import type { Extension } from "../extension/types";
 import { defaultConfig } from "../form/defaults";
 import { Form } from "../form/Form";
 import type { FormConfig, Properties } from "../form/types";
@@ -26,13 +27,14 @@ export class Builder {
     protected _errors: Error[] = [];
     //protected _uid: string = "root";
 
-    public async build(config: FormConfig = defaultConfig): Promise<Form> {
-        config.properties = {
-            ...config.properties,
-            ...this.buildProps(),
-        };
-        const form = new Form(config);
-        await form.init();
+    public async build(
+        config: FormConfig = defaultConfig,
+        extensions: Extension[] = [],
+    ): Promise<Form> {
+        const properties = this.buildProps();
+
+        const form = new Form(config, properties);
+        await form.init(extensions);
         return form;
     }
 

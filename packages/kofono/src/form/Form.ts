@@ -50,12 +50,14 @@ export class Form {
     #status: FormStatus = FormStatus.Init;
     #updateId: number = 0;
 
-    constructor(config: FormConfig = defaultConfig) {
+    constructor(
+        config: FormConfig = defaultConfig,
+        properties: Properties = {},
+    ) {
         this.#state = generateNewFormState();
-        for (const prop of Object.values(config.properties)) {
+        for (const prop of Object.values(properties)) {
             this.addProp(prop);
         }
-        config.properties = {};
         this.#state.data = new DataTree().generateTree(this.#props);
         this.#config = config;
 
@@ -80,7 +82,7 @@ export class Form {
      * Initialize the form.
      * Can only be initialized once.
      */
-    public async init(): Promise<void> {
+    public async init(extensions: Extension[] = []): Promise<void> {
         if (this.#status === FormStatus.Ready) {
             return;
         }
@@ -95,10 +97,7 @@ export class Form {
             await this.loadState(this.#config.state);
         }
 
-        if (this.#config.extensions) {
-            await this.#extensions.init(this.#config.extensions);
-            this.#config.extensions = [];
-        }
+        await this.#extensions.init(extensions);
 
         this.#status = FormStatus.Ready;
     }

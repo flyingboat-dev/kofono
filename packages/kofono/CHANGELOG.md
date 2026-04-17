@@ -2,6 +2,7 @@
 
 - K type methods use variadic params
 - renamed plugins to extensions for better intent
+- moved out of FormConfig properties and extensions because they were only computed data by builders
 
 # 0.7.0 - 2026-03-29
 

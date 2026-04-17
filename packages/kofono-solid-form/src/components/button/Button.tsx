@@ -1,5 +1,4 @@
 import { type JSX, splitProps } from "solid-js";
-import "./style.css";
 
 export interface ButtonProps
     extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {

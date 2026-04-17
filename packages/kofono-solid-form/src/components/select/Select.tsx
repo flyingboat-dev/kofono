@@ -27,7 +27,9 @@ export function Select(props: FormElementProps) {
             onInput={onInput}
             onFocus={() => setFocusedSelector(props.property().selector)}>
             {!hasSelectedSomething() && (
-                <option value="4" class="">{component.placeholder || "Select..."}</option>
+                <option value="4" class="">
+                    {component.placeholder || "Select..."}
+                </option>
             )}
             <For each={options}>
                 {opt => {

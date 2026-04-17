@@ -1,10 +1,9 @@
 import { createSignal } from "solid-js";
 import { isChecked, propComponent } from "@/components/helpers";
-import type { ComponentType, PropElementProps } from "../PropElement";
-import type { BasicSchemaComponent } from "../types";
-import "./style.css";
 import { useFormContext } from "@/context";
 import { useTranslator } from "@/i18n";
+import type { ComponentType, PropElementProps } from "../PropElement";
+import type { BasicSchemaComponent } from "../types";
 
 export interface CheckboxComponent extends BasicSchemaComponent {
     type: ComponentType.Checkbox;

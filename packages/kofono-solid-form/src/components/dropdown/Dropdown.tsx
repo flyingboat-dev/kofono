@@ -1,5 +1,4 @@
 import { createMemo, For } from "solid-js";
-import "./style.css";
 import { cn } from "@/libs/cn";
 
 export interface DropdownOption {

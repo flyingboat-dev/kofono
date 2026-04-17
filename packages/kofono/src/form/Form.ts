@@ -72,10 +72,6 @@ export class Form {
         this.#extensions = new FormExtensions(this);
 
         this.compileStats();
-
-        if (this.#config.init) {
-            this.#config.init(this);
-        }
     }
 
     /**
@@ -85,6 +81,10 @@ export class Form {
     public async init(extensions: Extension[] = []): Promise<void> {
         if (this.#status === FormStatus.Ready) {
             return;
+        }
+
+        if (this.#config.init) {
+            await this.#config.init(this);
         }
 
         await this.events.emit(Events.FormLoading, undefined);

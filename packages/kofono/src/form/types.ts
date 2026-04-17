@@ -25,7 +25,7 @@ export type FormConfig = {
     extensionsFactory: ExtensionsFactory;
     vars: Record<string, unknown>;
     state?: Partial<State>;
-    init?: (form: Form) => void;
+    init?: (form: Form) => Promise<void> | void;
     [key: string]: unknown;
 };
 

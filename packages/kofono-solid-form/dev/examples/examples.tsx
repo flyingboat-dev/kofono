@@ -3,6 +3,7 @@ import { AllUiComponentExample } from "./pages/AllUiComponentExample";
 import { DefaultFormExample } from "./pages/DefaultFormExample";
 import { DisplayComponentsExample } from "./pages/DisplayComponentsExample";
 import { DropdownComponentExample } from "./pages/DropdownComponentExample";
+import { ThemePage } from "./pages/ThemePage";
 import { TranslationsExample } from "./pages/TranslationsExample";
 import { ValidatorsExample } from "./pages/ValidatorsExample";
 
@@ -34,5 +35,9 @@ export const examplesPages: Examples = {
     ValidatorsExample: {
         label: "Validators Example",
         component: ValidatorsExample,
+    },
+    ThemePreviewExample: {
+        label: "Theme preview Example",
+        component: ThemePage,
     },
 };

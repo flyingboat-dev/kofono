@@ -52,8 +52,8 @@ describe("FormEvents GlobalEvents", () => {
                     propB: K.string().$v(x => x.notEmpty()),
                 },
                 {
-                    init: f => {
-                        f.events.on(Events.FormLoading, () => {
+                    init: x => {
+                        x.form.events.on(Events.FormLoading, () => {
                             i++;
                         });
                     },

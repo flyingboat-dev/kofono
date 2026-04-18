@@ -14,6 +14,7 @@ import {
 } from "./events/helpers";
 import { Events, type SelectorUpdateCtx } from "./events/types";
 import { FormArray } from "./FormArray";
+import { FormConfigInitializer } from "./FormConfigInitializer";
 import { FormDataSelector } from "./FormDataSelector";
 import { FormEvents } from "./FormEvents";
 import { FormExtensions } from "./FormExtensions";
@@ -84,7 +85,7 @@ export class Form {
         }
 
         if (this.#config.init) {
-            await this.#config.init(this);
+            await this.#config.init(new FormConfigInitializer(this));
         }
 
         await this.events.emit(Events.FormLoading, undefined);

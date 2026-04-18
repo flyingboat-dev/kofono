@@ -4,6 +4,7 @@ import type { SchemaProperty } from "../schema/Schema";
 import type { ValidatorResponse } from "../validator/types";
 import type { ValidatorsFactory } from "../validator/ValidatorsFactory";
 import type { Form } from "./Form";
+import type { FormConfigInitializer } from "./FormConfigInitializer";
 
 export enum FormStatus {
     Init = "init",
@@ -25,7 +26,7 @@ export type FormConfig = {
     extensionsFactory: ExtensionsFactory;
     vars: Record<string, unknown>;
     state?: Partial<State>;
-    init?: (form: Form) => Promise<void> | void;
+    init?: (x: FormConfigInitializer) => Promise<void> | void;
     [key: string]: unknown;
 };
 

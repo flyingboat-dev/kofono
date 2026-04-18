@@ -3,9 +3,10 @@ import { K } from "../builder/K";
 import { optional } from "../common/helpers";
 import type { FormConfig } from "../form/types";
 import { GenericValidator } from "./GenericValidator";
-import type {
-    SchemaPropertyBaseValidator,
-    SchemaPropertyValidator,
+import {
+    isValid,
+    type SchemaPropertyBaseValidator,
+    type SchemaPropertyValidator,
 } from "./schema";
 
 type CustomValidatorOpts = SchemaPropertyBaseValidator & {
@@ -22,10 +23,10 @@ function custom(value: string, expect?: string): SchemaPropertyValidator {
     } as unknown as SchemaPropertyValidator;
 }
 
-describe("GenericValidator", () => {
+describe("Custom validators", () => {
     beforeAll(async () => {});
 
-    it("custom validator basic implementation", async () => {
+    it("custom validator using GenericValidator basic implementation with no dependency", async () => {
         const config: Partial<FormConfig> = {
             init: x => {
                 x.form.validators.register(
@@ -57,7 +58,7 @@ describe("GenericValidator", () => {
         });
     });
 
-    it("shorter custom validator basic implementation", async () => {
+    it("shorter custom validator with FormConfigInitializer basic implementation with no dependency", async () => {
         const config: Partial<FormConfig> = {
             init: x => {
                 x.addValidator<CustomValidatorOpts>(
@@ -89,5 +90,87 @@ describe("GenericValidator", () => {
                 },
             ],
         });
+    });
+
+    it("custom validator dependency as validation", async () => {
+        const config: Partial<FormConfig> = {
+            init: x => {
+                x.addValidator<CustomValidatorOpts>(
+                    "custom",
+                    async (v, ctx) => {
+                        return ctx.value === v.opts.value
+                            ? v.success()
+                            : v.error("CUSTOM_ERROR", {
+                                  expect: v.opts.value,
+                                  given: ctx.value,
+                              });
+                    },
+                );
+            },
+        };
+
+        const form = await K.form(
+            {
+                name: K.string(custom("something")),
+                age: K.number().qualifications(isValid("name")),
+            },
+            config,
+        );
+
+        expect(form.prop("name").isValid()).toBeFalsy();
+        expect(form.prop("age").isQualified()).toBeFalsy();
+
+        await form.update("name", "something");
+
+        expect(form.prop("name").isValid()).toBeTruthy();
+        expect(form.prop("age").isQualified()).toBeTruthy();
+
+        await form.update("name", "something else");
+
+        expect(form.prop("name").isValid()).toBeFalsy();
+        expect(form.prop("age").isQualified()).toBeFalsy();
+    });
+
+    it("custom validator dependency as qualification", async () => {
+        const config: Partial<FormConfig> = {
+            init: x => {
+                x.addValidator<CustomValidatorOpts>(
+                    "custom",
+                    async (v, ctx) => {
+                        return ctx.form.prop(v.opts.value).value === "bob"
+                            ? v.success()
+                            : v.error("CUSTOM_ERROR", {
+                                  expect: v.opts.value,
+                                  given: ctx.value,
+                              });
+                    },
+                    // This is called each time a custom validator is attached somewhere in the schema.
+                    // Here we use the validator opt value as the selector dependency,
+                    // so when the target is updated, the custom validator is re-executed
+                    v => [v.opts.value],
+                );
+            },
+        };
+
+        const form = await K.form(
+            {
+                firstname: K.string(),
+                lastname: K.number().qualifications(custom("firstname")),
+            },
+            config,
+        );
+
+        expect(form.prop("firstname").isValid()).toBeTruthy();
+        expect(form.prop("lastname").isQualified()).toBeFalsy();
+
+        await form.update("firstname", "bob");
+
+        expect(form.prop("firstname").isValid()).toBeTruthy();
+        expect(form.prop("lastname").isQualified()).toBeTruthy();
+
+        await form.update("firstname", "john");
+
+        expect(form.prop("firstname").isValid()).toBeTruthy();
+        expect(form.prop("lastname").isQualified()).toBeFalsy();
     });
 });

@@ -6,6 +6,10 @@ import type {
 } from "../validator/types";
 import type { Form } from "./Form";
 
+type DependenciesFn<TValidatorOpts = GenericValidatorOptions> = (
+    validator: GenericValidator<TValidatorOpts>,
+) => string[];
+
 export class FormConfigInitializer {
     constructor(private readonly _form: Form) {}
 
@@ -16,11 +20,22 @@ export class FormConfigInitializer {
     public addValidator<TValidatorOpts = GenericValidatorOptions>(
         key: string,
         fn: ValidatorFn<TValidatorOpts>,
+        dependencies: DependenciesFn<TValidatorOpts> = () => [],
     ): FormConfigInitializer {
         this._form.validators.register(
             key,
-            (selector: string, type: ValidationType, opts: TValidatorOpts) =>
-                new GenericValidator<TValidatorOpts>(selector, type, opts, fn),
+            (selector: string, type: ValidationType, opts: TValidatorOpts) => {
+                const val = new GenericValidator<TValidatorOpts>(
+                    selector,
+                    type,
+                    opts,
+                    fn,
+                );
+                if (dependencies) {
+                    val.addDependencies(dependencies(val));
+                }
+                return val;
+            },
         );
         return this;
     }

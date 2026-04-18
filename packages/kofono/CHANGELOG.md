@@ -5,6 +5,9 @@
 - move out FormConfig properties and extensions to building steps
 - deprecate K builder $v() and $q()
 - K validations() and qualications() use variadic params
+- refactor mechanic around GenericValidator + introduce addValidator()
+- move FormConfig.init() call to Form.init() and make it async
+- add FormConfigInitializer
 
 # 0.7.0 - 2026-03-29
 

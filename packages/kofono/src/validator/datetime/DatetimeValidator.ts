@@ -22,11 +22,7 @@ type SchemaOpts = {
 
 export type DatetimeValidatorOpts =
     | string
-    | (SchemaPropertyBaseValidator & {
-          format: string;
-          min?: string;
-          max?: string;
-      });
+    | (SchemaPropertyBaseValidator & SchemaOpts);
 
 export function datetime(
     opts: SchemaOpts,
@@ -69,7 +65,10 @@ export const datetimeValidator = {
  * - max: Optional maximum date limit as a string in the same format.
  *   If provided, dates after this limit will be considered invalid.
  */
-export class DatetimeValidator extends AbstractValidator implements Validator {
+export class DatetimeValidator
+    extends AbstractValidator<DatetimeValidatorOpts>
+    implements Validator
+{
     private readonly format: string;
     private readonly min?: Date;
     private readonly max?: Date;

@@ -12,7 +12,7 @@ import type {
  * GenericValidator is a wrapper for any validator closure function of type ValidatorFn
  */
 export class GenericValidator<TOptions = SchemaPropertyBaseValidator>
-    extends AbstractValidator
+    extends AbstractValidator<TOptions>
     implements Validator
 {
     constructor(
@@ -25,6 +25,6 @@ export class GenericValidator<TOptions = SchemaPropertyBaseValidator>
     }
 
     async validate(ctx: ValidationContext): Promise<ValidatorResponse> {
-        return await this.validatorCallback(this, this.opts as TOptions, ctx);
+        return await this.validatorCallback(this, ctx);
     }
 }

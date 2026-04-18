@@ -17,7 +17,7 @@ describe("GenericValidator", () => {
     });
 
     // just a simple useless validator to test the GenericValidator
-    const validator: ValidatorFn = async (self, _, ctx) => {
+    const validator: ValidatorFn = async (self, ctx) => {
         if (ctx.value === "valid") {
             return self.success();
         }

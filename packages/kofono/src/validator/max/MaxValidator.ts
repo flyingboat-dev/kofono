@@ -33,7 +33,10 @@ export function max(max: number, expect?: string): SchemaMaxValidator {
     };
 }
 
-export class MaxValidator extends AbstractValidator implements Validator {
+export class MaxValidator
+    extends AbstractValidator<MaxValidatorOpts>
+    implements Validator
+{
     private readonly max: number;
 
     constructor(

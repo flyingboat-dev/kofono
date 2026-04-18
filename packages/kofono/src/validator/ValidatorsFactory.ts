@@ -1,18 +1,18 @@
 import { objectHasKey } from "../common/helpers";
 import type { Factory } from "../common/types";
 import { builtinValidatorFactories } from "./builtinValidators";
-import type { ValidatorFactoryHandler } from "./types";
+import type { GenericValidatorOptions, ValidatorFactoryHandler } from "./types";
 
 export class ValidatorsFactory implements Factory<ValidatorFactoryHandler> {
     #validators: Record<string, ValidatorFactoryHandler> = {
         ...builtinValidatorFactories,
     };
 
-    public register(
+    public register<TOptions = GenericValidatorOptions>(
         key: string,
-        factoryHandler: ValidatorFactoryHandler,
+        factoryHandler: ValidatorFactoryHandler<TOptions>,
     ): Factory<ValidatorFactoryHandler> {
-        this.#validators[key] = factoryHandler;
+        this.#validators[key] = factoryHandler as ValidatorFactoryHandler;
         return this;
     }
 

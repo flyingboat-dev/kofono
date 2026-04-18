@@ -1,3 +1,5 @@
+import type { GenericValidatorOptions } from "../validator/types";
+
 export enum PropertyType {
     Array = "array",
     Boolean = "boolean",
@@ -13,7 +15,7 @@ export enum PropertyType {
 
 export type PropertyValidator = {
     name: string;
-    options: Record<string, any> | number | string;
+    options: GenericValidatorOptions;
 };
 
 export enum TreeType {

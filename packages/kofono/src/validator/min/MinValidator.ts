@@ -35,7 +35,10 @@ export function min(min: number, expect?: string): SchemaMinValidator {
     };
 }
 
-export class MinValidator extends AbstractValidator implements Validator {
+export class MinValidator
+    extends AbstractValidator<MinValidatorOpts>
+    implements Validator
+{
     private readonly min: number;
 
     constructor(

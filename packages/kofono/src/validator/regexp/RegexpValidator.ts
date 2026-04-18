@@ -51,7 +51,10 @@ export function regexp(
     };
 }
 
-export class RegexpValidator extends AbstractValidator implements Validator {
+export class RegexpValidator
+    extends AbstractValidator<RegexValidatorOpts>
+    implements Validator
+{
     protected readonly pattern: RegExp;
 
     constructor(

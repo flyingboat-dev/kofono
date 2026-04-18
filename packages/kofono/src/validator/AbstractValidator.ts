@@ -1,21 +1,19 @@
 import { isObjectLiteral } from "../common/helpers";
 import type { PropertyType } from "../property/types";
-import type { SchemaPropertyBaseValidator } from "./schema";
 import type {
+    GenericValidatorOptions,
     ValidationType,
     ValidatorResponse,
     ValidatorResponseContext,
 } from "./types";
 
-type Options = SchemaPropertyBaseValidator & Record<string, unknown>;
-
-export abstract class AbstractValidator {
+export abstract class AbstractValidator<TOptions = GenericValidatorOptions> {
     protected selDeps: string[] = [];
 
     public constructor(
         public readonly attachTo: string,
         public readonly type: ValidationType,
-        public readonly opts?: Options | unknown,
+        public readonly opts: TOptions,
     ) {}
 
     public dependencies(): string[] {

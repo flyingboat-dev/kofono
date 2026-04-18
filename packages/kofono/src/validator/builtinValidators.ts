@@ -53,5 +53,5 @@ export const builtinValidators = [
 
 export const builtinValidatorFactories: Record<
     string,
-    ValidatorFactoryHandler
+    ValidatorFactoryHandler<any>
 > = Object.fromEntries(builtinValidators.map(v => [v.name, v.factory]));

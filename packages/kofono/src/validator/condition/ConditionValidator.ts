@@ -46,7 +46,10 @@ export function condition(
     };
 }
 
-export class ConditionValidator extends AbstractValidator implements Validator {
+export class ConditionValidator
+    extends AbstractValidator<ConditionValidatorOpts>
+    implements Validator
+{
     private readonly placeholders: PlaceholderList;
     private readonly condition: Condition;
 

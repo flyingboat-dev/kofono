@@ -2,17 +2,6 @@ import type { Form } from "../form/Form";
 import type { AbstractValidator } from "./AbstractValidator";
 import type { SchemaPropertyBaseValidator } from "./schema";
 
-export type ValidatorFn<TOptions = SchemaPropertyBaseValidator> = (
-    v: AbstractValidator,
-    opts: TOptions,
-    ctx: ValidationContext,
-) => Promise<ValidatorResponse>;
-
-// export type ValidatorWithoutOptionsFn = (
-//     v: AbstractValidator,
-//     ctx: ValidationContext,
-// ) => Promise<ValidatorResponse>;
-
 export interface ValidationContext {
     form: Form;
     selector: string;
@@ -39,13 +28,21 @@ export interface Validator {
     dependencies(): string[];
 }
 
+export type ValidatorFn<TOptions = GenericValidatorOptions> = (
+    v: AbstractValidator<TOptions>,
+    ctx: ValidationContext,
+) => Promise<ValidatorResponse>;
+
+export type GenericValidatorOptions = SchemaPropertyBaseValidator &
+    Record<string, unknown>;
+
 export enum ValidatorError {
     SelectorDisqualified = "SELECTOR_DISQUALIFIED",
     ParentDisqualified = "PARENT_DISQUALIFIED",
 }
 
-export type ValidatorFactoryHandler = (
+export type ValidatorFactoryHandler<TOptions = GenericValidatorOptions> = (
     selector: string,
     type: ValidationType,
-    opts?: any,
+    opts: TOptions,
 ) => Validator;

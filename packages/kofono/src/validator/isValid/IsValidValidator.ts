@@ -42,7 +42,10 @@ export function isValid(selectors: string | string[], expect?: string) {
     };
 }
 
-export class IsValidValidator extends AbstractValidator implements Validator {
+export class IsValidValidator
+    extends AbstractValidator<IsValidValidatorOpts>
+    implements Validator
+{
     protected readonly selectors: string[] = [];
 
     constructor(

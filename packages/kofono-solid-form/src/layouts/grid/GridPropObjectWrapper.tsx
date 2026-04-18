@@ -26,7 +26,7 @@ export function GridPropObjectWrapper(props: GridPropObjectWrapperProps) {
                     "grid grid-cols-12 gap-(--grid-gap)",
                     "rounded-lg border-0",
                     "bg-grid-prop-object-background border-grid-prop-object-border",
-                    "m-1 p-4 rounded-md border border-(--grid-prop-border)",
+                    "p-4 mr-2 mb-2 rounded-md border border-(--grid-prop-border)",
                     "bg-(--grid-prop-bg)",
                 )}>
                 <Show when={legend.length > 0}>

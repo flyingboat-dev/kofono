@@ -52,7 +52,7 @@ export function GridPropLayout(props: GridPropertyLayoutProps) {
                 class={cn(
                     // "fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4",
                     gridOption2Classes(grid()),
-                    "m-1 p-4",
+                    "p-4 mr-2 mb-2",
                     property().parentLevel() === 0 &&
                         "rounded-md border border-(--grid-prop-border) bg-(--grid-prop-bg)",
                     // store.focusedSelector === property().selector &&

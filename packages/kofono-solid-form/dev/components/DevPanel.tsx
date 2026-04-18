@@ -21,7 +21,7 @@ export function DevPanel() {
         { value: "validations", label: "Validations" },
     ]);
     return (
-        <div class="bg-secondary/10 rounded-md p-4">
+        <div class="border border-(--grid-prop-border) bg-(--grid-prop-bg) rounded-md p-4">
             <div class="flex gap-x-4 border-b-4 border-primary">
                 <For each={tabs()}>
                     {tab => (
@@ -30,8 +30,9 @@ export function DevPanel() {
                             role="tab"
                             class={cn(
                                 "py-2 px-3",
+                                "rounded-tl-(--radius-box) rounded-tr-(--radius-box)",
                                 currentTab() === tab.value &&
-                                    "bg-primary text-primary-content font-bold ",
+                                    "bg-primary text-primary-content",
                             )}
                             onClick={() => setCurrentTab(tab.value)}>
                             {tab.label}

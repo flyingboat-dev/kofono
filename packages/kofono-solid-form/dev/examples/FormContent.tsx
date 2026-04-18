@@ -18,7 +18,7 @@ export function FormContent(props: FormContentProps) {
                     showThemeSelector={true}
                 />
             </div>
-            <div class="col-span-12 mt-14 xl:mt-0 xl:col-span-5 p-4">
+            <div class="col-span-12 m-0 xl:mt-0 xl:col-span-5 p-0">
                 <DevPanel />
             </div>
         </div>

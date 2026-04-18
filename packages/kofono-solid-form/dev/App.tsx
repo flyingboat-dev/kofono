@@ -1,8 +1,10 @@
 import { type Component, createSignal, For, Show } from "solid-js";
 import { Dynamic } from "solid-js/web";
+// @ts-expect-error
+import { Dropdown, type DropdownOption } from "@/components/dropdown";
+// @ts-expect-error
+import { ThemeSwitcher } from "@/components/themeSelector";
 
-import { Dropdown, type DropdownOption } from "@/components/dropdown/Dropdown";
-import { ThemeSwitcher } from "@/components/themeSelector/theme-switcher";
 import { examplesPages } from "./examples/examples";
 
 const LOCAL_STORAGE_KEY = "form-current-example" as const;

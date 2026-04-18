@@ -67,10 +67,10 @@ function BooleanToString(props: BooleanToStringProps) {
     return (
         <>
             <Show when={props.value === true}>
-                <span class="text-green-500">true</span>
+                <span class="text-success">true</span>
             </Show>
             <Show when={props.value === false}>
-                <span class="text-red-500">false</span>
+                <span class="text-error">false</span>
             </Show>
             <Show when={typeof props.value !== "boolean"}>
                 <span class="text-gray-500">undefined</span>

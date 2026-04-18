@@ -125,6 +125,7 @@ export const schema = K.schema({
             }),
     }).component<BasicSchemaComponent>({
         grid: 12,
+        legend: "Checkboxes & Radios",
     }),
 
     selects: K.object({

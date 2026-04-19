@@ -1,10 +1,11 @@
 import type { ExtensionsFactory } from "../extension/ExtensionsFactory";
+import type { Extension } from "../extension/types";
 import type { Property } from "../property/Property";
 import type { SchemaProperty } from "../schema/Schema";
 import type { ValidatorResponse } from "../validator/types";
 import type { ValidatorsFactory } from "../validator/ValidatorsFactory";
 import type { Form } from "./Form";
-import type { FormConfigInitializer } from "./FormConfigInitializer";
+import type { FormInitContext } from "./FormInitContext";
 
 export enum FormStatus {
     Init = "init",
@@ -18,16 +19,19 @@ export enum FormEnv {
     test = "test",
 }
 
-export type FormConfig = {
+export type FormConfig = FormInitConfig & {
     id?: string;
     env: FormEnv;
+    vars: Record<string, unknown>;
     passHandler: PassHandler;
     validatorsFactory: ValidatorsFactory;
     extensionsFactory: ExtensionsFactory;
-    vars: Record<string, unknown>;
+};
+
+export type FormInitConfig = {
     state?: Partial<State>;
-    init?: (x: FormConfigInitializer) => Promise<void> | void;
-    [key: string]: unknown;
+    init?: (ctx: FormInitContext) => Promise<void> | void;
+    extensions?: Extension[];
 };
 
 export type Properties = Record<string, Property<SchemaProperty>>;

@@ -68,7 +68,7 @@ export class IfValidator extends AbstractValidator implements Validator {
         const deps: string[] = [];
 
         for (const validator of this.propertyValidators) {
-            const valInstance = ctx.form.validators.get(validator.name)(
+            const valInstance = ctx.form.validatorsFactory.get(validator.name)(
                 this.attachTo,
                 this.type,
                 validator.options,

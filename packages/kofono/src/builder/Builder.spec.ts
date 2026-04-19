@@ -104,7 +104,7 @@ describe("Builder FormConfig", () => {
         });
         expect(form.env).toEqual(FormEnv.test);
         expect(passHandler).toBeTruthy();
-        expect(form.validators.has("fake")).toBeTruthy();
-        expect(form.validators.has("notEmpty")).toBeTruthy();
+        expect(form.validatorsFactory.has("fake")).toBeTruthy();
+        expect(form.validatorsFactory.has("notEmpty")).toBeTruthy();
     });
 });

@@ -53,12 +53,12 @@ export class SelectorValidatorsEvent {
      */
     private prepareValidators() {
         for (const validator of this.validations) {
-            if (!this.form.validators.has(validator.name)) {
+            if (!this.form.validatorsFactory.has(validator.name)) {
                 throw new Error(`Validator ${validator.name} not found`);
             }
 
             this.validators.push(
-                this.form.validators.get(validator.name)(
+                this.form.validatorsFactory.get(validator.name)(
                     this.selector,
                     this.type,
                     validator.options,

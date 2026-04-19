@@ -1,5 +1,6 @@
 import { version as packageVersion } from "../../package.json";
 import { Logs } from "../common/Logs";
+import type { ExtensionsFactory } from "../extension/ExtensionsFactory";
 import type { Extension } from "../extension/types";
 import type { Property } from "../property/Property";
 import type { SchemaProperty } from "../schema/Schema";
@@ -7,17 +8,16 @@ import { DataSelector } from "../selector/DataSelector";
 import type { ValidatorResponse } from "../validator/types";
 import type { ValidatorsFactory } from "../validator/ValidatorsFactory";
 import { DataTree } from "./DataTree";
-import { defaultConfig } from "./defaults";
 import {
     registerPropertiesEvents,
     warmUpSelectorsEvents,
 } from "./events/helpers";
 import { Events, type SelectorUpdateCtx } from "./events/types";
 import { FormArray } from "./FormArray";
-import { FormConfigInitializer } from "./FormConfigInitializer";
 import { FormDataSelector } from "./FormDataSelector";
 import { FormEvents } from "./FormEvents";
 import { FormExtensions } from "./FormExtensions";
+import { FormInitContext } from "./FormInitContext";
 import { FormProperty } from "./FormProperty";
 import { FormSelectors } from "./FormSelectors";
 import { FormSession } from "./FormSession";
@@ -25,7 +25,10 @@ import { generateNewFormState } from "./FormState";
 import { FormStats } from "./FormStats";
 import {
     type FormConfig,
+    type FormEnv,
+    type FormInitConfig,
     FormStatus,
+    type PassHandler,
     type Properties,
     type PropertyState,
     type State,
@@ -35,70 +38,150 @@ import {
 export class Form {
     static readonly version: string = packageVersion;
 
-    public readonly events: FormEvents;
-    public readonly logs: Logs;
-
-    #array: FormArray;
-    #config: FormConfig;
-    #dataSelector: DataSelector;
-    #formDataSelector: FormDataSelector;
-    #selectors: FormSelectors;
-    #extensions: FormExtensions;
     #props: Properties = {};
-    #session: FormSession;
     #state: State;
-    #stats: FormStats;
     #status: FormStatus = FormStatus.Init;
     #updateId: number = 0;
+    readonly #array: FormArray;
+    readonly #dataSelector: DataSelector;
+    readonly #env: FormEnv;
+    readonly #events: FormEvents;
+    readonly #extensions: FormExtensions;
+    readonly #extensionsFactory: ExtensionsFactory;
+    readonly #formDataSelector: FormDataSelector;
+    readonly #id: string;
+    readonly #logs: Logs; // deprecated
+    readonly #passHandler: PassHandler;
+    readonly #selectors: FormSelectors;
+    readonly #session: FormSession;
+    readonly #stats: FormStats;
+    readonly #validatorsFactory: ValidatorsFactory;
+    readonly #vars: Record<string, unknown>;
 
-    constructor(
-        config: FormConfig = defaultConfig,
-        properties: Properties = {},
-    ) {
-        this.#state = generateNewFormState();
-        for (const prop of Object.values(properties)) {
-            this.addProp(prop);
-        }
-        this.#state.data = new DataTree().generateTree(this.#props);
-        this.#config = config;
+    constructor(config: FormConfig, properties: Properties = {}) {
+        // order is important here for this block
+        this.#state = generateNewFormState(); // side effect: new state
+        Object.values(properties).map(x => this.addProp(x)); // side effect: add form props
+        this.#state.data = new DataTree().generateTree(this.#props); // side effect: update state data
+        this.#session = new FormSession(this); // side effect: update state meta
 
-        this.#formDataSelector = new FormDataSelector(this);
-        this.#dataSelector = new DataSelector();
-        this.#selectors = new FormSelectors(this);
+        // the rest in order, no side effect
         this.#array = new FormArray(this);
-        this.#session = new FormSession(this);
-        this.#stats = new FormStats(this);
-        this.logs = new Logs();
-        this.events = new FormEvents(this);
+        this.#dataSelector = new DataSelector();
+        this.#env = config.env;
         this.#extensions = new FormExtensions(this);
+        this.#extensionsFactory = config.extensionsFactory;
+        this.#formDataSelector = new FormDataSelector(this);
+        this.#id = config.id || "";
+        this.#passHandler = config.passHandler;
+        this.#selectors = new FormSelectors(this);
+        this.#stats = new FormStats(this);
+        this.#validatorsFactory = config.validatorsFactory;
+        this.#vars = config.vars;
+        this.#events = new FormEvents(this);
+        this.#logs = new Logs();
 
         this.compileStats();
+    }
+
+    public get $(): FormDataSelector {
+        return this.#formDataSelector;
+    }
+
+    public get array(): FormArray {
+        return this.#array;
+    }
+
+    public get dataSelector(): FormDataSelector {
+        return this.#formDataSelector;
+    }
+
+    public get env(): string {
+        return this.#env;
+    }
+
+    public get events(): FormEvents {
+        return this.#events;
+    }
+
+    public get extensions(): Extension[] {
+        return this.#extensions.extensions;
+    }
+
+    public get extensionsFactory(): ExtensionsFactory {
+        return this.#extensionsFactory;
+    }
+
+    public get id(): string {
+        return this.#id;
+    }
+
+    public get logs(): Logs {
+        return this.#logs;
+    }
+
+    public get pass(): boolean {
+        return this.#state.pass[0] ?? false;
+    }
+
+    public get props(): Properties {
+        return this.#props;
+    }
+
+    public get selectors(): FormSelectors {
+        return this.#selectors;
+    }
+
+    public get session(): FormSession {
+        return this.#session;
+    }
+
+    public get state(): State {
+        return this.#state;
+    }
+
+    public get status(): FormStatus {
+        return this.#status;
+    }
+
+    public get updateId(): number {
+        return this.#updateId++;
+    }
+
+    public get validatorsFactory(): ValidatorsFactory {
+        return this.#validatorsFactory;
+    }
+
+    public get vars(): Record<string, unknown> {
+        return this.#vars;
     }
 
     /**
      * Initialize the form.
      * Can only be initialized once.
      */
-    public async init(extensions: Extension[] = []): Promise<void> {
+    public async init(config: FormInitConfig = {}): Promise<void> {
         if (this.#status === FormStatus.Ready) {
             return;
         }
 
-        if (this.#config.init) {
-            await this.#config.init(new FormConfigInitializer(this));
+        if (config.init) {
+            await config.init(new FormInitContext(this));
         }
 
-        await this.events.emit(Events.FormLoading, undefined);
+        await this.#events.emit(Events.FormLoading, undefined);
 
         await registerPropertiesEvents(this); // todo: fix > may crash if an non-existent selector is given
         await warmUpSelectorsEvents(this);
         this.compileStats();
 
-        if (this.#config.state) {
-            await this.loadState(this.#config.state);
+        if (config.state) {
+            await this.loadState(config.state);
         }
 
-        await this.#extensions.init(extensions);
+        if (config.extensions) {
+            await this.#extensions.init(config.extensions);
+        }
 
         this.#status = FormStatus.Ready;
     }
@@ -114,42 +197,14 @@ export class Form {
         };
         await warmUpSelectorsEvents(this);
         this.compileStats();
-        await this.events.emit(Events.FormLoadState, { state });
-    }
-
-    public get id(): string {
-        return this.#config.id || "";
-    }
-
-    public get env(): string {
-        return this.#config.env;
-    }
-
-    public get validators(): ValidatorsFactory {
-        return this.#config.validatorsFactory;
-    }
-
-    public get session(): FormSession {
-        return this.#session;
-    }
-
-    public get state(): State {
-        return this.#state;
-    }
-
-    public get status(): FormStatus {
-        return this.#status;
-    }
-
-    public get extensions(): Extension[] {
-        return this.#extensions.extensions;
+        await this.#events.emit(Events.FormLoadState, { state });
     }
 
     public addProp(prop: Property<SchemaProperty>): Form {
         this.#props[prop.selector] = prop;
         this.state.validations[prop.selector] = [true, ""];
         this.state.qualifications[prop.selector] = [true, ""];
-        this.events?.emit(Events.PropertyAdded, {
+        this.#events?.emit(Events.PropertyAdded, {
             selector: prop.selector,
         });
         return this;
@@ -164,7 +219,7 @@ export class Form {
         delete this.state.validations[selector];
         delete this.state.qualifications[selector];
         this.#formDataSelector.tryDelete(selector);
-        await this.events.emit(Events.PropertyDeleted, {
+        await this.#events.emit(Events.PropertyDeleted, {
             selector,
         });
         return this;
@@ -195,20 +250,8 @@ export class Form {
         };
     }
 
-    public array(): FormArray {
-        return this.#array;
-    }
-
-    public get vars(): Record<string, unknown> {
-        return this.#config.vars;
-    }
-
     public var(keyPath: string): unknown {
-        return this.#dataSelector.getOrDefault(
-            keyPath,
-            undefined,
-            this.#config.vars,
-        );
+        return this.#dataSelector.getOrDefault(keyPath, undefined, this.#vars);
     }
 
     // Get a selector validation value
@@ -234,36 +277,12 @@ export class Form {
         return this.#formDataSelector.get<T>(selector);
     }
 
-    public get dataSelector(): FormDataSelector {
-        return this.#formDataSelector;
-    }
-
-    public get selectors(): FormSelectors {
-        return this.#selectors;
-    }
-
-    public get $(): FormDataSelector {
-        return this.#formDataSelector;
-    }
-
-    public get pass(): boolean {
-        return this.#state.pass[0] ?? false;
-    }
-
-    public get props(): Properties {
-        return this.#props;
-    }
-
     public propsEntries(): [string, Property<SchemaProperty>][] {
         return Object.entries(this.#props);
     }
 
     public propsKeys(): string[] {
         return Object.keys(this.#props);
-    }
-
-    public updateId(): number {
-        return this.#updateId++;
     }
 
     public childrenProps(
@@ -290,7 +309,7 @@ export class Form {
      */
     public compileStats(): Form {
         this.#stats.compile();
-        this.state.pass = this.#config.passHandler(this);
+        this.state.pass = this.#passHandler(this);
         return this;
     }
 
@@ -337,11 +356,11 @@ export class Form {
             this.#session.update(selector);
         }
 
-        await this.events.emit(Events.SelectorBeforeUpdate, updateCtx);
+        await this.#events.emit(Events.SelectorBeforeUpdate, updateCtx);
 
         this.#formDataSelector.set(selector, newValue);
 
-        const resp = await this.events.emitSelector(
+        const resp = await this.#events.emitSelector(
             selector,
             Events.SelectorValidation,
             {
@@ -352,16 +371,16 @@ export class Form {
         );
 
         if (resp?.hasChanged() || oldValue !== newValue) {
-            await this.events.emitSelectorTree(
+            await this.#events.emitSelectorTree(
                 selector,
                 Events.SelectorQualification,
             );
-            await this.events.emitSelectorTree(
+            await this.#events.emitSelectorTree(
                 selector,
                 Events.SelectorValidation,
             );
         }
 
-        await this.events.emit(Events.SelectorAfterUpdate, updateCtx);
+        await this.#events.emit(Events.SelectorAfterUpdate, updateCtx);
     }
 }

@@ -10,7 +10,7 @@ type DependenciesFn<TValidatorOpts = GenericValidatorOptions> = (
     validator: GenericValidator<TValidatorOpts>,
 ) => string[];
 
-export class FormConfigInitializer {
+export class FormInitContext {
     constructor(private readonly _form: Form) {}
 
     public get form(): Form {
@@ -21,8 +21,8 @@ export class FormConfigInitializer {
         key: string,
         fn: ValidatorFn<TValidatorOpts>,
         dependencies: DependenciesFn<TValidatorOpts> = () => [],
-    ): FormConfigInitializer {
-        this._form.validators.register(
+    ): FormInitContext {
+        this._form.validatorsFactory.register(
             key,
             (selector: string, type: ValidationType, opts: TValidatorOpts) => {
                 const val = new GenericValidator<TValidatorOpts>(

@@ -41,7 +41,7 @@ test("FormEvents test", async () => {
     expect(i).toEqual(1);
 
     await f.events.emit(Events.SelectorAfterUpdate, {
-        id: f.updateId(),
+        id: f.updateId,
         selector: "propA",
         newValue: 9,
         oldValue: 1,

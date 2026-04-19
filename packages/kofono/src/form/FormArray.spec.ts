@@ -33,7 +33,7 @@ describe("FormArray expand", () => {
     });
 
     it("should have 1 item after expand once", async () => {
-        await form.array().expand("propA");
+        await form.array.expand("propA");
         expect(form.state.data.propA).toHaveLength(1);
         expect(form.state.data).toEqual({
             propA: [
@@ -86,7 +86,7 @@ describe("FormArray expand", () => {
     });
 
     it("should have 3 total items after expanding twice", async () => {
-        await form.array().expand("propA", 2);
+        await form.array.expand("propA", 2);
         expect(form.state.data.propA).toHaveLength(3);
     });
 
@@ -156,7 +156,7 @@ describe("FormArray slice in the middle", () => {
     let form: Form;
     beforeAll(async () => {
         form = await buildSchema(schema);
-        await form.array().expand("propA", 3);
+        await form.array.expand("propA", 3);
         await form.updates({
             // 0
             "propA.0.A": null,
@@ -171,7 +171,7 @@ describe("FormArray slice in the middle", () => {
             "propA.2.B": 15,
             "propA.2.C": false,
         });
-        await form.array().slice("propA", 1);
+        await form.array.slice("propA", 1);
     });
 
     it("should have a correct list of selectors after slice item index 1", () => {
@@ -225,7 +225,7 @@ describe("FormArray slice at the end", () => {
     let form: Form;
     beforeAll(async () => {
         form = await buildSchema(schema);
-        await form.array().expand("propA", 3);
+        await form.array.expand("propA", 3);
         await form.updates({
             // 0
             "propA.0.A": null,
@@ -240,7 +240,7 @@ describe("FormArray slice at the end", () => {
             "propA.2.B": 15,
             "propA.2.C": false,
         });
-        await form.array().slice("propA", 2);
+        await form.array.slice("propA", 2);
     });
 
     it("should have a correct list of selectors after slice last item", () => {
@@ -303,7 +303,7 @@ describe("FormArray propertyAdded/PropertyRemoved  event", () => {
             qtyAdded = ctx.qty;
         });
 
-        await form.array().expand("propA", 2);
+        await form.array.expand("propA", 2);
         expect(arraySelector).toEqual(arraySelector);
         expect(qtyAdded).toEqual(2);
     });
@@ -320,8 +320,8 @@ describe("FormArray propertyAdded/PropertyRemoved  event", () => {
             index = ctx.index;
         });
 
-        await form.array().expand("propA", 2);
-        await form.array().slice("propA", 1);
+        await form.array.expand("propA", 2);
+        await form.array.slice("propA", 1);
 
         expect(arraySelector).toEqual(arraySelector);
         expect(index).toEqual(1);

@@ -34,7 +34,11 @@ export class Builder {
         const properties = this.buildProps();
 
         const form = new Form(config, properties);
-        await form.init(extensions);
+        await form.init({
+            state: config.state,
+            init: config.init,
+            extensions,
+        });
         return form;
     }
 

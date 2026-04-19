@@ -124,7 +124,7 @@ describe("SchemaBuilder testing extension", () => {
         const form = await schemaBuilder.build(schema);
         expect(form.extensions).toHaveLength(1);
 
-        expect(form.extensions[0].name).toEqual("updateCounter");
+        expect(form.extensions[0].metaName).toEqual("updateCounter");
         expect(form.state.meta.extensions.updateCounter).toBeDefined();
     });
 });

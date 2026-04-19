@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { deepLog } from "../../tests";
 import { Form } from "../form/Form";
 import { PropertyType, PropertyType as T } from "../property/types";
 import { notEmpty } from "../validator/empty/NotEmptyValidator";
@@ -289,7 +288,6 @@ describe("K builder", () => {
 
         it("should create a string property with qualifications", () => {
             const prop = K.string().qualifications(notEmpty(), max(100));
-            deepLog(prop.def);
             expect(prop.def).toEqual({
                 type: "string",
                 $q: [

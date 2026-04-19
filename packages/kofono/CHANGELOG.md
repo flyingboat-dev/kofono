@@ -12,6 +12,7 @@
 - drop Form #config in favor of direct properties
 - rework custom extensions support
 - transform DataTree class methods into three functions
+- remove deprecated form logs
 
 # 0.7.0 - 2026-03-29
 

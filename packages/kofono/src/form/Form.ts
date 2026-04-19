@@ -1,5 +1,4 @@
 import { version as packageVersion } from "../../package.json";
-import { Logs } from "../common/Logs";
 import type { ExtensionsFactory } from "../extension/ExtensionsFactory";
 import type { Extension } from "../extension/types";
 import type { Property } from "../property/Property";
@@ -50,7 +49,6 @@ export class Form {
     readonly #extensionsFactory: ExtensionsFactory;
     readonly #formDataSelector: FormDataSelector;
     readonly #id: string;
-    readonly #logs: Logs; // deprecated
     readonly #passHandler: PassHandler;
     readonly #selectors: FormSelectors;
     readonly #session: FormSession;
@@ -69,6 +67,7 @@ export class Form {
         this.#array = new FormArray(this);
         this.#dataSelector = new DataSelector();
         this.#env = config.env;
+        this.#events = new FormEvents(this);
         this.#extensions = new FormExtensions(this);
         this.#extensionsFactory = config.extensionsFactory;
         this.#formDataSelector = new FormDataSelector(this);
@@ -78,8 +77,6 @@ export class Form {
         this.#stats = new FormStats(this);
         this.#validatorsFactory = config.validatorsFactory;
         this.#vars = config.vars;
-        this.#events = new FormEvents(this);
-        this.#logs = new Logs();
 
         this.compileStats();
     }
@@ -114,10 +111,6 @@ export class Form {
 
     public get id(): string {
         return this.#id;
-    }
-
-    public get logs(): Logs {
-        return this.#logs;
     }
 
     public get pass(): boolean {

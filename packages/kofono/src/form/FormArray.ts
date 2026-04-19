@@ -3,7 +3,7 @@ import type { Property } from "../property/Property";
 import { PropertyType } from "../property/types";
 import type { SchemaArrayProperty, SchemaProperty } from "../schema/Schema";
 import { getParentSelector, joinSelectors } from "../selector/helpers";
-import { DataTree } from "./DataTree";
+import { generatePartialTree } from "./dataTree";
 import { parseSelectorsEventsValidators } from "./events/helpers";
 import { Events } from "./events/types";
 import type { Form } from "./Form";
@@ -14,11 +14,9 @@ import type { FormProperty } from "./FormProperty";
  */
 export class FormArray {
     private schemaBuilder: SchemaBuilder;
-    private dataTree: DataTree;
 
     constructor(private form: Form) {
         this.schemaBuilder = new SchemaBuilder();
-        this.dataTree = new DataTree();
     }
 
     public async expand(arraySelector: string, n: number = 1): Promise<void> {
@@ -35,7 +33,7 @@ export class FormArray {
      * Expand an array property.
      * - Add new properties to the form props
      * - Add new data to the form data
-     * - Register validators events
+     * - Register validator events
      */
     private async _expand(arraySelector: string): Promise<void> {
         const prop = this.getProperty(arraySelector);
@@ -52,10 +50,7 @@ export class FormArray {
             this.form.addProp(prop as Property<SchemaProperty>);
         }
 
-        const arrayData = this.dataTree.generatePartialTree(
-            newProps,
-            arraySelector,
-        );
+        const arrayData = generatePartialTree(newProps, arraySelector);
         this.form.dataSelector.set(
             `${arraySelector}.${arrayIndex}`,
             arrayData[arrayIndex],
@@ -73,7 +68,7 @@ export class FormArray {
      * This operation can be expensive if the array is big and the item slice is at the beginning.
      * - Remove properties from the form props
      * - Remove data from the form data
-     * - Unregister validators events
+     * - Unregister validator events
      * - Rename higher indexes properties
      * - Move higher indexes data
      * - Update higher indexes selectors events
@@ -101,7 +96,7 @@ export class FormArray {
         for (const [sel] of childrenSelector) {
             // delete property children
             await this.form.deleteProp(sel);
-            // unregister validators events and remove selector from events dependencies
+            // unregister validator events and remove selector from events dependencies
             this.form.events.offSelector(sel);
         }
 

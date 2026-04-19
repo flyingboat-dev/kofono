@@ -10,6 +10,7 @@
 - add FormInitContext
 - refactor Form properties, constructor and init methods
 - drop Form #config in favor of direct properties
+- transform DataTree class methods into 3 functions
 
 # 0.7.0 - 2026-03-29
 

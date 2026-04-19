@@ -7,7 +7,7 @@ import type { SchemaProperty } from "../schema/Schema";
 import { DataSelector } from "../selector/DataSelector";
 import type { ValidatorResponse } from "../validator/types";
 import type { ValidatorsFactory } from "../validator/ValidatorsFactory";
-import { DataTree } from "./DataTree";
+import { generateTree } from "./dataTree";
 import {
     registerPropertiesEvents,
     warmUpSelectorsEvents,
@@ -62,7 +62,7 @@ export class Form {
         // order is important here for this block
         this.#state = generateNewFormState(); // side effect: new state
         Object.values(properties).map(x => this.addProp(x)); // side effect: add form props
-        this.#state.data = new DataTree().generateTree(this.#props); // side effect: update state data
+        this.#state.data = generateTree(this.#props); // side effect: update state data
         this.#session = new FormSession(this); // side effect: update state meta
 
         // the rest in order, no side effect

@@ -10,9 +10,9 @@ export class ValidatorsFactory implements Factory<ValidatorFactoryHandler> {
 
     public register<TOptions = GenericValidatorOptions>(
         key: string,
-        factoryHandler: ValidatorFactoryHandler<TOptions>,
+        handler: ValidatorFactoryHandler<TOptions>,
     ): Factory<ValidatorFactoryHandler> {
-        this.#validators[key] = factoryHandler as ValidatorFactoryHandler;
+        this.#validators[key] = handler as ValidatorFactoryHandler;
         return this;
     }
 

@@ -7,7 +7,9 @@
 - K validations() and qualications() use variadic params
 - refactor mechanic around GenericValidator + introduce addValidator()
 - move FormConfig.init() call to Form.init() and make it async
-- add FormConfigInitializer
+- add FormInitContext
+- refactor Form properties, constructor and init methods
+- drop Form #config in favor of direct properties
 
 # 0.7.0 - 2026-03-29
 

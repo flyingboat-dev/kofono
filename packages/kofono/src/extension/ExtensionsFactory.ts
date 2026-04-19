@@ -1,13 +1,11 @@
 import { objectHasKey } from "../common/helpers";
 import type { Factory } from "../common/types";
-import { defaultExtensionsFactory } from "./defaultExtensionsFactory";
-import type { Extension } from "./types";
-
-type ExtensionFactoryHandler = (opts: any) => Extension;
+import { builtinExtensionFactories } from "./builtinExtensions";
+import type { ExtensionFactoryHandler } from "./types";
 
 export class ExtensionsFactory implements Factory<ExtensionFactoryHandler> {
     #extensions: Record<string, ExtensionFactoryHandler> = {
-        ...defaultExtensionsFactory,
+        ...builtinExtensionFactories,
     };
 
     get(name: string): ExtensionFactoryHandler {

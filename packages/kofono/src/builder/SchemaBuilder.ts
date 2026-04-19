@@ -1,9 +1,8 @@
 import * as YAML from "yaml";
 import { isObjectLiteral } from "../common/helpers";
-import type { ExtensionsFactory } from "../extension/ExtensionsFactory";
-import type { Extension } from "../extension/types";
 import { defaultConfig } from "../form/defaults";
 import type { Form } from "../form/Form";
+import type { ExtensionDefinition } from "../form/FormExtensions";
 import type { FormConfig, Properties } from "../form/types";
 import { PropertyType } from "../property/types";
 import type {
@@ -63,35 +62,31 @@ export class SchemaBuilder {
         this.processProps(builder, schema.__, "root");
 
         const finalConfig = this.processConfig(schema, config);
-        const extensions = this.buildExtensions(
+
+        const extensions = this.processExtensions(
             schema[Token.SchemaExtensions],
-            finalConfig.extensionsFactory,
         );
 
         return await builder.build(finalConfig, extensions);
     }
 
-    public buildExtensions(
-        schemaPlugins: Schema[Token.SchemaExtensions],
-        extensionsFactory: ExtensionsFactory,
-    ): Extension[] {
-        if (!schemaPlugins) {
+    public processExtensions(
+        schemaExtensions: Schema[Token.SchemaExtensions],
+    ): ExtensionDefinition[] {
+        if (!schemaExtensions) {
             return [];
         }
 
-        const extensions: Extension[] = [];
+        const extensions: ExtensionDefinition[] = [];
 
-        for (const extension of schemaPlugins) {
+        for (const extension of schemaExtensions) {
             const keys = Object.keys(extension);
             let name: string = "";
             if (keys.length === 1) {
                 name = keys[0];
             }
 
-            if (extensionsFactory.has(name)) {
-                const factory = extensionsFactory.get(name);
-                extensions.push(factory(extension[name]));
-            }
+            extensions.push([name, extension[name]]);
         }
 
         return extensions;

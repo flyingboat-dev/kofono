@@ -7,10 +7,6 @@ import type { PropertyDeclaration } from "./k/PropertyDeclaration";
 export interface PropertyBuilder<TSchemaType extends SchemaProperty> {
     buildProperty(): Property<TSchemaType>;
 }
-//
-// export interface PluginBuilder<TPlugin extends SchemaExtension> {
-//     buildPlugin(): Promise<TPlugin>;
-// }
 
 export type SchemaBuildResult =
     | SchemaBuildResultSucceed

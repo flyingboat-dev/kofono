@@ -180,7 +180,8 @@ export class Form {
         }
 
         if (config.extensions) {
-            await this.#extensions.init(config.extensions);
+            this.#extensions.build(config.extensions);
+            await this.#extensions.init();
         }
 
         this.#status = FormStatus.Ready;

@@ -1,3 +1,4 @@
+import type { ExtensionFactoryHandler } from "../extension/types";
 import { GenericValidator } from "../validator/GenericValidator";
 import type {
     GenericValidatorOptions,
@@ -11,18 +12,14 @@ type DependenciesFn<TValidatorOpts = GenericValidatorOptions> = (
 ) => string[];
 
 export class FormInitContext {
-    constructor(private readonly _form: Form) {}
-
-    public get form(): Form {
-        return this._form;
-    }
+    constructor(public readonly form: Form) {}
 
     public addValidator<TValidatorOpts = GenericValidatorOptions>(
         key: string,
         fn: ValidatorFn<TValidatorOpts>,
         dependencies: DependenciesFn<TValidatorOpts> = () => [],
     ): FormInitContext {
-        this._form.validatorsFactory.register(
+        this.form.validatorsFactory.register(
             key,
             (selector: string, type: ValidationType, opts: TValidatorOpts) => {
                 const val = new GenericValidator<TValidatorOpts>(
@@ -37,6 +34,14 @@ export class FormInitContext {
                 return val;
             },
         );
+        return this;
+    }
+
+    public addExtension(
+        name: string,
+        handler: ExtensionFactoryHandler,
+    ): FormInitContext {
+        this.form.extensionsFactory.register(name, handler);
         return this;
     }
 }

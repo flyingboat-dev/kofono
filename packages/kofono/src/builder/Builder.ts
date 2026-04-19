@@ -1,6 +1,6 @@
-import type { Extension } from "../extension/types";
 import { defaultConfig } from "../form/defaults";
 import { Form } from "../form/Form";
+import type { ExtensionDefinition } from "../form/FormExtensions";
 import type { FormConfig, Properties } from "../form/types";
 import { PropertyType } from "../property/types";
 import type {
@@ -29,7 +29,7 @@ export class Builder {
 
     public async build(
         config: FormConfig = defaultConfig,
-        extensions: Extension[] = [],
+        extensions: ExtensionDefinition[] = [],
     ): Promise<Form> {
         const properties = this.buildProps();
 

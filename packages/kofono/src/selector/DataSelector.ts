@@ -6,14 +6,24 @@ export class DataSelectorNotFoundError extends Error {
     }
 }
 
+export class DataSelectorIndexOutOfBoundsError extends Error {
+    constructor(
+        public readonly index: number,
+        public readonly length: number,
+    ) {
+        super(
+            `Array index out of bounds: index ${index} on array of length ${length}`,
+        );
+    }
+}
+
 export class DataSelector {
     // separator and wildcard must be only one char
-    public static separator = ".";
-    public static wildcard = "*";
+    public static readonly separator = ".";
 
     private resolvedSelectors: Record<string, string[]> = {};
 
-    map(selector: string): string[] {
+    splitSelector(selector: string): string[] {
         if (!this.resolvedSelectors[selector]) {
             this.resolvedSelectors[selector] = selector.split(
                 DataSelector.separator,
@@ -23,7 +33,7 @@ export class DataSelector {
     }
 
     get(selector: string, data: Data): any {
-        return this._get(this.map(selector), data, selector);
+        return this._get(this.splitSelector(selector), data, selector);
     }
 
     getOrDefault<T>(selector: string, defaultValue: T, data: Data): T {
@@ -33,7 +43,10 @@ export class DataSelector {
 
     tryGet(selector: string, data: Data): [boolean, unknown] {
         try {
-            return [true, this._get(this.map(selector), data, selector)];
+            return [
+                true,
+                this._get(this.splitSelector(selector), data, selector),
+            ];
         } catch (e) {
             return [false, e];
         }
@@ -79,25 +92,25 @@ export class DataSelector {
         return success;
     }
 
-    _get(paths: string[], data: Data, originalSelector: string): unknown {
-        const lastIndex = paths.length - 1;
-        for (let i = 0; i < paths.length; ++i) {
-            const dataKey = data[paths[i]];
+    protected _get(
+        paths: string[],
+        data: Data,
+        originalSelector: string,
+    ): unknown {
+        if (paths.length > 0) {
+            const dataKey = data[paths[0]];
             if (dataKey !== undefined) {
-                if (lastIndex === i) {
+                if (paths.length - 1 === 0) {
                     return dataKey;
                 } else if (dataKey !== null && typeof dataKey === "object") {
                     return this._get(
-                        paths.slice(i + 1, paths.length),
+                        paths.slice(1, paths.length),
                         dataKey,
                         originalSelector,
                     );
                 }
                 throw new DataSelectorNotFoundError(originalSelector);
-            } else if (
-                paths[lastIndex] &&
-                Object.hasOwn(data, paths[lastIndex])
-            ) {
+            } else if (Object.hasOwn(data, paths[0])) {
                 // value is undefined but the key path exists, so it's an explicit value
                 return undefined;
             }
@@ -121,9 +134,17 @@ export class DataSelector {
             obj[head] = value;
             return;
         }
-        if (obj[head] === undefined && Array.isArray(obj)) {
-            obj.push({});
+
+        if (Array.isArray(obj)) {
+            const index = parseInt(head, 10);
+            if (Number.isNaN(index) || index < 0 || index > obj.length) {
+                throw new DataSelectorIndexOutOfBoundsError(index, obj.length);
+            }
+            if (index === obj.length) {
+                obj.push({});
+            }
         }
+
         this._set(rest.join(DataSelector.separator), value, obj[head]);
     }
 

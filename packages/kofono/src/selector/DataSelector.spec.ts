@@ -1,5 +1,9 @@
 import { describe, expect, it, test } from "vitest";
-import { DataSelector, DataSelectorNotFoundError } from "./DataSelector";
+import {
+    DataSelector,
+    DataSelectorIndexOutOfBoundsError,
+    DataSelectorNotFoundError,
+} from "./DataSelector";
 
 const data = {
     a: "foo",
@@ -107,4 +111,76 @@ describe("DataSelector Prototype Pollution", () => {
 
         expect(({} as any).pollutedByConstructor).toBeUndefined();
     });
+});
+
+describe("DataSelector array index bounds", () => {
+    it("appends when setting at index 0 on an empty array", () => {
+        const selector = new DataSelector();
+        const data: any[] = [];
+
+        selector.set("0.name", "Alice", data);
+
+        expect(data[0].name).toBe("Alice");
+    });
+
+    it("appends when setting at index equal to array length", () => {
+        const selector = new DataSelector();
+        const data: any[] = [{ name: "Bob" }];
+
+        selector.set("1.name", "Alice", data);
+
+        expect(data[1].name).toBe("Alice");
+        expect(data[0].name).toBe("Bob");
+    });
+
+    it("mutates when setting at a valid existing index", () => {
+        const selector = new DataSelector();
+        const data: any[] = [{ name: "" }, { name: "" }];
+
+        selector.set("1.name", "Alice", data);
+
+        expect(data[1].name).toBe("Alice");
+        expect(data[0].name).toBe("");
+    });
+
+    it("throws when skipping indices", () => {
+        const selector = new DataSelector();
+        const data: any[] = [];
+
+        expect(() => selector.set("2.name", "Alice", data)).toThrow(
+            DataSelectorIndexOutOfBoundsError,
+        );
+    });
+
+    it("throws when setting at a negative index", () => {
+        const selector = new DataSelector();
+        const data: any[] = [{ name: "" }];
+
+        expect(() => selector.set("-1.name", "Alice", data)).toThrow(
+            DataSelectorIndexOutOfBoundsError,
+        );
+    });
+
+    it("trySet returns false with error message on out-of-bounds", () => {
+        const selector = new DataSelector();
+        const data: any[] = [];
+
+        const [success, error] = selector.trySet("2.name", "Alice", data);
+
+        expect(success).toBe(false);
+        expect(error).toContain("out of bounds");
+    });
+});
+
+test("has() returns false when intermediate key is missing but last segment exists at that level", () => {
+    const selector = new DataSelector();
+    const data = {
+        a: { x: undefined }, // "x" exists under "a"
+    };
+
+    // "a.b.x" — "b" is missing from "a", but "x" exists on "a"
+    // _get(["b","x"], { x: undefined }, "a.b.x"):
+    //   data["b"] = undefined → else if: Object.hasOwn({ x: undefined }, "x") = true
+    //   incorrectly returns undefined instead of throwing
+    expect(selector.has("a.b.x", data)).toBe(false); // FAILS: returns true
 });

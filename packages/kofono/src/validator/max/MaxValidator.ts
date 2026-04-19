@@ -24,6 +24,7 @@ export const maxValidator = {
     factory: (selector: string, type: ValidationType, opts: MaxValidatorOpts) =>
         new MaxValidator(selector, type, opts),
 };
+
 export function max(max: number, expect?: string): SchemaMaxValidator {
     return {
         max: {

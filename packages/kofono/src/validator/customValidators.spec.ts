@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { K } from "../builder/K";
 import { optional } from "../common/helpers";
 import type { FormConfig } from "../form/types";
@@ -24,20 +24,19 @@ function custom(value: string, expect?: string): SchemaPropertyValidator {
 }
 
 describe("Custom validators", () => {
-    beforeAll(async () => {});
-
     it("custom validator using GenericValidator basic implementation with no dependency", async () => {
         const config: Partial<FormConfig> = {
-            init: x => {
-                x.form.validators.register(
+            init: ctx => {
+                ctx.form.validatorsFactory.register(
+                    // the schema name of the validator
                     "custom",
-                    (selector, type) =>
+                    // validator factory, we use GenericValidator to wrap our validation callback
+                    (selector, type, opts: CustomValidatorOpts) =>
                         new GenericValidator<CustomValidatorOpts>(
-                            selector,
-                            type,
-                            {
-                                value: "something",
-                            },
+                            selector, // selector target
+                            type, // validation type (validation or qualification)
+                            opts, // validator options
+                            // validation callback
                             async v => {
                                 return v.error("CUSTOM_ERROR");
                             },
@@ -60,14 +59,19 @@ describe("Custom validators", () => {
 
     it("shorter custom validator with FormConfigInitializer basic implementation with no dependency", async () => {
         const config: Partial<FormConfig> = {
-            init: x => {
-                x.addValidator<CustomValidatorOpts>(
+            init: ctx => {
+                // this helper will wrap for us our validation callback with GenericValidator
+                ctx.addValidator<CustomValidatorOpts>(
+                    // the schema name of the validator
                     "custom",
+                    // validation callback
                     async (v, ctx) => {
-                        return v.error("CUSTOM_ERROR", {
-                            expect: v.opts.value,
-                            given: ctx.value,
-                        });
+                        return ctx.value === v.opts.value
+                            ? v.success()
+                            : v.error("CUSTOM_ERROR", {
+                                  expect: v.opts.value,
+                                  given: ctx.value,
+                              });
                     },
                 );
             },
@@ -81,21 +85,18 @@ describe("Custom validators", () => {
         );
 
         expect(form.state.validations).toEqual({
-            name: [
-                false,
-                "CUSTOM_ERROR",
-                {
-                    expect: "something",
-                    given: null,
-                },
-            ],
+            name: [false, "CUSTOM_ERROR", { expect: "something", given: null }],
         });
+
+        await form.update("name", "something");
+
+        expect(form.state.validations).toEqual({ name: [true, ""] });
     });
 
     it("custom validator dependency as validation", async () => {
         const config: Partial<FormConfig> = {
-            init: x => {
-                x.addValidator<CustomValidatorOpts>(
+            init: ctx => {
+                ctx.addValidator<CustomValidatorOpts>(
                     "custom",
                     async (v, ctx) => {
                         return ctx.value === v.opts.value
@@ -133,8 +134,8 @@ describe("Custom validators", () => {
 
     it("custom validator dependency as qualification", async () => {
         const config: Partial<FormConfig> = {
-            init: x => {
-                x.addValidator<CustomValidatorOpts>(
+            init: ctx => {
+                ctx.addValidator<CustomValidatorOpts>(
                     "custom",
                     async (v, ctx) => {
                         return ctx.form.prop(v.opts.value).value === "bob"

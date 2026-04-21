@@ -1,9 +1,10 @@
-import type { PropertyValidator } from "../property/types";
+import { PropertyType, PropertyValidator } from "../property/types";
 import type {
     ValidationContext,
     ValidationType,
     ValidatorResponse,
 } from "../validator/types";
+import { parseSelectorsEventsValidators } from "./events/helpers";
 import type { SelectorEventResponse } from "./events/SelectorEventResponse";
 import { SelectorEventsHandler } from "./events/SelectorEventsHandler";
 import { SelectorValidatorsEvent } from "./events/SelectorValidatorsEvent";
@@ -247,8 +248,39 @@ export class FormEvents {
             .map(([sel]) => sel);
     }
 
+    public async warmUpSelectorsEvents(): Promise<FormEvents> {
+        for (const [selector, prop] of Object.entries(this.form.props)) {
+            if (prop.type === PropertyType.Null) {
+                continue;
+            }
+            await this.emitSelector(selector, Events.SelectorValidation, {
+                form: this.form,
+                selector,
+                value: this.form.$d(selector),
+            });
+        }
+        for (const [selector, prop] of Object.entries(this.form.props)) {
+            if (prop.type === PropertyType.Null) {
+                continue;
+            }
+            await this.emitSelector(selector, Events.SelectorQualification, {
+                form: this.form,
+                selector,
+                value: this.form.$d(selector),
+            });
+        }
+        return this;
+    }
+
+    public async registerPropertiesEvents(): Promise<FormEvents> {
+        await this.registerSelectorsValidators(
+            parseSelectorsEventsValidators(this.form.props),
+        );
+        return this;
+    }
+
     /**
-     * Registers the given selectors validators.
+     * Registers the given selector validators.
      */
     public async registerSelectorsValidators(
         selectorsValidators: SelectorsEventsValidators,

@@ -7,10 +7,6 @@ import { DataSelector } from "../selector/DataSelector";
 import type { ValidatorResponse } from "../validator/types";
 import type { ValidatorsFactory } from "../validator/ValidatorsFactory";
 import { generateTree } from "./dataTree";
-import {
-    registerPropertiesEvents,
-    warmUpSelectorsEvents,
-} from "./events/helpers";
 import { Events, type SelectorUpdateCtx } from "./events/types";
 import { FormArray } from "./FormArray";
 import { FormDataSelector } from "./FormDataSelector";
@@ -164,8 +160,8 @@ export class Form {
 
         await this.#events.emit(Events.FormLoading, undefined);
 
-        await registerPropertiesEvents(this); // todo: fix > may crash if an non-existent selector is given
-        await warmUpSelectorsEvents(this);
+        await this.#events.registerPropertiesEvents(); // todo: fix > may crash if an non-existent selector is given
+        await this.#events.warmUpSelectorsEvents();
         this.compileStats();
 
         if (config.state) {
@@ -189,7 +185,7 @@ export class Form {
             ...this.#state,
             ...state,
         };
-        await warmUpSelectorsEvents(this);
+        await this.#events.warmUpSelectorsEvents();
         this.compileStats();
         await this.#events.emit(Events.FormLoadState, { state });
     }

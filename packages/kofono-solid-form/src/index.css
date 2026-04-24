@@ -28,7 +28,7 @@
     themes:
         light,
         dark --default --prefersdark,
-        gruvbox;
+        ayudark;
 }
 
 /* explicit classes (generally used at runtime) */
@@ -38,17 +38,20 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
-    /* daisyui themes overrides */
+    /* DaisyUi themes overrides */
     --radius-selector: 0.4rem;
     --radius-field: 0.4rem;
     --radius-box: 0.4rem;
-    /* end daisyui themes overrides */
 
     /* GridForm */
-    --grid-prop-bg: color-mix(in oklch, var(--color-accent) 60%, transparent);
+    --grid-prop-bg: color-mix(
+        in oklch,
+        var(--color-base-300) 100%,
+        transparent
+    );
     --grid-prop-border: color-mix(
         in oklch,
-        var(--color-accent-content) 15%,
+        var(--color-base-content) 20%,
         transparent
     );
 }

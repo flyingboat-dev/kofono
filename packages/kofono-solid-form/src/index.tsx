@@ -17,6 +17,7 @@ export * from "./components/radioGroup";
 export * from "./components/rangeInput";
 export * from "./components/select";
 export * from "./components/textarea";
+export * from "./components/themeSelector";
 export * from "./components/types";
 export * from "./context";
 export * from "./i18n";

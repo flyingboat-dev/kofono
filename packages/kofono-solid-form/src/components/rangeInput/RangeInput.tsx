@@ -1,5 +1,5 @@
 import { debounce } from "@solid-primitives/scheduled";
-import type { FormProperty, MinValidatorOpts } from "kofono";
+import type { FormProperty, MaxValidatorOpts, MinValidatorOpts } from "kofono";
 import type { JSX } from "solid-js";
 import { propComponent, propertyHtmlId } from "@/components/helpers";
 import type { ComponentType, PropElementProps } from "@/components/PropElement";
@@ -33,6 +33,9 @@ export function RangeInput(props: RangeInputProps): JSX.Element {
         trigger(value);
     };
 
+    const min = getMinValue(props.property());
+    const max = getMaxValue(props.property());
+
     return (
         <div
             class="w-full max-w-xs"
@@ -40,14 +43,14 @@ export function RangeInput(props: RangeInputProps): JSX.Element {
             <input
                 type="range"
                 class="range range-primary"
-                min={getMinValue(props.property())}
-                max={getMaxValue(props.property())}
-                value="40"
+                min={min}
+                max={max}
+                value={min}
                 id={propertyHtmlId(props.property())}
                 step={component.getOrDefault("step", 1)}
                 onInput={onInput}
             />
-            <div class="flex justify-end px-2.5 mt-2 text-xs">99</div>
+            <div class="flex justify-end px-2.5 mt-2 text-xs"></div>
         </div>
     );
 }
@@ -78,7 +81,7 @@ function getMaxValue(prop: FormProperty): number {
             val.options !== undefined &&
             val.options !== null
         ) {
-            const opts = val.options as MinValidatorOpts;
+            const opts = val.options as MaxValidatorOpts;
             const optType = typeof opts;
             if (optType === "number") {
                 return Number(val.options);

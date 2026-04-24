@@ -111,7 +111,7 @@ function RouteComponent() {
                     <Editor
                         onChange={onEditorChange}
                         class="p-0"
-                        value={startingSchemaString}
+                        value={JSON.stringify(schema, null, 2)}
                         mode={"javascript"}
                         theme="github_dark"
                         style={{ height: "500px", width: "100%" }}

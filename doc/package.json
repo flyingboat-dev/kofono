@@ -13,8 +13,8 @@
         "@fontsource/lato": "5.2.7",
         "@fontsource/roboto": "5.2.10",
         "@fontsource/roboto-mono": "5.2.8",
-        "@tailwindcss/postcss": "^4.2.2",
-        "@tailwindcss/vite": "^4.2.2",
+        "@tailwindcss/postcss": "^4.2.4",
+        "@tailwindcss/vite": "^4.2.4",
         "@tanstack/solid-query": "^5.97.0",
         "@tanstack/virtual-file-routes": "^1.161.7",
         "@solidjs/router": "^0.16.1",
@@ -23,7 +23,7 @@
         "kofono": "workspace:*",
         "solid-icons": "^1.2.0",
         "solid-js": "^1.9.12",
-        "tailwindcss": "^4.2.2"
+        "tailwindcss": "^4.2.4"
     },
     "devDependencies": {
         "daisyui": "^5.5.19",

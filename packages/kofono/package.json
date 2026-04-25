@@ -1,6 +1,6 @@
 {
     "name": "kofono",
-    "version": "0.8.0-dev20260330",
+    "version": "0.8.0",
     "description": "Kofono Form Engine Library",
     "keywords": [
         "form",
@@ -30,8 +30,7 @@
         "check:fix": "pnpm check --write",
         "test": "vitest",
         "test:ui": "vitest --ui",
-        "prepublish": "pnpm check:fix && pnpm build",
-        "canary": "tsx ./scripts/canary.ts"
+        "prepublish": "pnpm check:fix && pnpm build"
     },
     "dependencies": {
         "date-fns": "4.1.0",
@@ -42,7 +41,6 @@
         "@vitest/coverage-v8": "^4.1.4",
         "@vitest/ui": "^4.1.4",
         "tslib": "^2.8.1",
-        "tsx": "^4.21.0",
         "typescript": "^6.0.3",
         "vitest": "^4.1.4"
     },

@@ -1,13 +1,13 @@
 import type { Form } from "../form/Form";
 import type {
     Extension,
+    ExtensionBaseOptions,
     ExtensionContext,
-    SchemaExtensionBaseOptions,
 } from "./types";
 
 export abstract class BaseExtension<
     TMetaData,
-    TOptions extends SchemaExtensionBaseOptions = SchemaExtensionBaseOptions,
+    TOptions extends ExtensionBaseOptions = ExtensionBaseOptions,
 > implements Extension<TMetaData, TOptions>
 {
     abstract defaultMetaData: TMetaData;

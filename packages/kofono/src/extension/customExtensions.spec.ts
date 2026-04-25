@@ -2,13 +2,13 @@ import { describe, expect, it } from "vitest";
 import { K } from "../builder/K";
 import type { FormConfig } from "../form/types";
 import { BaseExtension } from "./BaseExtension";
-import type { SchemaExtensionBaseOptions } from "./types";
+import type { ExtensionBaseOptions } from "./types";
 
 type CustomExtensionMeta = {
     value: string;
 };
 
-interface CustomExtensionOpts extends SchemaExtensionBaseOptions {
+interface CustomExtensionOpts extends ExtensionBaseOptions {
     param1: string;
     param2: string;
 }

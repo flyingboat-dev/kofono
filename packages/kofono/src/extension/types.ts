@@ -1,11 +1,9 @@
 import type { Form } from "../form/Form";
-import type {
-    SchemaUpdateCounterExtension
-} from "./UpdateCounter/UpdateCounterExtension";
+import type { SchemaUpdateCounterExtension } from "./UpdateCounter/UpdateCounterExtension";
 
 export interface Extension<
     TMetaData = unknown,
-    TOptions extends SchemaExtensionBaseOptions = SchemaExtensionBaseOptions,
+    TOptions extends ExtensionBaseOptions = ExtensionBaseOptions,
 > {
     defaultMetaData: TMetaData;
     metaId?: string;
@@ -23,7 +21,7 @@ export type ExtensionContext = {
 };
 
 export type ExtensionFactoryHandler<
-    TOptions extends SchemaExtensionBaseOptions = SchemaExtensionBaseOptions,
+    TOptions extends ExtensionBaseOptions = ExtensionBaseOptions,
 > = (
     ctx: ExtensionContext,
     opts: TOptions,
@@ -33,7 +31,7 @@ export type SchemaExtension =
     | SchemaUpdateCounterExtension
     | Record<string, unknown>;
 
-export type SchemaExtensionBaseOptions = {
+export type ExtensionBaseOptions = {
     id?: string;
 };
 

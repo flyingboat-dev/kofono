@@ -1,6 +1,6 @@
 import { Events } from "../../form/events/types";
 import { BaseExtension } from "../BaseExtension";
-import type { ExtensionContext, SchemaExtensionBaseOptions } from "../types";
+import type { ExtensionBaseOptions, ExtensionContext } from "../types";
 
 // this is a basic extension to count the number of updates performed on the form
 // it serves as an example of how to create a custom extension
@@ -11,7 +11,7 @@ export type SchemaUpdateCounterExtension = {
 };
 
 // represent the options passed to the extension at form creation.
-export type UpdateCounterOpts = SchemaExtensionBaseOptions;
+export type UpdateCounterOpts = ExtensionBaseOptions;
 
 // represent the extension meta-state shape/type
 export type UpdateCounterMeta = number;

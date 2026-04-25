@@ -1,7 +1,7 @@
 import { objectHasKey } from "../common/helpers";
 import type { Factory } from "../common/types";
 import { builtinExtensionFactories } from "./builtinExtensions";
-import type { ExtensionFactoryHandler } from "./types";
+import type { ExtensionBaseOptions, ExtensionFactoryHandler } from "./types";
 
 export class ExtensionsFactory implements Factory<ExtensionFactoryHandler> {
     #extensions: Record<string, ExtensionFactoryHandler> = {
@@ -16,11 +16,11 @@ export class ExtensionsFactory implements Factory<ExtensionFactoryHandler> {
         return objectHasKey(this.#extensions, name);
     }
 
-    register(
+    register<TOptions extends ExtensionBaseOptions = ExtensionBaseOptions>(
         name: string,
-        handler: ExtensionFactoryHandler,
+        handler: ExtensionFactoryHandler<TOptions>,
     ): Factory<ExtensionFactoryHandler> {
-        this.#extensions[name] = handler;
+        this.#extensions[name] = handler as unknown as ExtensionFactoryHandler;
         return this;
     }
 }

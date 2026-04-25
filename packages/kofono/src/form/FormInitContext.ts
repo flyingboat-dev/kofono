@@ -1,6 +1,6 @@
 import type {
+    ExtensionBaseOptions,
     ExtensionFactoryHandler,
-    SchemaExtensionBaseOptions,
 } from "../extension/types";
 import { GenericValidator } from "../validator/GenericValidator";
 import type {
@@ -41,13 +41,12 @@ export class FormInitContext {
     }
 
     public addExtension<
-        TOptions extends
-            SchemaExtensionBaseOptions = SchemaExtensionBaseOptions,
+        TOptions extends ExtensionBaseOptions = ExtensionBaseOptions,
     >(
         name: string,
         handler: ExtensionFactoryHandler<TOptions>,
     ): FormInitContext {
-        this.form.extensionsFactory.register(name, handler);
+        this.form.extensionsFactory.register<TOptions>(name, handler);
         return this;
     }
 }

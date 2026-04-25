@@ -1,8 +1,8 @@
 import { isEmptyString } from "../common/helpers";
 import type {
     Extension,
+    ExtensionBaseOptions,
     ExtensionContext,
-    SchemaExtensionBaseOptions,
 } from "../extension/types";
 import type { Form } from "./Form";
 
@@ -21,7 +21,7 @@ export class FormExtensions {
         return this.#extensions.length;
     }
 
-    public getByIndex<TMetaData, TOptions extends SchemaExtensionBaseOptions>(
+    public getByIndex<TMetaData, TOptions extends ExtensionBaseOptions>(
         index: number,
     ): Extension<TMetaData, TOptions> | undefined {
         const ext = this.#extensions.find(ext => ext.metaIndex === index);
@@ -31,7 +31,7 @@ export class FormExtensions {
         return ext as Extension<TMetaData, TOptions>;
     }
 
-    public getById<TMetaData, TOptions extends SchemaExtensionBaseOptions>(
+    public getById<TMetaData, TOptions extends ExtensionBaseOptions>(
         id: string,
     ): Extension<TMetaData, TOptions> | undefined {
         const ext = this.#extensions.find(ext => ext.metaId === id);

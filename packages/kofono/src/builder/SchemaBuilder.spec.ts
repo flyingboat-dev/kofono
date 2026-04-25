@@ -1,9 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { allTypes, allTypesYaml } from "../../tests/_fixtures/schemas/allTypes";
 import { defaultConfig, type Form } from "../";
-import {
-    updateCounter
-} from "../extension/UpdateCounter/UpdateCounterExtension";
+import { updateCounter } from "../extension/UpdateCounter/UpdateCounterExtension";
 import { PropertyType } from "../property/types";
 import type { Schema } from "../schema/Schema";
 import { SchemaBuilder, SchemaBuilderError } from "./SchemaBuilder";

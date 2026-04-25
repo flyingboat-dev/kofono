@@ -1,5 +1,7 @@
 import type { Form } from "../form/Form";
-import type { SchemaUpdateCounterExtension } from "./UpdateCounter/UpdateCounterExtension";
+import type {
+    SchemaUpdateCounterExtension
+} from "./UpdateCounter/UpdateCounterExtension";
 
 export interface Extension<
     TMetaData = unknown,
@@ -27,10 +29,6 @@ export type ExtensionFactoryHandler<
     opts: TOptions,
 ) => Promise<Extension<unknown, TOptions>> | Extension<unknown, TOptions>;
 
-export type SchemaExtension =
-    | SchemaUpdateCounterExtension
-    | Record<string, unknown>;
-
 export type ExtensionBaseOptions = {
     id?: string;
 };
@@ -40,3 +38,7 @@ export type MetaExtension = {
     name: string;
     data: any;
 };
+
+export type SchemaExtension =
+    | SchemaUpdateCounterExtension
+    | Record<string, unknown>;

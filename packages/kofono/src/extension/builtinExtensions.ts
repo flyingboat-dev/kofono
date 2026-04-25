@@ -7,5 +7,5 @@ export const builtinExtensions = [
 
 export const builtinExtensionFactories: Record<
     string,
-    ExtensionFactoryHandler<any>
+    ExtensionFactoryHandler
 > = Object.fromEntries(builtinExtensions.map(v => [v.name, v.factory]));

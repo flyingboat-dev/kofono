@@ -1,4 +1,5 @@
 import type { ExtensionsFactory } from "../extension/ExtensionsFactory";
+import type { MetaExtension } from "../extension/types";
 import type { Property } from "../property/Property";
 import type { SchemaProperty } from "../schema/Schema";
 import type { ValidatorResponse } from "../validator/types";
@@ -40,7 +41,7 @@ export type Data = Record<string, any>;
 
 export interface Meta {
     hasBeenUpdated: string[];
-    extensions: Record<string, any>;
+    extensions: MetaExtension[];
 }
 
 export type Stats = {

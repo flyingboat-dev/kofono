@@ -14,6 +14,8 @@
 - transform DataTree class methods into three functions
 - remove deprecated form logs
 - fix some array edge cases with DataSelector
+- refactor extension schema and metadata structure
+- refactor extension building steps custom extensions support
 
 # 0.7.0 - 2026-03-29
 

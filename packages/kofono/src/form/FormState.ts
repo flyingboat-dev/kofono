@@ -14,7 +14,7 @@ const initialStateBase: Partial<State> = {
     },
     meta: {
         hasBeenUpdated: [],
-        extensions: {},
+        extensions: [],
     },
     pass: [false, "FORM_INITIALIZED"],
     qualifications: {},

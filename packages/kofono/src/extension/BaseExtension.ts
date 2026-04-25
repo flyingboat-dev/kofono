@@ -1,20 +1,44 @@
-import { objectHasKey } from "../common/helpers";
 import type { Form } from "../form/Form";
-import type { Extension } from "./types";
+import type {
+    Extension,
+    ExtensionContext,
+    SchemaExtensionBaseOptions,
+} from "./types";
 
-export abstract class BaseExtension<T> implements Extension<T> {
-    abstract metaName: string;
-    abstract metaData: T;
+export abstract class BaseExtension<
+    TMetaData,
+    TOptions extends SchemaExtensionBaseOptions = SchemaExtensionBaseOptions,
+> implements Extension<TMetaData, TOptions>
+{
+    abstract defaultMetaData: TMetaData;
+    abstract init(): Promise<void> | void;
 
-    abstract init(form: Form): Promise<void> | void;
+    public constructor(
+        protected ctx: ExtensionContext,
+        public readonly opts: TOptions,
+    ) {}
 
-    public initMeta(form: Form): void {
-        if (!objectHasKey(form.state.meta.extensions, this.metaName)) {
-            form.state.meta.extensions[this.metaName] = this.metaData;
-        }
+    public get form(): Form {
+        return this.ctx.form;
     }
 
-    meta(form: Form): T {
-        return form.state.meta.extensions[this.metaName];
+    public get metaData(): TMetaData {
+        return this.ctx.form.state.meta.extensions[this.metaIndex].data;
+    }
+
+    public set metaData(value: TMetaData) {
+        this.ctx.form.state.meta.extensions[this.metaIndex].data = value;
+    }
+
+    public get metaId(): string | undefined {
+        return this.opts.id;
+    }
+
+    public get metaIndex(): number {
+        return this.ctx.metaIndex;
+    }
+
+    public get metaName(): string {
+        return this.ctx.metaName;
     }
 }

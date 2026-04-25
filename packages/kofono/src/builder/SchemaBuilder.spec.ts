@@ -1,6 +1,9 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { allTypes, allTypesYaml } from "../../tests/_fixtures/schemas/allTypes";
 import { defaultConfig, type Form } from "../";
+import {
+    updateCounter
+} from "../extension/UpdateCounter/UpdateCounterExtension";
 import { PropertyType } from "../property/types";
 import type { Schema } from "../schema/Schema";
 import { SchemaBuilder, SchemaBuilderError } from "./SchemaBuilder";
@@ -123,9 +126,6 @@ describe("SchemaBuilder testing extension", () => {
     it("should have working default test extension", async () => {
         const form = await schemaBuilder.build(schema);
         expect(form.extensions).toHaveLength(1);
-
-        expect(form.extensions[0].metaName).toEqual("updateCounter");
-        expect(form.state.meta.extensions.updateCounter).toBeDefined();
     });
 });
 
@@ -198,5 +198,57 @@ describe("SchemaBuilder testing with wrong schemas", () => {
                 );
             });
         }
+    });
+});
+
+describe("SchemaBuilder testing duplicate extensions id and name", () => {
+    it("should throw when one of extension id not unique", async () => {
+        await expect(
+            new SchemaBuilder().build({
+                $extensions: [updateCounter("id1"), updateCounter("id1")],
+                __: {
+                    propA: {
+                        type: "string",
+                    },
+                },
+            }),
+        ).rejects.toThrow(
+            SchemaBuilderError.ExtensionDuplicateId.replace("{id}", "id1"),
+        );
+    });
+
+    it("should throw when one of extension name without id is not unique", async () => {
+        await expect(
+            new SchemaBuilder().build({
+                $extensions: [updateCounter(), updateCounter()],
+                __: {
+                    propA: {
+                        type: "string",
+                    },
+                },
+            }),
+        ).rejects.toThrow(
+            SchemaBuilderError.ExtensionDuplicateName.replace(
+                "{name}",
+                "updateCounter",
+            ),
+        );
+    });
+    it("should throw when one of extension id is empty string", async () => {
+        await expect(
+            new SchemaBuilder().build({
+                $extensions: [updateCounter("")],
+                __: {
+                    propA: {
+                        type: "string",
+                    },
+                },
+            }),
+        ).rejects.toThrow(
+            SchemaBuilderError.ExtensionEmptyId.replace(
+                "{name}",
+                "updateCounter",
+            ),
+        );
     });
 });

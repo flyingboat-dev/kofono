@@ -1,5 +1,5 @@
 import * as YAML from "yaml";
-import { isObjectLiteral } from "../common/helpers";
+import { isEmptyString, isObjectLiteral } from "../common/helpers";
 import { defaultConfig } from "../form/defaults";
 import type { Form } from "../form/Form";
 import type { ExtensionDefinition } from "../form/FormExtensions";
@@ -21,6 +21,9 @@ export const SchemaBuilderError = {
     MissingRootProperties: `Schema must have a root properties key "${Token.Properties}"`,
     UnknownPropertyType: `Unknown property type`,
     UnknownPropertyTypeOf: `Unknown property type "{type}"`,
+    ExtensionDuplicateId: `Extension with id "{id}" already exists`,
+    ExtensionDuplicateName: `Extension with name "{name}" already exists, add a unique id to the extension definition`,
+    ExtensionEmptyId: `Extension with name "{name}" has an empty id`,
 } as const;
 
 /**
@@ -77,6 +80,8 @@ export class SchemaBuilder {
             return [];
         }
 
+        const extNames: string[] = [];
+        const ids: string[] = [];
         const extensions: ExtensionDefinition[] = [];
 
         for (const extension of schemaExtensions) {
@@ -84,6 +89,33 @@ export class SchemaBuilder {
             let name: string = "";
             if (keys.length === 1) {
                 name = keys[0];
+            }
+
+            if (isEmptyString(extension[name].id)) {
+                throw new Error(
+                    SchemaBuilderError.ExtensionEmptyId.replace("{name}", name),
+                );
+            }
+
+            if (extension[name].id) {
+                if (ids.includes(extension[name].id)) {
+                    throw new Error(
+                        SchemaBuilderError.ExtensionDuplicateId.replace(
+                            "{id}",
+                            extension[name].id,
+                        ),
+                    );
+                }
+                ids.push(extension[name].id);
+            } else if (extNames.includes(name)) {
+                throw new Error(
+                    SchemaBuilderError.ExtensionDuplicateName.replace(
+                        "{name}",
+                        name,
+                    ),
+                );
+            } else {
+                extNames.push(name);
             }
 
             extensions.push([name, extension[name]]);

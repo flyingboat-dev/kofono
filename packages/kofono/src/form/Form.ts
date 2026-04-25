@@ -1,6 +1,5 @@
 import { version as packageVersion } from "../../package.json";
 import type { ExtensionsFactory } from "../extension/ExtensionsFactory";
-import type { Extension } from "../extension/types";
 import type { Property } from "../property/Property";
 import type { SchemaProperty } from "../schema/Schema";
 import { DataSelector } from "../selector/DataSelector";
@@ -97,8 +96,8 @@ export class Form {
         return this.#events;
     }
 
-    public get extensions(): Extension[] {
-        return this.#extensions.extensions;
+    public get extensions(): FormExtensions {
+        return this.#extensions;
     }
 
     public get extensionsFactory(): ExtensionsFactory {
@@ -169,8 +168,7 @@ export class Form {
         }
 
         if (config.extensions) {
-            this.#extensions.build(config.extensions);
-            await this.#extensions.init();
+            await this.#extensions.build(config.extensions);
         }
 
         this.#status = FormStatus.Ready;

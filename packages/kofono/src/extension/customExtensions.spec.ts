@@ -1,41 +1,34 @@
 import { describe, expect, it } from "vitest";
 import { K } from "../builder/K";
-import type { Form } from "../form/Form";
 import type { FormConfig } from "../form/types";
 import { BaseExtension } from "./BaseExtension";
+import type { SchemaExtensionBaseOptions } from "./types";
 
 type CustomExtensionMeta = {
     value: string;
 };
 
-type CustomExtensionOpts = {
+interface CustomExtensionOpts extends SchemaExtensionBaseOptions {
     param1: string;
     param2: string;
-};
+}
 
-class CustomExtension extends BaseExtension<CustomExtensionMeta> {
-    metaName: string = "custom";
-    metaData: CustomExtensionMeta = {
+class CustomExtension extends BaseExtension<
+    CustomExtensionMeta,
+    CustomExtensionOpts
+> {
+    defaultMetaData: CustomExtensionMeta = {
         value: "",
     };
 
-    constructor(private opts: CustomExtensionOpts) {
-        super();
-    }
-
-    init(form: Form): Promise<void> | void {
-        this.initMeta(form);
-        if (this.opts.param1 && this.opts.param2) {
-            // do something
-            // console.log("param1", this.opts.param1);
-        }
-        return undefined;
-    }
+    async init(): Promise<void> {}
 }
 
-function custom(param1: string, param2: string) {
+// just a helper to build the schema
+function custom(id: string, param1: string, param2: string) {
     return {
         custom: {
+            id,
             param1,
             param2,
         },
@@ -46,28 +39,30 @@ describe("Custom extension", () => {
     it("custom extension basic implementation", async () => {
         const config: Partial<FormConfig> = {
             init: ctx => {
-                ctx.addExtension("custom", opts => {
-                    return new CustomExtension(opts);
-                });
+                ctx.addExtension<CustomExtensionOpts>(
+                    "custom",
+                    async (ctx, opts) => {
+                        return new CustomExtension(ctx, opts);
+                    },
+                );
             },
         };
 
         const form = await K.form(
             {
-                $extensions: [custom("ok", "foo")],
+                $extensions: [custom("id", "ok", "foo")],
                 name: K.string(),
             },
             config,
         );
 
-        form;
-
-        expect(form.extensions).toHaveLength(1);
-        expect(form.extensions[0].metaName).toEqual("custom");
-        expect(form.state.meta.extensions).toEqual({
-            custom: {
-                value: "",
-            },
+        const extInstance = form.extensions.getByIndex(0);
+        expect(extInstance).toBeDefined();
+        expect(extInstance?.metaIndex).toBe(0);
+        expect(extInstance?.metaId).toBe("id");
+        expect(extInstance?.metaName).toBe("custom");
+        expect(extInstance?.metaData).toEqual({
+            value: "",
         });
     });
 });

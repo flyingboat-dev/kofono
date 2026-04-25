@@ -1,4 +1,4 @@
-import { PropertyType, PropertyValidator } from "../property/types";
+import { PropertyType, type PropertyValidator } from "../property/types";
 import type {
     ValidationContext,
     ValidationType,

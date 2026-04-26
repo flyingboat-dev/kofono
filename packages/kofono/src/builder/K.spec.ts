@@ -46,6 +46,7 @@ describe("K builder", () => {
                 type: PropertyType.Boolean,
                 hello: "world",
             }),
+            propK: K.string().enum(["option1", "option2"]),
         }).$q(q => q.isValid("propI"));
 
         expect(schema.def).toEqual({
@@ -132,6 +133,17 @@ describe("K builder", () => {
                 propJ: {
                     type: PropertyType.Boolean,
                     hello: "world",
+                },
+                propK: {
+                    type: "string",
+                    enum: [
+                        {
+                            value: "option1",
+                        },
+                        {
+                            value: "option2",
+                        },
+                    ],
                 },
             },
         });

@@ -1,3 +1,4 @@
+import { isObjectLiteral } from "../../common/helpers";
 import type { PropertyType } from "../../property/types";
 import type {
     SchemaComponent,
@@ -19,7 +20,13 @@ export class PropertyDeclaration<T = any> {
         return prop;
     }
 
-    public enum(options: SchemaPropertyEnum<any>[]): PropertyDeclaration {
+    // todo text syntax shortcut
+    public enum(
+        options: SchemaPropertyEnum<any>[] | any[],
+    ): PropertyDeclaration {
+        if (options.length > 0 && !isObjectLiteral(options[0])) {
+            options = options.map(opt => ({ value: opt }));
+        }
         this.def.enum = options;
         return this;
     }

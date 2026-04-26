@@ -18,9 +18,9 @@ export function CodeBlock(props: CodeBlockProps) {
                 options={{
                     readOnly: props.readonly ?? true,
                     showPrintMargin: false,
-                    showLineNumbers: false,
+                    showLineNumbers: true,
                     showFoldWidgets: false,
-                    showGutter: false,
+                    showGutter: true,
                     highlightActiveLine: false,
                 }}
             />

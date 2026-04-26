@@ -4,7 +4,7 @@ import {
     FormSchemaProvider,
     GridForm
 } from "@kofono/solid-form";
-import { K, max, min, Schema } from "kofono";
+import { K, max, min, type Schema } from "kofono";
 import { createSignal, Show } from "solid-js";
 import { H1, H4, Hr } from "@/components/html";
 import { FullScreenLayout } from "@/components/layouts/fullscreen-layout";
@@ -52,8 +52,17 @@ const startingSchemaString = `K.schema({
         title:"DO you surrender your soul?"
     })
 })`;
+startingSchemaString;
 
 const schema = K.schema({
+    name: K.string(
+        min(1, "name.min.error"),
+        max(250, "name.max.error"),
+    ).component({
+        type: ComponentType.Input,
+        title: "name.title",
+        description: "name.description",
+    }),
     $translations: {
         en: {
             name: {
@@ -64,14 +73,6 @@ const schema = K.schema({
             },
         },
     },
-    name: K.string(
-        min(1, "name.min.error"),
-        max(250, "name.max.error"),
-    ).component({
-        type: ComponentType.Input,
-        title: "name.title",
-        description: "name.description",
-    }),
 });
 
 function RouteComponent() {

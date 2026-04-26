@@ -2,12 +2,13 @@ import { tableOfContents } from "@/doc/table-of-contents";
 
 export function Search() {
     const search = (s: string) => {
-        const result = tableOfContents.filter((item) => item.title.includes(s));
+        const result = tableOfContents.filter(item => item.title.includes(s));
         console.log(s, result);
     };
     return (
-        <label class="input w-96 transition-colors ease-in-out">
+        <label class="input w-96 transition-colors ease-in-out text-(--color-brand)">
             <svg
+                aria-hidden="true"
                 class="h-[1em] opacity-50"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
@@ -26,7 +27,7 @@ export function Search() {
                 required
                 placeholder="Search"
                 class=""
-                onKeyDown={(e) => search(e.currentTarget.value)}
+                onKeyDown={e => search(e.currentTarget.value)}
             />
         </label>
     );

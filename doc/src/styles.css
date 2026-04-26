@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
-@plugin "daisyui" {
-    /* biome-ignore lint/correctness/noUnknownProperty: tailwindcss plugin */
+/* Workaround for Vite 8 + DaisyUI exports resolution bug.
+   See: https://github.com/vitejs/vite/issues/22323
+   Revert to "daisyui" once upstream fix lands. */
+@plugin "daisyui/index.js" {
     themes: all;
+}
+
+:root {
+    --color-brand: var(--color-base-100);
 }
 
 html,
@@ -19,10 +25,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
     font-size: 1.1rem;
     /*@apply text-base-content/70;*/
-}
-
-h1 {
-    /*@apply text-base-content/100;*/
 }
 
 code {

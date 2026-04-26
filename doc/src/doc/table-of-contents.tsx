@@ -9,6 +9,15 @@ import type { TableOfContents } from "@/types";
 export const tableOfContents: TableOfContents = [
     {
         title: "Getting started",
+        children: [
+            {
+                title: "Quick start",
+                children: [Landing, Playground],
+            },
+        ],
+    },
+    {
+        title: "Quick start",
         children: [Landing, Playground],
     },
     {

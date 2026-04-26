@@ -1,8 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { render } from "solid-js/web";
-import "./styles.css";
 import "../../packages/kofono-solid-form/dist/index.css";
-
+import "./styles.css";
 import "@fontsource/roboto-mono/700.css";
 import "@fontsource/lato/400.css";
 import "@fontsource/lato/700.css";

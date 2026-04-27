@@ -144,10 +144,71 @@ export class Form {
         return this.#vars;
     }
 
-    /**
-     * Initialize the form.
-     * Can only be initialized once.
-     */
+    // Get a selector data value
+    public $d<T>(selector: string): T {
+        return this.#formDataSelector.get<T>(selector);
+    }
+
+    // Get a selector qualification value
+    public $q(selector: string): ValidatorResponse {
+        return this.#state.qualifications[selector];
+    }
+
+    // Get a selector validation value
+    public $v(selector: string): ValidatorResponse {
+        return this.#state.validations[selector];
+    }
+
+    public addProp(prop: Property<SchemaProperty>): Form {
+        this.#props[prop.selector] = prop;
+        this.state.validations[prop.selector] = [true, ""];
+        this.state.qualifications[prop.selector] = [true, ""];
+        this.#events?.emit(Events.PropertyAdded, {
+            selector: prop.selector,
+        });
+        return this;
+    }
+
+    public childrenProps(
+        parentSelector: string,
+        includeParent: boolean = false,
+    ): Properties {
+        const props: Properties = {};
+        if (includeParent) {
+            props[parentSelector] = this.#props[parentSelector];
+        }
+        for (const selector in this.#props) {
+            if (
+                selector.startsWith(parentSelector) &&
+                selector !== parentSelector
+            ) {
+                props[selector] = this.#props[selector];
+            }
+        }
+        return props;
+    }
+
+    public compileStats(): Form {
+        this.#stats.compile();
+        this.state.pass = this.#passHandler(this);
+        return this;
+    }
+
+    public async deleteProp(selector: string): Promise<Form> {
+        delete this.#props[selector];
+        delete this.state.validations[selector];
+        delete this.state.qualifications[selector];
+        this.#formDataSelector.tryDelete(selector);
+        await this.#events.emit(Events.PropertyDeleted, {
+            selector,
+        });
+        return this;
+    }
+
+    public hasProp(selector: string): boolean {
+        return !!this.#props[selector]?.selector || false;
+    }
+
     public async init(config: FormInitConfig = {}): Promise<void> {
         if (this.#status === FormStatus.Ready) {
             return;
@@ -174,10 +235,14 @@ export class Form {
         this.#status = FormStatus.Ready;
     }
 
-    /**
-     * Merge the given state with the current state.
-     * @param state
-     */
+    public isQualified(selector: string): boolean {
+        return this.$q(selector)[0] ?? false;
+    }
+
+    public isValid(selector: string): boolean {
+        return this.$v(selector)[0] ?? false;
+    }
+
     public async loadState(state: Partial<State>): Promise<void> {
         this.#state = {
             ...this.#state,
@@ -188,41 +253,18 @@ export class Form {
         await this.#events.emit(Events.FormLoadState, { state });
     }
 
-    public addProp(prop: Property<SchemaProperty>): Form {
-        this.#props[prop.selector] = prop;
-        this.state.validations[prop.selector] = [true, ""];
-        this.state.qualifications[prop.selector] = [true, ""];
-        this.#events?.emit(Events.PropertyAdded, {
-            selector: prop.selector,
-        });
-        return this;
-    }
-
-    public hasProp(selector: string): boolean {
-        return !!this.#props[selector]?.selector || false;
-    }
-
-    public async deleteProp(selector: string): Promise<Form> {
-        delete this.#props[selector];
-        delete this.state.validations[selector];
-        delete this.state.qualifications[selector];
-        this.#formDataSelector.tryDelete(selector);
-        await this.#events.emit(Events.PropertyDeleted, {
-            selector,
-        });
-        return this;
-    }
-
-    public rawProp<T extends SchemaProperty = SchemaProperty>(
-        selector: string,
-    ): Property<T> {
-        return this.#props[selector] as Property<T>;
-    }
-
     public prop<T extends SchemaProperty = SchemaProperty>(
         selector: string,
     ): FormProperty<T> {
         return new FormProperty<T>(this.#props[selector], this);
+    }
+
+    public propsKeys(): string[] {
+        return Object.keys(this.#props);
+    }
+
+    public propsEntries(): [string, Property<SchemaProperty>][] {
+        return Object.entries(this.#props);
     }
 
     // todo: still necessary?
@@ -238,82 +280,10 @@ export class Form {
         };
     }
 
-    public var(keyPath: string): unknown {
-        return this.#dataSelector.getOrDefault(keyPath, undefined, this.#vars);
-    }
-
-    // Get a selector validation value
-    public $v(selector: string): ValidatorResponse {
-        return this.#state.validations[selector];
-    }
-
-    public isValid(selector: string): boolean {
-        return this.$v(selector)[0] ?? false;
-    }
-
-    // Get a selector qualification value
-    public $q(selector: string): ValidatorResponse {
-        return this.#state.qualifications[selector];
-    }
-
-    public isQualified(selector: string): boolean {
-        return this.$q(selector)[0] ?? false;
-    }
-
-    // Get a selector data value
-    public $d<T>(selector: string): T {
-        return this.#formDataSelector.get<T>(selector);
-    }
-
-    public propsEntries(): [string, Property<SchemaProperty>][] {
-        return Object.entries(this.#props);
-    }
-
-    public propsKeys(): string[] {
-        return Object.keys(this.#props);
-    }
-
-    public childrenProps(
-        parentSelector: string,
-        includeParent: boolean = false,
-    ): Properties {
-        const props: Properties = {};
-        if (includeParent) {
-            props[parentSelector] = this.#props[parentSelector];
-        }
-        for (const selector in this.#props) {
-            if (
-                selector.startsWith(parentSelector) &&
-                selector !== parentSelector
-            ) {
-                props[selector] = this.#props[selector];
-            }
-        }
-        return props;
-    }
-
-    /**
-     * Compile the form stats.
-     */
-    public compileStats(): Form {
-        this.#stats.compile();
-        this.state.pass = this.#passHandler(this);
-        return this;
-    }
-
-    /**
-     * Update in batch the form data with the new values.
-     * @see update
-     * @param values
-     * @param updateType
-     */
-    public async updates(
-        values: Record<string, unknown>,
-        updateType: UpdateType = "normal",
-    ): Promise<void> {
-        for (const [sel, val] of Object.entries(values)) {
-            await this.update(sel, val, updateType);
-        }
+    public rawProp<T extends SchemaProperty = SchemaProperty>(
+        selector: string,
+    ): Property<T> {
+        return this.#props[selector] as Property<T>;
     }
 
     /**
@@ -370,5 +340,24 @@ export class Form {
         }
 
         await this.#events.emit(Events.SelectorAfterUpdate, updateCtx);
+    }
+
+    /**
+     * Update in batch the form data with the new values.
+     * @see update
+     * @param values
+     * @param updateType
+     */
+    public async updates(
+        values: Record<string, unknown>,
+        updateType: UpdateType = "normal",
+    ): Promise<void> {
+        for (const [sel, val] of Object.entries(values)) {
+            await this.update(sel, val, updateType);
+        }
+    }
+
+    public var(keyPath: string): unknown {
+        return this.#dataSelector.getOrDefault(keyPath, undefined, this.#vars);
     }
 }

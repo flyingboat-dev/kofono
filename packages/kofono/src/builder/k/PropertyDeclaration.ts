@@ -20,7 +20,6 @@ export class PropertyDeclaration<T = any> {
         return prop;
     }
 
-    // todo text syntax shortcut
     public enum(
         options: SchemaPropertyEnum<any>[] | any[],
     ): PropertyDeclaration {

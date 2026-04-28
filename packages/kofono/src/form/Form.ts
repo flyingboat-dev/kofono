@@ -108,10 +108,6 @@ export class Form {
         return this.#id;
     }
 
-    public get pass(): boolean {
-        return this.#state.pass[0] ?? false;
-    }
-
     public get props(): Properties {
         return this.#props;
     }
@@ -251,6 +247,10 @@ export class Form {
         await this.#events.warmUpSelectorsEvents();
         this.compileStats();
         await this.#events.emit(Events.FormLoadState, { state });
+    }
+
+    public pass(): boolean {
+        return this.#state.pass[0] ?? false;
     }
 
     public prop<T extends SchemaProperty = SchemaProperty>(

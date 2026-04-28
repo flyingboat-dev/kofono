@@ -16,6 +16,7 @@
 - fix some array edge cases with DataSelector
 - refactor extension schema and metadata structure
 - refactor extension building steps custom extensions support
+- form.pass is now a function instead of a property
 
 # 0.7.0 - 2026-03-29
 

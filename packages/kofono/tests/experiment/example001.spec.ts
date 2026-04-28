@@ -41,5 +41,5 @@ test("test example001", async () => {
     expect(form.isValid("address.street")).toBeFalsy();
     expect(form.isValid("address.city")).toBeFalsy();
 
-    expect(form.pass).toBeFalsy();
+    expect(form.pass()).toBeFalsy();
 });

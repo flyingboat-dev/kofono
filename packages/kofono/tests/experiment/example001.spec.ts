@@ -42,4 +42,7 @@ test("test example001", async () => {
     expect(form.isValid("address.city")).toBeFalsy();
 
     expect(form.pass()).toBeFalsy();
+
+    await form.update("sameAddressForBilling", false);
+    expect(form.isQualified("billingAddress")).toBeTruthy();
 });

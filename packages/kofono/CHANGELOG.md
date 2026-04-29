@@ -1,4 +1,4 @@
-# 0.8.0 - ?
+# 0.8.0 - 2026-03-29
 
 - K type methods use variadic params
 - rename plugins to extensions for better intent

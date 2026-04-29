@@ -3,9 +3,9 @@
 [![npm version](https://img.shields.io/npm/v/kofono.svg)](https://www.npmjs.com/package/kofono)
 [![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](LICENSE)
 
-A powerful headless form engine library. Kofono provides
+Kofofo is a headless schema-based form engine. It provides
 a robust system for building, validating, and managing complex forms with
-conditional logic.
+conditional logic or custom logic.
 
 It can be run in any JavaScript environment, including Node.js and browsers, and
 is designed to work seamlessly with modern frameworks like React, Vue, SolidJS, and more.
@@ -14,9 +14,11 @@ is designed to work seamlessly with modern frameworks like React, Vue, SolidJS, 
 import { between, email, K, min, required } from "kofono";
 
 const form = await K.form({
-    name: K.string(required()),
-    age: K.number(between(1, 120, "Age must be between 1 and 120")),
+    firstName: K.string(required()),
+    middleName: K.string(),
+    lastName: K.string(required()),
     email: K.string(email()),
+    quantity: K.number(between(1, 30, "Select a quantity between 1 and 30")),
     address: K.object({
         street: K.string(required()),
         city: K.string(required()).enum([
@@ -40,5 +42,33 @@ const form = await K.form({
         zipCode: K.string(min(6), max(7)),
     }).qualifications(when("sameAddressForBilling").isFalse()),
     acceptTerms: K.boolean(isTrue()).default(false),
+    otherNotes: K.string(),
 });
+
+console.log(form.isValid("firstName")); // false
+
+await form.update("firstName", "John");
+
+console.log(form.isValid("firstName")); // true
+
+console.log(form.pass()); // false
+await form.updates({
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+    quantity: 5,
+    "address.street": "123 Main St",
+    "address.city": "Montréal",
+    "address.zipCode": "H3C 1A2",
+    sameAddressForBilling: true,
+    acceptTerms: true
+});
+
+console.log(form.pass()); // true
+console.log(form.isQualified("billing")) // false
+await form.update("sameAddressForBilling", false);
+console.log(form.isQualified("billing")) // true
+console.log(form.pass()); // false
+
+console.log(form.errors); // { "billingAddress.city": "Select a city", ... }
 ```

@@ -16,16 +16,17 @@
 - fix some array edge cases with DataSelector
 - refactor extension schema and metadata structure
 - refactor extension building steps custom extensions support
-- form.pass is now a function instead of a property
+- Form.pass is now a function instead of a property
 - isolate state between form instances
+- add Form.errors() to simplify error retrieval
 
 # 0.7.0 - 2026-03-29
 
 - rework form session to use state meta
 - add plugins to state meta
 - add events FormLoadState
-- add Form::isQualified()
-- add Form::pass()
+- add Form.isQualified()
+- add Form.pass
 - refactor schema builder validators declaration
 - add a base plugin and rework UpdateCounterPlugins
 - add IsTrueValidator and IsFalseValidator

@@ -225,3 +225,28 @@ describe("Form loadState event", () => {
         expect(state).toEqual({});
     });
 });
+
+describe("Form errors()", () => {
+    let form: Form;
+    beforeAll(async () => {
+        form = await buildSchema(schema);
+    });
+
+    it("should return only errors", async () => {
+        const errors = form.errors();
+        // default msgs are not that great, but they are meant to be translated or customized
+        expect(errors).toEqual({
+            $global: "FORM_NOT_COMPLETE",
+            propA: "_validator.notEmpty.isEmpty",
+            propB: "SELECTOR_DISQUALIFIED",
+            propC: "SELECTOR_DISQUALIFIED",
+            propD: "_validator.notEmpty.isEmpty",
+        });
+    });
+
+    it("should return no error when form pass", async () => {
+        await form.updates({ propA: 4, propD: 4 });
+        const errors = form.errors();
+        expect(errors).toEqual({});
+    });
+});

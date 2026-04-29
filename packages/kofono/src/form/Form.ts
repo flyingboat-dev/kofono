@@ -201,6 +201,21 @@ export class Form {
         return this;
     }
 
+    public errors(): Record<string, string> {
+        const errors: Record<string, string> = {};
+        if (!this.pass()) {
+            errors.$global = this.state.pass[1];
+        }
+
+        for (const [selector, val] of Object.entries(this.state.validations)) {
+            if (!val[0] && val[1] !== "") {
+                errors[selector] = val[1];
+            }
+        }
+
+        return errors;
+    }
+
     public hasProp(selector: string): boolean {
         return !!this.#props[selector]?.selector || false;
     }

@@ -2,29 +2,25 @@ import { uuidV4 } from "../common/helpers";
 import type { Form } from "./Form";
 import type { State } from "./types";
 
-const initialStateBase: Partial<State> = {
-    data: {},
-    stats: {
-        qualified: 0,
-        valid: 0,
-        invalid: 0,
-        progression: 0,
-        node: 0,
-        leaf: 0,
-    },
-    meta: {
-        hasBeenUpdated: [],
-        extensions: [],
-    },
-    pass: [false, "FORM_INITIALIZED"],
-    qualifications: {},
-    validations: {},
-};
-
 export function generateNewFormState(): State {
     return {
         sessionId: uuidV4(),
-        ...initialStateBase,
+        data: {},
+        stats: {
+            qualified: 0,
+            valid: 0,
+            invalid: 0,
+            progression: 0,
+            node: 0,
+            leaf: 0,
+        },
+        meta: {
+            hasBeenUpdated: [],
+            extensions: [],
+        },
+        pass: [false, "FORM_INITIALIZED"],
+        qualifications: {},
+        validations: {},
     } as State;
 }
 

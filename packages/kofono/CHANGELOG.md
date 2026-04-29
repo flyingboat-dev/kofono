@@ -17,6 +17,7 @@
 - refactor extension schema and metadata structure
 - refactor extension building steps custom extensions support
 - form.pass is now a function instead of a property
+- isolate state between form instances
 
 # 0.7.0 - 2026-03-29
 

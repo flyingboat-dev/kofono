@@ -138,8 +138,9 @@ export class SchemaBuilder {
         schema: Schema,
         config: Partial<FormConfig>,
     ): FormConfig {
-        const finalConfig = Object.assign(defaultConfig, config);
+        const finalConfig = Object.assign({}, defaultConfig, config);
         finalConfig.vars = Object.assign(
+            {},
             schema[Token.SchemaVars] || {},
             finalConfig.vars || {},
         );

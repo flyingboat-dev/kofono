@@ -60,7 +60,32 @@ describe("Form default initialization tests", () => {
     });
 });
 
-describe("FormTest childrenProps()", () => {
+describe("Form state isolation between instances", () => {
+    it("should have isolated state", async () => {
+        const form1 = await K.form({
+            propA: K.string().default("value1"),
+        });
+        const form2 = await K.form({
+            prop1: K.number().default(32),
+        });
+
+        expect(form1.state.data).toEqual({
+            propA: "value1",
+        });
+        expect(form1.state.validations).toEqual({
+            propA: [true, ""],
+        });
+
+        expect(form2.state.data).toEqual({
+            prop1: 32,
+        });
+        expect(form2.state.validations).toEqual({
+            prop1: [true, ""],
+        });
+    });
+});
+
+describe("Form childrenProps()", () => {
     let form: Form;
     beforeAll(async () => {
         form = await buildSchema(schema);
@@ -80,7 +105,8 @@ describe("FormTest childrenProps()", () => {
     });
 });
 
-test("FormTest", async () => {
+// todo: to refactor
+test("FormTest_legacy", async () => {
     const form = await buildSchema(schema);
 
     form.events.onSelectorQualification("propB", async () => {
@@ -182,7 +208,7 @@ describe("Form add and delete property", () => {
     });
 });
 
-describe("Form test loadState event", () => {
+describe("Form loadState event", () => {
     let form: Form;
     beforeAll(async () => {
         form = await K.form({
@@ -197,13 +223,5 @@ describe("Form test loadState event", () => {
             state = ctx.state;
         });
         expect(state).toEqual({});
-
-        // expect(form.hasProp("propC")).toBeFalsy();
-        // expect(selector).toEqual("");
-        //
-        // form.addProp(new Property("propC", K.string().def));
-        //
-        // expect(form.hasProp("propC")).toBeTruthy();
-        // expect(selector).toEqual("propC");
     });
 });

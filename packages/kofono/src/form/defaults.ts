@@ -13,10 +13,10 @@ export const defaultPassHandler: PassHandler = (
     return [false, "FORM_NOT_COMPLETE"];
 };
 
-export const defaultConfig: FormConfig = {
+export const defaultConfig: FormConfig = Object.freeze({
     env: FormEnv.prod,
     passHandler: defaultPassHandler,
     validatorsFactory: new ValidatorsFactory(),
     extensionsFactory: new ExtensionsFactory(),
     vars: {},
-};
+});

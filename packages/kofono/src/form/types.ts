@@ -45,9 +45,9 @@ export interface Meta {
 }
 
 export type Stats = {
-    qualified: number;
-    valid: number;
-    invalid: number;
+    qualified: number; // note: only take into account leaf properties
+    valid: number; // note: only take into account leaf properties
+    invalid: number; // note: only take into account leaf properties
     progression: number | string;
     node: number;
     leaf: number;

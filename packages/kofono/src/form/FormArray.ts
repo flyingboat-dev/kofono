@@ -47,7 +47,7 @@ export class FormArray {
         );
 
         for (const prop of Object.values(newProps)) {
-            this.form.addProp(prop as Property<SchemaProperty>);
+            await this.form.addProp(prop as Property<SchemaProperty>);
         }
 
         const arrayData = generatePartialTree(newProps, arraySelector);
@@ -81,12 +81,25 @@ export class FormArray {
             );
         }
         const nbItems = data.length;
-        const isLastItem = index === nbItems - 1;
+
         const arraySelectorIndex = joinSelectors(arraySelector, String(index));
         const childrenSelector = Object.keys(
             this.form.childrenProps(arraySelectorIndex),
         );
-        const propertyRemovedEmitFn = async () => {
+        const emitEvents = async () => {
+            const lastItemIndex = nbItems > 0 ? nbItems - 1 : 0;
+            const lastItemSelector = joinSelectors(
+                arraySelector,
+                String(lastItemIndex),
+            );
+            const childrenSelector =
+                this.form.selectors.getChildrenSelectors(lastItemSelector);
+            for (const sel of childrenSelector) {
+                await this.form.events.emit(Events.PropertyDeleted, {
+                    selector: sel,
+                });
+            }
+
             await this.form.events.emit(Events.ArrayPropertySliced, {
                 selector: arraySelector,
                 index,
@@ -103,16 +116,17 @@ export class FormArray {
         // delete array index data
         this.form.dataSelector.delete(arraySelectorIndex);
 
-        if (isLastItem) {
+        // is it the last item?
+        if (index === nbItems - 1) {
             // remove trailing last array properties
             await this.removeLastItemProperties(
                 joinSelectors(arraySelector, String(nbItems - 1)),
             );
-            await propertyRemovedEmitFn();
+            await emitEvents();
             return;
         }
 
-        // rename higher indexes properties
+        // otherwise rename higher indexes properties
         for (let i = index; i < data.length; i++) {
             const oldSelectorIndex = joinSelectors(
                 arraySelector,
@@ -133,7 +147,7 @@ export class FormArray {
                     joinSelectors(arraySelector, String(i)),
                 );
 
-                this.form.addProp(prop);
+                await this.form.addProp(prop);
 
                 const selectorsValidators = parseSelectorsEventsValidators(
                     {
@@ -165,7 +179,7 @@ export class FormArray {
             );
         }
 
-        await propertyRemovedEmitFn();
+        await emitEvents();
     }
 
     private getProperty(

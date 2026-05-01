@@ -168,7 +168,7 @@ test("FormTest_legacy", async () => {
     await form.update("propD", "whatever");
 });
 
-describe("Form add and delete property", () => {
+describe("Form add/delete property", () => {
     let form: Form;
     beforeAll(async () => {
         form = await K.form({
@@ -186,7 +186,7 @@ describe("Form add and delete property", () => {
         expect(form.hasProp("propC")).toBeFalsy();
         expect(selector).toEqual("");
 
-        form.addProp(new Property("propC", K.string().def));
+        await form.addProp(new Property("propC", K.string().def));
 
         expect(form.hasProp("propC")).toBeTruthy();
         expect(selector).toEqual("propC");

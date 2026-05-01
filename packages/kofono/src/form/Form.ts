@@ -54,7 +54,7 @@ export class Form {
     constructor(config: FormConfig, properties: Properties = {}) {
         // order is important here for this block
         this.#state = generateNewFormState(); // side effect: new state
-        Object.values(properties).map(x => this.addProp(x)); // side effect: add form props
+        Object.values(properties).map(x => this._addProp(x)); // side effect: add form props
         this.#state.data = generateTree(this.#props); // side effect: update state data
         this.#session = new FormSession(this); // side effect: update state meta
 
@@ -155,14 +155,11 @@ export class Form {
         return this.#state.validations[selector];
     }
 
-    public addProp(prop: Property<SchemaProperty>): Form {
-        this.#props[prop.selector] = prop;
-        this.state.validations[prop.selector] = [true, ""];
-        this.state.qualifications[prop.selector] = [true, ""];
-        this.#events?.emit(Events.PropertyAdded, {
+    public async addProp(prop: Property<SchemaProperty>): Promise<void> {
+        this._addProp(prop);
+        await this.#events.emit(Events.PropertyAdded, {
             selector: prop.selector,
         });
-        return this;
     }
 
     public childrenProps(
@@ -224,6 +221,8 @@ export class Form {
         if (this.#status === FormStatus.Ready) {
             return;
         }
+
+        await this.#stats.init();
 
         if (config.init) {
             await config.init(new FormInitContext(this));
@@ -374,5 +373,11 @@ export class Form {
 
     public var(keyPath: string): unknown {
         return this.#dataSelector.getOrDefault(keyPath, undefined, this.#vars);
+    }
+
+    private _addProp(prop: Property<SchemaProperty>) {
+        this.#props[prop.selector] = prop;
+        this.state.validations[prop.selector] = [true, ""];
+        this.state.qualifications[prop.selector] = [true, ""];
     }
 }

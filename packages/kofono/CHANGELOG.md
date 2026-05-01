@@ -1,3 +1,7 @@
+# 0.9.0 - ?
+
+- add cache to speed up form stats compilation
+
 # 0.8.0 - 2026-03-29
 
 - K type methods use variadic params

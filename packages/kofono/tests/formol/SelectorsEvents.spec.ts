@@ -29,9 +29,9 @@ test("FormEvents test", async () => {
         i += 1;
     });
 
-    expect(f.events.globalEvents).toEqual({
-        [Events.SelectorAfterUpdate]: [expect.any(Function)],
-    });
+    expect(f.events.globalEvents[Events.SelectorAfterUpdate]).toEqual([
+        expect.any(Function),
+    ]);
 
     await f.events.emitSelector("propA", Events.SelectorValidation, {
         form: f,

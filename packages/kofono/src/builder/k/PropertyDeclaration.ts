@@ -20,6 +20,11 @@ export class PropertyDeclaration<T = any> {
         return prop;
     }
 
+    public type(type: PropertyType): PropertyDeclaration {
+        this.def.type = type;
+        return this;
+    }
+
     public enum(
         options: SchemaPropertyEnum<any>[] | any[],
     ): PropertyDeclaration {

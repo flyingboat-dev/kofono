@@ -1,4 +1,3 @@
-import * as YAML from "yaml";
 import { isEmptyString, isObjectLiteral } from "../common/helpers";
 import { defaultConfig } from "../form/defaults";
 import type { Form } from "../form/Form";
@@ -34,14 +33,6 @@ export class SchemaBuilder {
         schema: Schema,
         config: Partial<FormConfig> = {},
     ): Promise<Form> {
-        return await this._build(schema, config);
-    }
-
-    async buildFromYaml(
-        yaml: string,
-        config: Partial<FormConfig> = {},
-    ): Promise<Form> {
-        const schema = YAML.parse(yaml);
         return await this._build(schema, config);
     }
 

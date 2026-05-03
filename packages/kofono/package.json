@@ -1,7 +1,7 @@
 {
     "name": "kofono",
-    "version": "0.8.0",
-    "description": "Kofono Form Engine Library",
+    "version": "0.9.0",
+    "description": "Kofono Headless Form Engine Library",
     "keywords": [
         "form",
         "headless",
@@ -17,7 +17,7 @@
     "type": "module",
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com/flyingboat-dev/kofono.git",
+        "url": "git+ssh://git@github.com:kofono/kofono.git",
         "directory": "packages/kofono"
     },
     "files": ["dist", "README.md", "LICENSE.md"],
@@ -33,8 +33,7 @@
         "prepublish": "pnpm check:fix && pnpm build"
     },
     "dependencies": {
-        "date-fns": "4.1.0",
-        "yaml": "2.8.3"
+        "date-fns": "4.1.0"
     },
     "devDependencies": {
         "@types/node": "^25.6.0",

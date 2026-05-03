@@ -43,27 +43,3 @@ export const allTypes: Schema = {
         },
     },
 };
-
-export const allTypesYaml = `
-__:
-    propA:
-        type: "string"
-        $v: ["notEmpty"]
-    propB:
-        type: "number"
-        $q:
-            - isValid: "propA"
-    propC:
-        type: "boolean"
-    propD:
-        type: "null"
-    propE:
-        type: "object"
-        __:
-            propE1:
-                type: "string"
-    propF:
-        type: "array"
-        items:
-            type: "string"
-`;

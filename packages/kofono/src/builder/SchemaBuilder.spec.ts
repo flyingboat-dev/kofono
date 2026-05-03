@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { allTypes, allTypesYaml } from "../../tests/_fixtures/schemas/allTypes";
+import { allTypes } from "../../tests/_fixtures/schemas/allTypes";
 import { defaultConfig, type Form } from "../";
 import { updateCounter } from "../extension/UpdateCounter/UpdateCounterExtension";
 import { PropertyType } from "../property/types";
@@ -51,22 +51,6 @@ describe("SchemaBuilder", () => {
 
     it("should id be 'test'", async () => {
         expect(form.id).toEqual("allTypes");
-    });
-});
-
-describe("SchemaBuilder from yaml", () => {
-    it("should build a form from yaml", async () => {
-        const schemaBuilder = new SchemaBuilder();
-        const form = await schemaBuilder.buildFromYaml(allTypesYaml);
-        expect(form.state.data).toEqual({
-            propA: null,
-            propB: null,
-            propC: null,
-            propE: {
-                propE1: null,
-            },
-            propF: [],
-        });
     });
 });
 

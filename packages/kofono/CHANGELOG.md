@@ -1,6 +1,7 @@
 # 0.9.0 - ?
 
 - add cache to speed up form stats compilation
+- remove YAML schema support
 
 # 0.8.0 - 2026-03-29
 

@@ -6,7 +6,7 @@ import { SchemaBuilder } from "./SchemaBuilder";
 import type { SchemaBuildResult } from "./types";
 
 /**
- * Build a form instance from Schema object or a json string
+ * Build a form instance from Schema object or a JSON string
  * @exception Throws an error if the schema is not valid
  */
 export async function buildSchema(
@@ -14,7 +14,8 @@ export async function buildSchema(
     config: FormConfig = defaultConfig,
 ): Promise<Form> {
     if (typeof schema === "string") {
-        return await new SchemaBuilder().buildFromYaml(schema, config);
+        // assume string is a serialize JSON
+        schema = JSON.parse(schema) as Schema;
     }
     return await new SchemaBuilder().build(schema, config);
 }

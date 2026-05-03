@@ -46,9 +46,7 @@ const form = await K.form({
 });
 
 console.log(form.isValid("firstName")); // false
-
 await form.update("firstName", "John");
-
 console.log(form.isValid("firstName")); // true
 
 console.log(form.pass()); // false
@@ -63,12 +61,12 @@ await form.updates({
     sameAddressForBilling: true,
     acceptTerms: true
 });
-
 console.log(form.pass()); // true
+
 console.log(form.isQualified("billing")) // false
 await form.update("sameAddressForBilling", false);
 console.log(form.isQualified("billing")) // true
 console.log(form.pass()); // false
 
-console.log(form.errors); // { "billingAddress.city": "Select a city", ... }
+console.log(form.errors()); // { "billingAddress.city": "Select a city", ... }
 ```

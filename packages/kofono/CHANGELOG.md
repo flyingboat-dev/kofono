@@ -2,6 +2,7 @@
 
 - add cache to speed up form stats compilation
 - remove YAML schema support
+- replace date-fns dependency by local functions
 
 # 0.8.0 - 2026-03-29
 

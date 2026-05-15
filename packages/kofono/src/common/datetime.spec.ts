@@ -1,139 +1,70 @@
 import { describe, expect, it } from "vitest";
 import { isAfter, isEqual, isValid, parse } from "./datetime";
 
-describe("isValid", () => {
-    it("returns true for a valid Date", () => {
-        expect(isValid(new Date("2024-01-15"))).toBe(true);
-    });
+describe("datetime isValid()", () => {
+    const tests: [title: string, value: any, expected: boolean][] = [
+        ["valid Date object", new Date("2024-01-15"), true],
+        ["invalid Date object", new Date("not-a-date"), false],
+        ["NaN date", new Date(NaN), false],
+        ["plain string", "2024-01-15", true],
+        ["plain string with time", "2024-01-15 2:00", true],
+        ["plain string with text", "2024-01-15 hello", false],
+        ["null", null, false],
+        ["undefined", undefined, false],
+        ["random number", 1705276800000, false],
+        ["invalid minutes", "2023-01-01 12:60:45", false],
+        ["invalid seconds", "2023-01-01 12:34:60", false],
+        ["invalid years", "999999-01-01", false],
+    ];
 
-    it("returns false for an Invalid Date", () => {
-        expect(isValid(new Date("not-a-date"))).toBe(false);
-    });
-
-    it("returns false for a NaN Date", () => {
-        expect(isValid(new Date(NaN))).toBe(false);
-    });
-
-    it("returns false for a plain string", () => {
-        expect(isValid("2024-01-15")).toBe(false);
-    });
-
-    it("returns false for null", () => {
-        expect(isValid(null)).toBe(false);
-    });
-
-    it("returns false for undefined", () => {
-        expect(isValid(undefined)).toBe(false);
-    });
-
-    it("returns false for a number", () => {
-        expect(isValid(1705276800000)).toBe(false);
-    });
-
-    it("returns true for epoch (0 is a valid timestamp)", () => {
-        expect(isValid(new Date(0))).toBe(true);
-    });
+    for (const [title, value, expected] of tests) {
+        it(title, () => {
+            expect(isValid(value)).toBe(expected);
+        });
+    }
 });
 
-describe("parse", () => {
+describe("datetime parse()", () => {
     const ref = new Date();
 
-    describe("date-only formats", () => {
-        it("parses yyyy-MM-dd", () => {
-            const result = parse("2024-06-15", "yyyy-MM-dd", ref);
-            expect(result).toEqual(new Date(2024, 5, 15));
-        });
+    const tests: [format: string, value: string, expected: any][] = [
+        ["yyyy-MM-dd", "2024-06-15", new Date(2024, 5, 15)],
+        ["dd/MM/yyyy", "15/06/2024", new Date(2024, 5, 15)],
+        ["yyyy.MM.dd", "2024.06.15", new Date(2024, 5, 15)],
+        [
+            "yyyy-MM-dd HH:mm:ss",
+            "2024-06-15 14:30:45",
+            new Date(2024, 5, 15, 14, 30, 45),
+        ],
+        [
+            "yyyy-MM-ddTHH:mm:ss",
+            "2024-06-15T14:30:45",
+            new Date(2024, 5, 15, 14, 30, 45),
+        ],
+        ["HH:mm:ss", "14:30:45", new Date(0, 0, 1, 14, 30, 45)],
+        ["HH:mm:ss", "00:00:00", new Date(0, 0, 1, 0, 0, 0)],
+        ["HH:mm:ss", "23:59:59", new Date(0, 0, 1, 23, 59, 59)],
+        ["HH:mm:ss", "50:35:90", undefined], // invalid time
+        ["yyyy-MM-dd", "15-06-2024", undefined], // wrong format
+        ["yyyy-MM-dd", "", undefined], // empty string
+        ["yyyy-MM-dd", "2024-02-30", undefined], // month overflow
+        ["yyyy-MM-dd", "2024-06-00", undefined], // day 0
+        ["yyyy-MM-dd", "2024-13-01", undefined], // month overflow
+        ["yyyy-MM-dd", "2024-02-29", new Date(2024, 1, 29)], // leap year Feb 29
+        ["yyyy-MM-dd", "2023-02-29", undefined], // non-leap year Feb 29
+    ];
 
-        it("parses dd/MM/yyyy", () => {
-            const result = parse("15/06/2024", "dd/MM/yyyy", ref);
-            expect(result).toEqual(new Date(2024, 5, 15));
-        });
+    for (const [format, value, expected] of tests) {
+        const title =
+            expected === false
+                ? `should not parse format ${format} when value is ${value}`
+                : `should parse format ${format} when value is ${value}`;
 
-        it("parses yyyy.MM.dd", () => {
-            const result = parse("2024.06.15", "yyyy.MM.dd", ref);
-            expect(result).toEqual(new Date(2024, 5, 15));
+        it(title, () => {
+            const result = parse(value, format, ref);
+            expect(result).toEqual(expected);
         });
-    });
-
-    describe("datetime formats", () => {
-        it("parses yyyy-MM-dd HH:mm:ss", () => {
-            const result = parse(
-                "2024-06-15 14:30:45",
-                "yyyy-MM-dd HH:mm:ss",
-                ref,
-            );
-            expect(result).toEqual(new Date(2024, 5, 15, 14, 30, 45));
-        });
-
-        it("parses yyyy-MM-ddTHH:mm:ss", () => {
-            const result = parse(
-                "2024-06-15T14:30:45",
-                "yyyy-MM-ddTHH:mm:ss",
-                ref,
-            );
-            expect(result).toEqual(new Date(2024, 5, 15, 14, 30, 45));
-        });
-
-        it("parses time-only fields (HH:mm:ss)", () => {
-            const result = parse("14:30:45", "HH:mm:ss", ref);
-            expect(result).toEqual(new Date(0, 0, 1, 14, 30, 45));
-        });
-
-        it("parses midnight as 00:00:00", () => {
-            const result = parse(
-                "2024-01-01 00:00:00",
-                "yyyy-MM-dd HH:mm:ss",
-                ref,
-            );
-            expect(result).toEqual(new Date(2024, 0, 1, 0, 0, 0));
-        });
-
-        it("parses end-of-day as 23:59:59", () => {
-            const result = parse(
-                "2024-01-01 23:59:59",
-                "yyyy-MM-dd HH:mm:ss",
-                ref,
-            );
-            expect(result).toEqual(new Date(2024, 0, 1, 23, 59, 59));
-        });
-    });
-
-    describe("edge cases", () => {
-        it("returns Invalid Date for a mismatched format", () => {
-            const result = parse("15-06-2024", "yyyy-MM-dd", ref);
-            expect(isValid(result)).toBe(false);
-        });
-
-        it("returns Invalid Date for an empty string", () => {
-            const result = parse("", "yyyy-MM-dd", ref);
-            expect(isValid(result)).toBe(false);
-        });
-
-        it("returns Invalid Date for month overflow (Feb 30)", () => {
-            const result = parse("2024-02-30", "yyyy-MM-dd", ref);
-            expect(isValid(result)).toBe(false);
-        });
-
-        it("returns Invalid Date for day 0", () => {
-            const result = parse("2024-06-00", "yyyy-MM-dd", ref);
-            expect(isValid(result)).toBe(false);
-        });
-
-        it("returns Invalid Date for month 13", () => {
-            const result = parse("2024-13-01", "yyyy-MM-dd", ref);
-            expect(isValid(result)).toBe(false);
-        });
-
-        it("handles leap year Feb 29 correctly", () => {
-            const result = parse("2024-02-29", "yyyy-MM-dd", ref);
-            expect(result).toEqual(new Date(2024, 1, 29));
-        });
-
-        it("returns Invalid Date for Feb 29 on a non-leap year", () => {
-            const result = parse("2023-02-29", "yyyy-MM-dd", ref);
-            expect(isValid(result)).toBe(false);
-        });
-    });
+    }
 });
 
 describe("isAfter", () => {
@@ -165,8 +96,6 @@ describe("isAfter", () => {
         );
     });
 });
-
-// ─── isEqual ────────────────────────────────────────────────────────────────
 
 describe("isEqual", () => {
     it("returns true for two identical dates", () => {

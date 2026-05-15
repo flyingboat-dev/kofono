@@ -6,6 +6,10 @@
  * Checks whether a Date object is valid (not Invalid Date).
  */
 export function isValid(date: unknown): boolean {
+    if (typeof date === "string") {
+        const d = new Date(date);
+        return d instanceof Date && !Number.isNaN(d.getTime());
+    }
     return date instanceof Date && !Number.isNaN(date.getTime());
 }
 
@@ -19,7 +23,7 @@ export function parse(
     dateStr: string,
     formatStr: string,
     _referenceDate: Date,
-): Date {
+): Date | undefined {
     const tokenMap: Record<string, string> = {
         yyyy: "(?<year>\\d{4})",
         MM: "(?<month>\\d{2})",
@@ -36,7 +40,7 @@ export function parse(
 
     const match = new RegExp(`^${regexStr}$`).exec(dateStr);
     if (!match?.groups) {
-        return new Date(NaN);
+        return undefined;
     }
 
     const g = match.groups;
@@ -51,13 +55,22 @@ export function parse(
 
     // Only validate fields that were present in the format string
     if (g.year !== undefined && result.getFullYear() !== year) {
-        return new Date(NaN);
+        return undefined;
     }
     if (g.month !== undefined && result.getMonth() !== month) {
-        return new Date(NaN);
+        return undefined;
     }
     if (g.day !== undefined && result.getDate() !== day) {
-        return new Date(NaN);
+        return undefined;
+    }
+    if (g.hours !== undefined && result.getHours() !== hours) {
+        return undefined;
+    }
+    if (g.minutes !== undefined && result.getMinutes() !== minutes) {
+        return undefined;
+    }
+    if (g.seconds !== undefined && result.getSeconds() !== seconds) {
+        return undefined;
     }
 
     return result;

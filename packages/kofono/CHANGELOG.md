@@ -9,7 +9,7 @@
 - modify ts compilation to only output declaration files
 - modify RequiredValidator validates against enum values if defined
 
-# 0.8.0 - 2026-03-29
+# 0.8.0 - 2026-04-28
 
 - K type methods use variadic params
 - rename plugins to extensions for better intent

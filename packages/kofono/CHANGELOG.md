@@ -4,7 +4,9 @@
 - remove YAML schema support
 - replace date-fns dependency by local functions
 - refactor property builder
-- add schema normalization process at build stage
+- add a schema normalization process at the build stage
+- switch to rolldown for building the library
+- modify ts compilation to only output declaration files
 
 # 0.8.0 - 2026-03-29
 

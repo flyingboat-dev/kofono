@@ -7,8 +7,10 @@
         "outDir": "./dist",
         "declarationDir": "./dist",
         "sourceMap": false,
-        "declarationMap": false
+        "declarationMap": false,
+        "declaration": true,
+        "emitDeclarationOnly": true
     },
-    "exclude": ["test.ts", "**/*.spec.ts"],
+    "exclude": ["test.ts", "**/*.spec.ts", "**/*.test.ts"],
     "files": ["./src/index.ts"]
 }

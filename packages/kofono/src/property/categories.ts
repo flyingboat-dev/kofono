@@ -11,7 +11,7 @@ export const allPropertyTypes: PropertyType[] = [
     PropertyType.Null,
     PropertyType.Number,
     PropertyType.String,
-];
+] as const;
 
 export const answerablePropertyTypes: PropertyType[] = [
     PropertyType.Boolean,
@@ -21,13 +21,13 @@ export const answerablePropertyTypes: PropertyType[] = [
     PropertyType.ListMixed,
     PropertyType.ListNumber,
     PropertyType.ListString,
-];
+] as const;
 
 export const nonAnswerablePropertyTypes: PropertyType[] = [
     PropertyType.Array,
     PropertyType.Object,
     PropertyType.Null,
-];
+] as const;
 
 export const arrayPropertyTypes: PropertyType[] = [
     PropertyType.Array,
@@ -35,4 +35,4 @@ export const arrayPropertyTypes: PropertyType[] = [
     PropertyType.ListMixed,
     PropertyType.ListNumber,
     PropertyType.ListString,
-];
+] as const;

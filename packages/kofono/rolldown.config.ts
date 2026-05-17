@@ -6,5 +6,6 @@ export default defineConfig({
         file: "dist/kofono.js",
         format: "es",
         minify: true,
+        codeSplitting: false,
     },
 });

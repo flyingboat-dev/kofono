@@ -12,7 +12,7 @@
     ],
     "author": "Francois Lajoie",
     "license": "Apache-2.0",
-    "main": "dist/bundle.js",
+    "main": "dist/kofono.js",
     "types": "dist/src/index.d.ts",
     "type": "module",
     "repository": {
